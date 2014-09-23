@@ -1,7 +1,7 @@
 Source: tuxpaint
 Section: graphics
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Maintainer: Plan Ceibal <ceibal@plan.ceibal.edu.uy>
 XSBC-Original-Maintainer: Ben Armstrong <synrg@sanctuary.nslug.ns.ca>
 Build-Depends: debhelper (>= 5.0.51~), gettext, libfribidi-dev, libsdl1.2-dev, libsdl-image1.2-dev, libsdl-mixer1.2-dev (>= 1.2.4-1.1), libsdl-ttf2.0-dev, libsdl-pango-dev, libpng12-dev, libvorbis-dev (>= 1.0.0-2), librsvg2-dev, libcairo2-dev, libpaper-dev, quilt
 Standards-Version: 3.8.2
