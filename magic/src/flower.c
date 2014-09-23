@@ -23,8 +23,8 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  Last updated: July 8, 2008
-  $Id: flower.c,v 1.11 2008/07/10 20:26:39 wkendrick Exp $
+  Last updated: April 26, 2011
+  $Id: flower.c,v 1.13 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -57,16 +57,42 @@ typedef struct
   float x, y;
 } Point2D;
 
-static void flower_predrag(magic_api * api, SDL_Surface * canvas,
-	          SDL_Surface * last, int ox, int oy, int x, int y);
 static void flower_drawbase(magic_api * api, SDL_Surface * canvas);
-static void flower_drawstalk(magic_api * api, SDL_Surface * canvas,
-		      int top_x, int top_y, int minx, int maxx,
-		      int bottom_x, int bottom_y, int final);
 static void flower_drawflower(magic_api * api, SDL_Surface * canvas, int x, int y);
 static Point2D flower_PointOnCubicBezier(Point2D* cp, float t);
 static void flower_ComputeBezier(Point2D* cp, int numberOfPoints, Point2D* curve);
 static void flower_colorize_petals(magic_api * api);
+Uint32 flower_api_version(void);
+int flower_init(magic_api * api);
+int flower_get_tool_count(magic_api * api);
+SDL_Surface * flower_get_icon(magic_api * api, int which);
+char * flower_get_name(magic_api * api, int which);
+char * flower_get_description(magic_api * api, int which, int mode);
+static void flower_predrag(magic_api * api, SDL_Surface * canvas,
+			   SDL_Surface * last, int ox, int oy, int x, int y);
+void flower_drag(magic_api * api, int which, SDL_Surface * canvas,
+		 SDL_Surface * last, int ox, int oy, int x, int y,
+		 SDL_Rect * update_rect);
+void flower_click(magic_api * api, int which, int mode,
+		  SDL_Surface * canvas, SDL_Surface * last,
+		  int x, int y, SDL_Rect * update_rect);
+void flower_release(magic_api * api, int which,
+		    SDL_Surface * canvas, SDL_Surface * last,
+		    int x, int y, SDL_Rect * update_rect);
+static void flower_drawflower(magic_api * api, SDL_Surface * canvas, int x, int y);
+static void flower_drawbase(magic_api * api, SDL_Surface * canvas);
+static void flower_drawstalk(magic_api * api, SDL_Surface * canvas,
+			     int top_x, int top_y, int minx, int maxx,
+			     int bottom_x, int bottom_y, int final);
+void flower_shutdown(magic_api * api);
+void flower_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int flower_requires_colors(magic_api * api, int which);
+static Point2D flower_PointOnCubicBezier( Point2D* cp, float t );
+static void flower_ComputeBezier( Point2D* cp, int numberOfPoints, Point2D* curve );
+static void flower_colorize_petals(magic_api * api);
+void flower_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void flower_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int flower_modes(magic_api * api, int which);
 
 
 
@@ -102,13 +128,13 @@ int flower_init(magic_api * api)
 }
 
 // We have multiple tools:
-int flower_get_tool_count(magic_api * api)
+int flower_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(1);
 }
 
 // Load our icons:
-SDL_Surface * flower_get_icon(magic_api * api, int which)
+SDL_Surface * flower_get_icon(magic_api * api, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -119,20 +145,20 @@ SDL_Surface * flower_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * flower_get_name(magic_api * api, int which)
+char * flower_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Flower")));
 }
 
 // Return our descriptions, localized:
-char * flower_get_description(magic_api * api, int which, int mode)
+char * flower_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Click and drag to draw a flower stalk. Let go to finish the flower.")));
 }
 
 // Affect the canvas on drag:
-static void flower_predrag(magic_api * api, SDL_Surface * canvas,
-	          SDL_Surface * last, int ox, int oy, int x, int y)
+static void flower_predrag(magic_api * api ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED,
+	          SDL_Surface * last ATTRIBUTE_UNUSED, int ox, int oy, int x, int y)
 {
   if (x < flower_min_x)
     flower_min_x = x;
@@ -165,7 +191,7 @@ static void flower_predrag(magic_api * api, SDL_Surface * canvas,
   }
 }
 
-void flower_drag(magic_api * api, int which, SDL_Surface * canvas,
+void flower_drag(magic_api * api, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas,
 	          SDL_Surface * last, int ox, int oy, int x, int y,
 		  SDL_Rect * update_rect)
 {
@@ -192,7 +218,7 @@ void flower_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void flower_click(magic_api * api, int which, int mode,
+void flower_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -210,7 +236,7 @@ void flower_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void flower_release(magic_api * api, int which,
+void flower_release(magic_api * api, int which ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -250,7 +276,7 @@ void flower_release(magic_api * api, int which,
 }
 
 
-static void flower_drawflower(magic_api * api, SDL_Surface * canvas, int x, int y)
+static void flower_drawflower(magic_api * api ATTRIBUTE_UNUSED, SDL_Surface * canvas, int x, int y)
 {
   SDL_Rect dest;
 
@@ -260,7 +286,7 @@ static void flower_drawflower(magic_api * api, SDL_Surface * canvas, int x, int 
   SDL_BlitSurface(flower_petals_colorized, NULL, canvas, &dest);
 }
 
-static void flower_drawbase(magic_api * api, SDL_Surface * canvas)
+static void flower_drawbase(magic_api * api ATTRIBUTE_UNUSED, SDL_Surface * canvas)
 {
   SDL_Rect dest;
 
@@ -270,7 +296,7 @@ static void flower_drawbase(magic_api * api, SDL_Surface * canvas)
   SDL_BlitSurface(flower_base, NULL, canvas, &dest);
 }
 
-static void flower_drawstalk(magic_api * api, SDL_Surface * canvas,
+static void flower_drawstalk(magic_api * api ATTRIBUTE_UNUSED, SDL_Surface * canvas,
 		      int top_x, int top_y, int minx, int maxx,
 		      int bottom_x, int bottom_y, int final)
 {
@@ -443,7 +469,7 @@ static void flower_drawstalk(magic_api * api, SDL_Surface * canvas,
   free(curve);
 }
 
-void flower_shutdown(magic_api * api)
+void flower_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (flower_click_snd != NULL)
     Mix_FreeChunk(flower_click_snd);
@@ -472,7 +498,7 @@ void flower_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
 }
 
 // Use colors:
-int flower_requires_colors(magic_api * api, int which)
+int flower_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 1;
 }
@@ -594,15 +620,15 @@ static void flower_colorize_petals(magic_api * api)
   SDL_UnlockSurface(flower_petals);
 }
 
-void flower_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void flower_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void flower_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void flower_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int flower_modes(magic_api * api, int which)
+int flower_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
-  return(MODE_PAINT);
+  return(MODE_PAINT_WITH_PREVIEW);
 }

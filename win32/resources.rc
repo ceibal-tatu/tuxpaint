@@ -26,8 +26,8 @@ IDI_ICON1               ICON    DISCARDABLE     "data/images/icon-win32.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,9,21,0
- PRODUCTVERSION 0,9,21,0
+ FILEVERSION 0,9,22,0
+ PRODUCTVERSION 0,9,22,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -45,14 +45,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "New Breed Software\0"
             VALUE "FileDescription", "Tux Paint - Interactive Paint Program.\0"
-            VALUE "FileVersion", "0.9.21\0"
+            VALUE "FileVersion", "0.9.22\0"
             VALUE "InternalName", "Tux Paint\0"
             VALUE "LegalCopyright", "Copyright (C) 2008 by Bill Kendrick\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "TuxPaint.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Tux Paint\0"
-            VALUE "ProductVersion", "0.9.21\0"
+            VALUE "ProductVersion", "0.9.22\0"
             VALUE "SpecialBuild", "win32 build by John Popplewell\0"
         END
     END

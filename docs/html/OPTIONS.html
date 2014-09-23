@@ -11,19 +11,19 @@ alink="#FF00FF">
 
 version
 
-0.9.21
+0.9.22
 
 </h1>
 <h2>Options Documentation</h2>
 
-<p>Copyright 2002-2009 by Bill Kendrick and others<br>
+<p>Copyright 2002-2014 by Bill Kendrick and others<br>
 New Breed Software</p>
 
 <p><a href="mailto:bill@newbreedsoftware.com">bill@newbreedsoftware.com</a><br>
 <a href="http://www.tuxpaint.org/">http://www.tuxpaint.org/</a></p>
 
 
-<p>May 31, 2009</p>
+<p>August 4, 2014</p>
 
 
 </center>
@@ -445,6 +445,12 @@ New Breed Software</p>
     functionality (usually paint-mode).
   </dd>
 
+  <dt><code><b>nolabel=yes</b></code></dt>
+  <dd>
+    Disables the <b>Label</b> tool: the tool that allows text entry
+    which can be edited later.
+  </dd>
+
   <dt><code><b>mirrorstamps=yes</b></code></dt>
   <dd>
     <p>For stamps that can be mirrored, this option sets them to their
@@ -453,6 +459,160 @@ New Breed Software</p>
     <p>This can be useful for people who prefer things right-to-left,
     rather than left-to-right.</p>
   </dd>
+
+  <dt><code><b>mouse-accessibility=yes</b></code></dt>
+  <dd>
+    In this mode, instead of clicking, dragging and releasing
+    (e.g., to draw), you click, move, and click again to end the motion.
+  </dd>
+
+  <dt><code><b>onscreen-keyboard=yes</b></code></dt>
+  <dd>
+    Presents a clickable on-screen keyboard when using the <b>Text</b> and
+    <b>Label</b> tools.
+  </dd>
+
+  <dt><code><b>onscreen-keyboard-layout=<i>LAYOUTNAME</i></b></code></dt>
+  <dd>
+    Selects the initial layout for the on-screen keyboard when using the <b>Text</b> and
+    <b>Label</b> tools.<br>
+    Note: Using this option implies automatically <b>onscreen-keyboard=yes</b>, so setting both is redundant.
+  </dd>
+
+  <dt><code><b>onscreen-keyboard-disable-change=yes</b></code></dt>
+  <dd>
+    Disables the possibility for changing the layout of the on-screen keyboard when using the <b>Text</b> and
+    <b>Label</b> tools, useful for simplifying things for the small children.<br>
+    Note: Using this option implies automatically <b>onscreen-keyboard=yes</b>, so setting both is redundant.
+  </dd>
+
+
+  <dt><code><b>joystick-dev=<i>N</i></b></code></dt>
+  <dd>
+    Specify which joystick device should be used by Tux Paint.
+    Default value is 0 (the first joystick).
+  </dd>
+
+  <dt><code><b>joystick-slowness=<i>SPEED</i></b></code></dt>
+  <dd>
+    Sets a delay at each axis motion, allowing to slow the joystick.
+    Allowed values are from 0 to 500. Default value is 15.
+  </dd>
+
+  <dt><code><b>joystick-threshold=<i>THRESHOLD</i></b></code></dt>
+  <dd>
+    Sets the minimum level of axis motion to start moving the pointer.
+    Allowed values are from 0 to 32766. Default value is 3200.
+  </dd>
+
+  <dt><code><b>joystick-maxsteps=<i>STEPS</i></b></code></dt>
+  <dd>
+    Sets the maximum pixels the pointer will move at once.
+    Allowed values are from 1 to 7. Default value is 7.
+  </dd>
+
+  <dt><code><b>joystick-hat-timeout=<i>MILLISECONDS</i></b></code></dt>
+  <dd>
+    Sets the delay after wich the pointer will start moving automatically if the hat is keeped pushed.
+    Allowed values are from 0 to 3000. Default value is 1000.
+  </dd>
+
+  <dt><code><b>joystick-hat-slowness=<i>SPEED</i></b></code></dt>
+  <dd>
+    Sets a delay at each automatic motion, allowing to slow the speed of the hat.
+    Allowed values are from 0 to 500. Default value is 15.
+  </dd>
+
+  <dt><code><b>joystick-btn-escape=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be used to generate a escape event.
+    Useful to dismiss dialogs and quit.
+  </dd>
+
+  <dt><code><b>joystick-btn-brush=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the brush tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-stamp=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the stamp tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-lines=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the lines tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-shapes=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the shapes tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-text=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the text tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-label=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the label tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-magic=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to select the magic tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-undo=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to the undo tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-redo=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to the redo tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-eraser=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt for selecting the eraser tool.
+  </dd>
+
+  <dt><code><b>joystick-btn-new=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to launch the dialog for opening a new draw.
+  </dd>
+
+  <dt><code><b>joystick-btn-open=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to launch the dialog for opening an existing draw.
+  </dd>
+
+  <dt><code><b>joystick-btn-save=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt for saving the draw.
+  </dd>
+
+  <dt><code><b>joystick-btn-pgsetup=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to launch the page setup dialog for printing.
+  </dd>
+
+  <dt><code><b>joystick-btn-print=<i>BUTTON NUMBER</i></b></code></dt>
+  <dd>
+    Selects the joystick button number, as seen by SDL, that will be a shortcurt to print.
+  </dd>
+
+  <dt><code><b>joystick-buttons-ignore=<i>BUTTON1,BUTTON2,...</i></b></code></dt>
+  <dd>
+    A set of joystick button numbers, as seen by SDL, that should be ignored.
+    Otherwise, unless they are used by one of the "<code>joystick-btn-</code>" options
+    above, buttons will be seen as a mouse left-click.
+  </dd>
+
+
+
 
   <dt><code><b>stampsize=<i>SIZE</i></b></code></dt>
   <dd>
@@ -469,10 +629,40 @@ New Breed Software</p>
   <dt><code><b>keyboard=yes</b></code></dt>
   <dd>
     <p>This allows the keyboard arrow keys to be used
-    to control the mouse pointer.  (e.g., for mouseless environments.)</p>
-    
-    <p>The <b>[Arrow]</b> keys move the mouse pointer.
-    <b>[Space]</b> acts as the mouse button.</p>
+    to control the mouse pointer.  (e.g., for mouseless environments, or
+    handicapped/accessibility purposes)</p>
+
+    <p>Features:
+    <ul>
+    <li>Fine movement within canvas, or coarse movement if [Shift] is held.
+    <li>Coarse movement within tool button areas.
+    <li>Key controls:
+      <ul>
+      <li>[Left]/[Right]/[Up]/[Down], numpad [1] thru [9]: Move mouse
+      <li>[Space]/[5]: Click mouse (except when using "Text" or "Label" tools)
+      <li>[Insert]/[F5]: Click mouse (always)
+      <li>[F4] jump mouse between "Tools", "Colors" and canvas areas
+      <li>If mouse is within "Tools" section on the left, or
+         "Colors" secton at the bottom:
+        <ul>
+        <li>[F7], [F8]: Move down/up between buttons, respectively
+           (Tools section, only)
+        <li>[F11], [F12]: Move to previous/next button, respectively
+        </ul>
+      </ul>
+    <li>To click-and-drag, hold one of the 'click' keys (e.g., [Insert]),
+       and use the movement keys (e.g., [Left]).
+      <ul>
+      <li>Note: The "mouse accessibility" feature works with the keyboard
+         mouse controls.  With both options enabled, painting tools
+         can be used to draw by pressing a 'click' key to start clicking,
+         movement keys to move around (which will draw), and another
+         'click' key to end the click (stop drawing).
+      </ul>
+    <li>A regular mouse and/or joystick may still be used
+       (so you can, e.g., move with the mouse, and click with the keyboard,
+       or vice-versa)
+    </ul>
   </dd>
   
   <dt><code><b>savedir=<i>DIRECTORY</i></b></code></dt>
@@ -640,8 +830,18 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>acholi</code></td>
+      <td><code>acoli</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>afrikaans</code></td>
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>akan</code></td>
+      <td><code>twi-fante</code></td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -650,7 +850,27 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>amharic</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>arabic</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>aragones</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>armenian</code></td>
+      <td><code>hayeren</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>assamese</code></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
@@ -670,6 +890,11 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>bambara</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>basque</code></td>
       <td><code>euskara</code></td>
       <td>&nbsp;</td>
@@ -685,8 +910,13 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>bosnian</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>brazilian-portuguese</code></td>
-      <td><code>portuges-brazilian</code></td>
+      <td><code>portugues-brazilian</code></td>
       <td><code>brazilian</code></td>
     </tr>
     <tr>
@@ -765,6 +995,11 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>fula</code></td>
+      <td><code>fulah</code></td>
+      <td><code>pulaar-fulfulde</code></td>
+    </tr>
+    <tr>
       <td><code>gaelic</code></td>
       <td><code>gaidhlig</code></td>
       <td><code>irish-gaelic</code></td>
@@ -825,6 +1060,11 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>inuktitut</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>italian</code></td>
       <td><code>italiano</code></td>
       <td>&nbsp;</td>
@@ -835,8 +1075,18 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>kannada</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>khmer</code></td>
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>kiga</code></td>
+      <td><code>chiga</code></td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -847,6 +1097,16 @@ New Breed Software</p>
     <tr>
       <td><code>klingon</code></td>
       <td><code>tlhIngan</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>konkani-devaganari</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>konkani-roman</code></td>
+      <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -870,7 +1130,22 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>luganda</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>luxembourgish</code></td>
+      <td><code>letzebuergesch</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>macedonian</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>maithili</code></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
@@ -880,9 +1155,34 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>malayalam</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>manipuri-bengali</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>manipuri-meitei-mayek</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>marathi</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>mexican-spanish</code></td>
       <td><code>espanol-mejicano</code></td>
       <td><code>mexican</code></td>
+    </tr>
+    <tr>
+      <td><code>mongolian</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
       <td><code>ndebele</code></td>
@@ -890,9 +1190,19 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>nepali</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>northern-sotho</code></td>
+      <td><code>sesotho-sa-leboa</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>norwegian</code></td>
       <td><code>nynorsk</code></td>
-      <td>&nbsp;</td>
+      <td><code>norsk</code></td>
     </tr>
     <tr>
       <td><code>occitan</code></td>
@@ -900,8 +1210,18 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>odia</code></td>
+      <td><code>oriya</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>ojibwe</code></td>
       <td><code>ojibway</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>persian</code></td>
+      <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -915,6 +1235,11 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>punjabi</code></td>
+      <td><code>panjabi</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>romanian</code></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -925,12 +1250,32 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>sanskrit</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>santali-devaganari</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>santali-ol-chiki</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>scottish</code></td>
       <td><code>ghaidhlig</code></td>
       <td><code>scottish-gaelic</code></td>
     </tr>
     <tr>
       <td><code>serbian</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>serbian-latin</code></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
@@ -962,6 +1307,11 @@ New Breed Software</p>
     <tr>
       <td><code>spanish</code></td>
       <td><code>espanol</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>sundanese</code></td>
+      <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
     <tr>
@@ -1025,6 +1375,11 @@ New Breed Software</p>
       <td>&nbsp;</td>
     </tr>
     <tr>
+      <td><code>venetian</code></td>
+      <td><code>veneto</code></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
       <td><code>vietnamese</code></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -1053,6 +1408,11 @@ New Breed Software</p>
       <td><code>miahuatlan-zapotec</code></td>
       <td>&nbsp;</td>
       <td><code>zapotec</code></td>
+    </tr>
+    <tr>
+      <td><code>zulu</code></td>
+      <td>&nbsp;</td>
+      <td><code>zulu</code></td>
     </tr>
     </table>
     </blockquote>
@@ -1125,6 +1485,34 @@ New Breed Software</p>
     --nostamps<br>
     --nostampcontrols<br>
     --nomagiccontrols<br>
+    --nolabel<br>
+    --mouse-accessibility<br>
+    --onscreen-keyboard<br>
+    --onscreen-keyboard-layout<br>
+    --onscreen-keyboard-disable-change<br>
+    --joystick-dev<br>
+    --joystick-slowness<br>
+    --joystick-threshold<br>
+    --joystick-maxsteps<br>
+    --joystick-hat-slowness<br>
+    --joystick-hat-timeout<br>
+    --joystick-btn-escape<br>
+    --joystick-btn-brush<br>
+    --joystick-btn-stamp<br>
+    --joystick-btn-lines<br>
+    --joystick-btn-shapes<br>
+    --joystick-btn-text<br>
+    --joystick-btn-label<br>
+    --joystick-btn-magic<br>
+    --joystick-btn-undo<br>
+    --joystick-btn-redo<br>
+    --joystick-btn-eraser<br>
+    --joystick-btn-new<br>
+    --joystick-btn-open<br>
+    --joystick-btn-save<br>
+    --joystick-btn-pgsetup<br>
+    --joystick-btn-print<br>
+    --joystick-buttons-ignore<br>
     --sysfonts<br>
     --alllocalefonts<br>
     --mirrorstamps<br>
@@ -1170,6 +1558,7 @@ New Breed Software</p>
     --stamps<br>
     --stampcontrols<br>
     --magiccontrols<br>
+    --label<br>
     --nosysfonts<br>
     --currentlocalefont<br>
     --dontmirrorstamps<br>
@@ -1248,6 +1637,11 @@ New Breed Software</p>
       <dd>
         Display a list of available languages in Tux&nbsp;Paint.
       </dd>
+
+      <dt><code><b>--joystick-dev list</b></code></dt>
+      <dd>
+        Display list of attached joysticks available to Tux&nbsp;Paint.
+      </dd>
     </dl>
     </blockquote>
   </blockquote>
@@ -1291,15 +1685,45 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>ach_UG</code></td>
+    <td>Acoli</td>
+    <td>Acholi</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>af_ZA</code></td>
     <td>&nbsp;</td>
     <td>Afrikaans</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>ak_GH</code></td>
+    <td>&nbsp;</td>
+    <td>Akan</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>am_ET</code></td>
+    <td>&nbsp;</td>
+    <td>Amharic</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>an_ES</code></td>
+    <td>&nbsp;</td>
+    <td>Aragones</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>ar_SA</code></td>
     <td>&nbsp;</td>
     <td>Arabic</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>as_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Assamese</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1312,6 +1736,12 @@ New Breed Software</p>
     <td><code>az_AZ</code></td>
     <td>&nbsp;</td>
     <td>Azerbaijani</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>bm_ML</code></td>
+    <td>&nbsp;</td>
+    <td>Bambara</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1339,9 +1769,27 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>bs_BA</code></td>
+    <td>&nbsp</td>
+    <td>Bosnian</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>ca_ES</code></td>
     <td>Catal&agrave;</td>
     <td>Catalan</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>ca_ES@valencia</code></td>
+    <td>Valencia</td>
+    <td>Valencian</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>cgg_UG</code></td>
+    <td>Chiga</td>
+    <td>Kiga</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1429,6 +1877,18 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>fa_IR</code></td>
+    <td>&nbsp;</td>
+    <td>Persian</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>ff_SN</code></td>
+    <td>Fulah</td>
+    <td>Fula</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>fi_FI</code></td>
     <td>Suomi</td>
     <td>Finnish</td>
@@ -1501,6 +1961,12 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>hy_AM</code></td>
+    <td>Hayeren</td>
+    <td>Armenian</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>id_ID</code></td>
     <td>Bahasa Indonesia</td>
     <td>Indonesian</td>
@@ -1516,6 +1982,12 @@ New Breed Software</p>
     <td><code>it_IT</code></td>
     <td>Italiano</td>
     <td>Italian</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>iu_CA</code></td>
+    <td>&nbsp;</td>
+    <td>Inuktitut</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1537,15 +2009,45 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>kn_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Kannada</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>ko_KR</code> (*)</td>
     <td>&nbsp;</td>
     <td>Korean</td>
     <td>right [Alt] or left [Alt]</td>
   </tr>
   <tr>
+    <td><code>kok_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Konkani (Devaganari)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>kok@roman</code></td>
+    <td>&nbsp;</td>
+    <td>Konkani (Roman)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>ku_TR</code></td>
     <td>&nbsp;</td>
     <td>Kurdish</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>lb_LU</code></td>
+    <td>Letzebuergesch</td>
+    <td>Luxembourgish</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>lg_UG</code></td>
+    <td>&nbsp;</td>
+    <td>Luganda</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1567,6 +2069,42 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>mai_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Maithili</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>ml_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Malayalam</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>mn_MN</code></td>
+    <td>&nbsp;</td>
+    <td>Mongolian</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>mni_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Manipuri (Bengali)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>mni@meiteimayek</code></td>
+    <td>&nbsp;</td>
+    <td>Manipuri (Meitei Mayek)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>mr_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Marathi</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>ms_MY</code></td>
     <td>&nbsp;</td>
     <td>Malay</td>
@@ -1576,6 +2114,12 @@ New Breed Software</p>
     <td><code>nb_NO</code></td>
     <td>Norsk (bokm&aring;l)</td>
     <td>Norwegian Bokm&aring;l</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>ne_NP</code></td>
+    <td>Nepali</td>
+    <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1597,6 +2141,12 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>nso_ZA</code></td>
+    <td>Sesotho sa Leboa</td>
+    <td>Northern Sotho</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>oc_FR</code></td>
     <td>&nbsp;</td>
     <td>Occitan</td>
@@ -1607,6 +2157,18 @@ New Breed Software</p>
     <td>&nbsp;</td>
     <td>Ojibwe</td>
     <td>Ojibway</td>
+  </tr>
+  <tr>
+    <td><code>pa_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Punjabi</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>or_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Odia</td>
+    <td>Oriya</td>
   </tr>
   <tr>
     <td><code>pl_PL</code></td>
@@ -1645,9 +2207,33 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
+    <td><code>sa_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Sanskrit</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>sat_IN</code></td>
+    <td>&nbsp;</td>
+    <td>Santali (Devaganari)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>sat@olchiki</code></td>
+    <td>&nbsp;</td>
+    <td>Santali (Ol-Chikii)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td><code>shs_CA</code></td>
     <td>Secwepemctin</td>
     <td>Shuswap</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>si_LK</code></td>
+    <td>&nbsp;</td>
+    <td>Sinhala</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1677,7 +2263,19 @@ New Breed Software</p>
   <tr>
     <td><code>sr_YU</code></td>
     <td>&nbsp;</td>
-    <td>Serbian</td>
+    <td>Serbian (cyrillic)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>sr_RS@latin</code></td>
+    <td>&nbsp;</td>
+    <td>Serbian (latin)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>su_ID</code></td>
+    <td>&nbsp;</td>
+    <td>Sundanese</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1729,7 +2327,7 @@ New Breed Software</p>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><code>twi_GH</code></td>
+    <td><code>tw_GH</code></td>
     <td>&nbsp;</td>
     <td>Twi</td>
     <td>&nbsp;</td>
@@ -1744,6 +2342,12 @@ New Breed Software</p>
     <td><code>ve_ZA</code></td>
     <td>&nbsp;</td>
     <td>Venda</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><code>vec</code></td>
+    <td>Ven&egrave;to</td>
+    <td>Venetian</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -1788,7 +2392,13 @@ New Breed Software</p>
     <td>Zapotec (Miahuatlan)</td>
     <td>&nbsp;</td>
   </tr>
-  </table>
+   <tr>
+    <td><code>zu_ZA</code></td>
+    <td>&nbsp;</td>
+    <td>Zulu</td>
+    <td>&nbsp;</td>
+  </tr>
+ </table>
 
   <p><b>(*)</b> - These languages require their own fonts, since they
   are not represented using a Latin character set, like the others.

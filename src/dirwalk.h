@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: dirwalk.h,v 1.4 2009/06/03 20:46:07 wkendrick Exp $
+  $Id: dirwalk.h,v 1.5 2009/11/23 07:45:25 albert Exp $
 */
 
 #ifndef DIRWALK_H
@@ -46,13 +46,13 @@ typedef struct tp_ftw_str
 
 
 void loadfont_callback(SDL_Surface * screen, const char *restrict const dir,
-		       unsigned dirlen, tp_ftw_str * files, unsigned i, char * locale);
+		       unsigned dirlen, tp_ftw_str * files, unsigned i, const char *restrict const locale);
 int compare_ftw_str(const void *v1, const void *v2);
 void tp_ftw(SDL_Surface * screen, char *restrict const dir, unsigned dirlen,
 	    int rsrc, void (*fn) (SDL_Surface * screen,
 				  const char *restrict const dir,
 				  unsigned dirlen, tp_ftw_str * files,
-				  unsigned count, char * locale),
-            char * locale);
+				  unsigned count, const char *restrict const locale),
+            const char *restrict const locale);
 
 #endif

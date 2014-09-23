@@ -1,38 +1,53 @@
 # Tux Paint - A simple drawing program for children.
 
-# Copyright (c) 2002-2009 by Bill Kendrick and others
+# Copyright (c) 2002-2014 by Bill Kendrick and others
 # bill@newbreedsoftware.com
 # http://www.tuxpaint.org/
 
-# June 14, 2002 - April 28, 2009
+# June 14, 2002 - March 30, 2014
 
 
 # The version number, for release:
 
-VER_VERSION:=0.9.21
+VER_VERSION:=0.9.22
 VER_DATE:=$(shell date +"%Y-%m-%d")
-MAGIC_API_VERSION:=0x00000002
+MAGIC_API_VERSION:=0x00000003
 
 # Need to know the OS
 
 SYSNAME:=$(shell uname -s)
 ifeq ($(findstring MINGW32, $(SYSNAME)),MINGW32)
 OS:=windows
+GPERF:=/usr/bin/gperf
 else
 ifeq ($(SYSNAME),Darwin)
 OS:=osx
+GPERF:=/usr/bin/gperf
 else
 ifeq ($(SYSNAME),BeOS)
 OS:=beos
+GPERF:=$(shell finddir B_USER_BIN_DIRECTORY)/gperf
 else
 ifeq ($(SYSNAME),Haiku)
 OS:=beos
+GPERF:=$(shell finddir B_SYSTEM_BIN_DIRECTORY)/gperf
+STDC_LIB:=-lstdc++
+ifeq ($(shell gcc --version | cut -c 1-6),2.95.3)
+STDC_LIB:=-lstdc++.r4
+endif
 else
 OS:=linux
+GPERF:=/usr/bin/gperf
 endif
 endif
 endif
 endif
+
+# change to sdl-console to build a console version on Windows
+SDL_PCNAME:=sdl
+
+WINDRES:=windres
+PKG_CONFIG:=pkg-config
 
 # test if a library can be linked
 linktest = $(shell if $(CC) $(CPPFLAGS) $(CFLAGS) -o dummy.o dummy.c $(LDFLAGS) $(1) $(2) > /dev/null 2>&1; \
@@ -46,7 +61,7 @@ comptest = $(shell if $(CC) $(CPPFLAGS) $(CFLAGS) $(1) $(2) -o dummy.o dummy.c $
 		echo "$(1)"; \
 	fi ;)
 
-beos_RSRC_CMD:=xres -o tuxpaint src/tuxpaint.rsrc
+beos_RSRC_CMD:=rc haiku/tuxpaint.rdef && xres -o tuxpaint haiku/tuxpaint.rsrc
 RSRC_CMD:=$($(OS)_RSRC_CMD)
 
 beos_MIMESET_CMD:=mimeset -f tuxpaint
@@ -74,12 +89,12 @@ PAPER_LIB:=$(call linktest,-lpaper,)
 PNG:=$(call linktest,-lpng,)
 PNG:=$(if $(PNG),$(PNG),$(call linktest,-lpng12,))
 
-FRIBIDI_LIB:=$(shell pkg-config --libs fribidi)
-FRIBIDI_CFLAGS:=$(shell pkg-config --cflags fribidi)
+FRIBIDI_LIB:=$(shell $(PKG_CONFIG) --libs fribidi)
+FRIBIDI_CFLAGS:=$(shell $(PKG_CONFIG) --cflags fribidi)
 
-windows_ARCH_LINKS:=-lintl $(PNG) -lwinspool -lshlwapi $(FRIBIDI_LIB)
+windows_ARCH_LINKS:=-lintl $(PNG) -lzdll -lwinspool -lshlwapi $(FRIBIDI_LIB) -liconv
 osx_ARCH_LINKS:=$(PAPER_LIB) $(FRIBIDI_LIB)
-beos_ARCH_LINKS:="-lintl $(PNG) -lz -lbe -liconv $(FRIBIDI_LIB)"
+beos_ARCH_LINKS:=-lintl $(PNG) -lz -lbe -lnetwork -liconv $(FRIBIDI_LIB) $(PAPER_LIB) $(STDC_LIB)
 linux_ARCH_LINKS:=$(PAPER_LIB) $(FRIBIDI_LIB)
 ARCH_LINKS:=$($(OS)_ARCH_LINKS)
 
@@ -92,10 +107,10 @@ ARCH_HEADERS:=$($(OS)_ARCH_HEADERS)
 # Where things will go when ultimately installed:
 windows_PREFIX:=/usr/local
 osx_PREFIX:=/usr/local
-beos_PREFIX:=/boot/apps/Games/TuxPaint
+
+beos_PREFIX=$(shell finddir B_APPS_DIRECTORY)/TuxPaint
 linux_PREFIX:=/usr/local
 PREFIX:=$($(OS)_PREFIX)
-
 
 # Root directory to place files when creating packages.
 # PKG_ROOT is the old name for this, and should be undefined.
@@ -118,9 +133,12 @@ LOCALE_PREFIX=$(DESTDIR)$(PREFIX)/share/locale
 # IM files
 IM_PREFIX=$(DESTDIR)$(PREFIX)/share/tuxpaint/im
 
+# Libraries
+LIBDIR=$(PREFIX)
+
 # Magic Tool plug-ins
 INCLUDE_PREFIX:=$(DESTDIR)$(PREFIX)/include
-MAGIC_PREFIX:=$(DESTDIR)$(PREFIX)/lib/tuxpaint/plugins
+MAGIC_PREFIX:=$(DESTDIR)$(LIBDIR)/lib/tuxpaint/plugins
 
 
 # Docs and man page:
@@ -129,12 +147,18 @@ DEVDOC_PREFIX:=$(DESTDIR)$(PREFIX)/share/doc/tuxpaint-dev
 MAN_PREFIX:=$(DESTDIR)$(PREFIX)/share/man
 DEVMAN_PREFIX:=$(DESTDIR)$(PREFIX)/share/man
 
+# BASH tab-completion file:
+COMPLETIONDIR:=$(DESTDIR)/etc/bash_completion.d
 
 # 'System-wide' Config file:
 ifeq ($(PREFIX),/usr)
   CONFDIR:=$(DESTDIR)/etc/tuxpaint
 else
   CONFDIR:=$(DESTDIR)$(PREFIX)/etc/tuxpaint
+endif
+
+ifeq ($(SYSNAME),Haiku)
+  CONFDIR:=$(shell finddir B_USER_SETTINGS_DIRECTORY)/TuxPaint
 endif
 
 # Icons and launchers:
@@ -155,9 +179,8 @@ CURSOR_SHAPES:=LARGE
 # MOUSEDIR:=mouse/16x16
 # CURSOR_SHAPES:=SMALL
 
-
 # Libraries, paths, and flags:
-SDL_LIBS:=$(shell sdl-config --libs) -lSDL_image -lSDL_ttf
+SDL_LIBS:=$(shell $(PKG_CONFIG) $(SDL_PCNAME) --libs) -lSDL_image -lSDL_ttf -lz $(PNG)
 
 # Sound support
 SDL_MIXER_LIB:=$(call linktest,-lSDL_mixer,$(SDL_LIBS))
@@ -169,15 +192,15 @@ NOPANGOFLAG:=$(if $(SDL_PANGO_LIB),,-DNO_SDLPANGO$(warning -lSDL_Pango failed, n
 
 SDL_LIBS+=$(SDL_MIXER_LIB) $(SDL_PANGO_LIB)
 
-SDL_CFLAGS:=$(shell sdl-config --cflags)
+SDL_CFLAGS:=$(shell $(PKG_CONFIG) $(SDL_PCNAME) --cflags)
 
 
 # New one: -lrsvg-2 -lcairo
 # Old one: -lcairo -lsvg -lsvg-cairo
-SVG_LIB:=$(shell pkg-config --libs librsvg-2.0 cairo || pkg-config --libs libsvg-cairo)
+SVG_LIB:=$(shell $(PKG_CONFIG) --libs librsvg-2.0 cairo || $(PKG_CONFIG) --libs libsvg-cairo)
 
 # lots of -I things, so really should be SVG_CPPFLAGS
-SVG_CFLAGS:=$(shell pkg-config --cflags librsvg-2.0 cairo || pkg-config --cflags libsvg-cairo)
+SVG_CFLAGS:=$(shell $(PKG_CONFIG) --cflags librsvg-2.0 cairo || $(PKG_CONFIG) --cflags libsvg-cairo)
 
 # SVG support via Cairo
 NOSVGFLAG:=$(if $(SVG_LIB),,-DNOSVG$(warning No SVG for you!))
@@ -204,7 +227,7 @@ endif
 #-ffast-math
 OPTFLAGS:=-O2
 CFLAGS:=$(CPPFLAGS) $(OPTFLAGS) -W -Wall -fno-common -ffloat-store \
-	$(call comptest,-fvisibility=hidden,) \
+	$(if $(filter windows,$(OS)),,$(call comptest,-fvisibility=hidden,)) \
 	-Wcast-align -Wredundant-decls \
 	-Wbad-function-cast -Wwrite-strings \
 	-Waggregate-return \
@@ -236,6 +259,7 @@ MOUSE_CFLAGS:=-Isrc/$(MOUSEDIR) -D$(CURSOR_SHAPES)_CURSOR_SHAPES
 #
 .PHONY: all
 all:	tuxpaint translations magic-plugins tp-magic-config
+# thumb-starters
 	@echo
 	@echo "--------------------------------------------------------------"
 	@echo
@@ -268,7 +292,7 @@ build/tuxpaint-$(VER_VERSION):
 	@echo
 	@mkdir -p build/tuxpaint-$(VER_VERSION)
 	@find . -follow \
-	     \( -wholename '*/CVS' -o -name .cvsignore -o -name 'dummy.o' -o -name 'build' -o -name '.#*' \) \
+	     \( -wholename '*/CVS' -o -name .thumbs -o -name .cvsignore -o -name 'dummy.o' -o -name 'build' -o -name '.#*' \) \
 	     -prune -o -type f -exec cp --parents -vdp \{\} build/tuxpaint-$(VER_VERSION)/ \;
 
 .PHONY: release
@@ -280,12 +304,14 @@ release: releasedir
 	    tar -czvf tuxpaint-$(VER_VERSION).tar.gz tuxpaint-$(VER_VERSION)
 
 # "make olpc" builds the program for an OLPC XO:
+MAGIC_GOOD:=blur blocks_chalk_drip bricks calligraphy fade_darken\
+            fill flower foam grass mirror_flip shift smudge snow tint
 .PHONY: olpc
 olpc:
 	@echo
 	@echo "Building for an OLPC XO"
 	@echo
-	make PREFIX:=. OPTFLAGS:='-O2 -fno-tree-pre -march=athlon -mtune=generic -mpreferred-stack-boundary=2 -mmmx -m3dnow -fomit-frame-pointer -falign-functions=0 -falign-jumps=0 -DOLPC_XO -DSUGAR'
+	make PREFIX:=. MAGIC_C:=$(patsubst %,magic/src/%.c,$(MAGIC_GOOD)) OPTFLAGS:='-O2 -fno-tree-pre -march=athlon -mtune=generic -mpreferred-stack-boundary=2 -mmmx -m3dnow -fomit-frame-pointer -falign-functions=0 -falign-jumps=0 -DOLPC_XO -DSUGAR'
 
 # "make nokia770" builds the program for the Nokia 770.
 .PHONY: nokia770
@@ -301,9 +327,12 @@ nokia770:
 POFILES:=$(wildcard src/po/*.po)
 MOFILES:=$(patsubst src/po/%.po,trans/%.mo,$(POFILES))
 INSTALLED_MOFILES:=$(patsubst trans/%.mo,$(LOCALE_PREFIX)/%/LC_MESSAGES/tuxpaint.mo,$(MOFILES))
+INSTALLED_MODIRS:=$(patsubst trans/%.mo,$(LOCALE_PREFIX)/%/LC_MESSAGES,$(MOFILES))
 
+$(INSTALLED_MODIRS): $(LOCALE_PREFIX)/%/LC_MESSAGES: trans/%.mo
+	install -d -m 755 $@
 $(INSTALLED_MOFILES): $(LOCALE_PREFIX)/%/LC_MESSAGES/tuxpaint.mo: trans/%.mo
-	install -D -m 644 $< $@
+	install -m 644 $< $@
 
 .PHONY: uninstall-i18n
 uninstall-i18n:
@@ -313,6 +342,18 @@ uninstall-i18n:
 	-rm $(IM_PREFIX)/th.im
 	-rm $(IM_PREFIX)/zh_tw.im
 
+##### i18n stuff for Tux Paint Config bundling
+TPCONF_PATH:=../tuxpaint-config
+TPCPOFILES:=$(wildcard $(TPCONF_PATH)/src/po/*.po)
+TPCMOFILES:=$(patsubst $(TPCONF_PATH)/src/po/%.po,$(TPCONF_PATH)/trans/%.mo,$(TPCPOFILES))
+TPCINSTALLED_MOFILES:=$(patsubst $(TPCONF_PATH)/trans/%.mo,$(LOCALE_PREFIX)/%/LC_MESSAGES/tuxpaint-config.mo,$(TPCMOFILES))
+
+$(TPCINSTALLED_MOFILES): $(LOCALE_PREFIX)/%/LC_MESSAGES/tuxpaint-config.mo: $(TPCONF_PATH)/trans/%.mo
+	@echo
+	@echo "...Installing Tux Paint Config i18n..."
+	install -D -m 644 $< $@
+
+install-tpconf-i18n: $(TPCINSTALLED_MOFILES)
 
 # Install the translated text:
 # We can install *.mo files if they were already generated, or if it can be
@@ -331,7 +372,8 @@ install-gettext:
 	@echo "You will not be able to run Tux Paint in non-U.S. English modes."
 	@echo "--------------------------------------------------------------"
 else
-install-gettext: $(INSTALLED_MOFILES)
+install-gettextdirs: $(INSTALLED_MODIRS)
+install-gettext: install-gettextdirs $(INSTALLED_MOFILES)
 endif
 
 
@@ -392,7 +434,7 @@ trans:
 
 windows_ARCH_INSTALL:=
 osx_ARCH_INSTALL:=
-beos_ARCH_INSTALL:=
+beos_ARCH_INSTALL:=install-haiku
 linux_ARCH_INSTALL:=install-gnome install-kde install-kde-icons
 ARCH_INSTALL:=$($(OS)_ARCH_INSTALL)
 
@@ -405,8 +447,11 @@ install:	install-bin install-data install-man install-doc \
 		install-magic-plugin-dev \
 		install-icon install-gettext install-im install-importscript \
 		install-default-config install-example-stamps \
-		install-example-starters \
+		install-example-starters install-example-templates \
+		install-bash-completion \
+		install-osk \
 		$(ARCH_INSTALL)
+#install-thumb-starters
 	@echo
 	@echo "--------------------------------------------------------------"
 	@echo
@@ -468,6 +513,7 @@ bdist-win32:
 		LOCALE_PREFIX:=locale \
 		IM_PREFIX:=im \
 		CONFDIR:=. \
+		COMPLETIONDIR:=. \
 		INCLUDE_PREFIX:=plugins/include \
 		MAGIC_PREFIX:=plugins
 	strip -s tuxpaint.exe
@@ -479,9 +525,10 @@ bdist-win32:
 		LOCALE_PREFIX:=./win32/bdist/locale \
 		IM_PREFIX:=./win32/bdist/im \
 		CONFDIR:=./win32/bdist \
+		COMPLETIONDIR:=./win32/bdist \
 		INCLUDE_PREFIX:=./win32/bdist/plugins/include \
 		MAGIC_PREFIX:=./win32/bdist/plugins \
-		windows_ARCH_INSTALL:=install-dlls
+		windows_ARCH_INSTALL:=install-dlls install-tpconf-i18n
 
 # "make bdist-clean" deletes the 'bdist' directory
 .PHONY: bdist-clean
@@ -500,12 +547,17 @@ clean:
 	@-rm -f magic/*.$(SO_TYPE)
 	@-rm -f tuxpaint
 	@-rm -f obj/*.o
+	@-rm -f obj/parse.c obj/parse_step1.c
 	@-rm -f dummy.o
 	@#if [ -d obj ]; then rmdir obj; fi
 	@-rm -f trans/*.mo
 	@-rm -f src/tp_magic_api.h
 	@-rm -f tp-magic-config
 	@if [ -d trans ]; then rmdir trans; fi
+	@-rm -f starters/.thumbs/*.png
+	@if [ -d starters/.thumbs ]; then rmdir starters/.thumbs; fi
+	@-rm -f templates/.thumbs/*.png
+	@if [ -d templates/.thumbs ]; then rmdir templates/.thumbs; fi
 	@echo
 
 # "make uninstall" should remove the various parts from their
@@ -545,6 +597,7 @@ uninstall:	uninstall-i18n
 	-rm $(MAN_PREFIX)/man1/tuxpaint-import.1.gz
 	-rm $(MAN_PREFIX)/man1/tp-magic-config.1.gz
 	-rm -f -r $(CONFDIR)
+	-rm $(COMPLETIONDIR)/tuxpaint-completion.bash
 	-rm -r $(MAGIC_PREFIX)
 	-rm -r $(INCLUDE_PREFIX)/tuxpaint
 	-rm $(BIN_PREFIX)/tp-magic-config
@@ -559,6 +612,15 @@ install-default-config:
 	@install -d $(CONFDIR)
 	@cp src/tuxpaint.conf $(CONFDIR)
 	@chmod 644 $(CONFDIR)/tuxpaint.conf
+
+# Install BASH completion file:
+.PHONY: install-bash-completion
+install-bash-completion:
+	@echo
+	@echo "...Installing BASH completion file..."
+	@install -d $(COMPLETIONDIR)
+	@cp src/tuxpaint-completion.bash $(COMPLETIONDIR)
+	@chmod 644 $(COMPLETIONDIR)/tuxpaint-completion.bash
 
 
 # Install example stamps
@@ -575,11 +637,82 @@ STARTERS:=$(wildcard starters/*.*)
 INSTALLED_STARTERS:=$(patsubst %,$(DATA_PREFIX)/%,$(STARTERS))
 
 $(INSTALLED_STARTERS): $(DATA_PREFIX)/%: %
-	install -D -m 644 $< $@
+	install -m 644 $< $@
+
+install-example-starters-dirs:
+	install -d -m 755 $(DATA_PREFIX)/starters
+
+.PHONY: echo-install-example-starters
+echo-install-example-starters:
+	@echo
+	@echo "...Installing example starters..."
 
 # Install example starters
 .PHONY: install-example-starters
-install-example-starters: $(INSTALLED_STARTERS)
+install-example-starters: echo-install-example-starters install-example-starters-dirs $(INSTALLED_STARTERS)
+
+THUMB_STARTERS:=$(sort $(patsubst starters%, starters/.thumbs%-t.png, $(basename $(subst -back.,.,$(STARTERS)))))
+INSTALLED_THUMB_STARTERS:=$(patsubst %,$(DATA_PREFIX)/%,$(THUMB_STARTERS))
+
+STARTER_NAME=$(or $(wildcard $(subst starters/.thumbs,starters,$(@:-t.png=.svg))),\
+		$(wildcard $(subst starters/.thumbs,starters,$(@:-t.png=.png))),\
+		$(wildcard $(subst starters/.thumbs,starters,$(@:-t.png=.jpeg))))
+
+STARTER_BACK_NAME=$(or $(wildcard $(subst starters/.thumbs,starters,$(@:-t.png=-back.svg))),\
+		$(wildcard $(subst starters/.thumbs,starters,$(@:-t.png=-back.png))),\
+		$(wildcard $(subst starters/.thumbs,starters,$(@:-t.png=-back.jpeg))))
+
+$(THUMB_STARTERS):
+	@echo -n "."
+	@mkdir -p starters/.thumbs
+	@if [ "x" != "x"$(STARTER_BACK_NAME) ] ; \
+	then \
+		composite $(STARTER_NAME) $(STARTER_BACK_NAME) obj/tmp.png ; \
+		convert -scale !132x80 -background white -alpha Background -alpha Off obj/tmp.png $@ ; \
+		rm obj/tmp.png ; \
+	else \
+		convert -scale !132x80 -background white -alpha Background -alpha Off $(STARTER_NAME) $@ ; \
+	fi
+
+$(INSTALLED_THUMB_STARTERS): $(DATA_PREFIX)/%: %
+	@install -D -m 644 $< $@
+
+.PHONY: echo-thumb-starters
+echo-thumb-starters:
+	@echo
+	@echo "...Generating thumbnails for starters..."
+
+# Create thumbnails for starters
+.PHONY: thumb-starters
+thumb-starters: echo-thumb-starters $(THUMB_STARTERS)
+
+.PHONY: echo-install-thumb-starters
+echo-install-thumb-starters:
+	@echo
+	@echo "...Installing thumbnails for starters..."
+
+# Install thumb starters
+.PHONY: install-thumb-starters
+install-thumb-starters: echo-install-thumb-starters $(INSTALLED_THUMB_STARTERS)
+
+
+TEMPLATES:=$(wildcard templates/*.*)
+INSTALLED_TEMPLATES:=$(patsubst %,$(DATA_PREFIX)/%,$(TEMPLATES))
+
+$(INSTALLED_TEMPLATES): $(DATA_PREFIX)/%: %
+	install -m 644 $< $@
+
+install-example-template-dirs:
+	install -d -m 755 $(DATA_PREFIX)/templates
+
+.PHONY: echo-install-example-templates
+echo-install-example-templates:
+	@echo
+	@echo "...Installing example templates..."
+
+# Install example templates
+.PHONY: install-example-templates
+install-example-templates: echo-install-example-templates install-example-template-dirs $(INSTALLED_TEMPLATES)
 
 
 # Install a launcher icon in the Gnome menu
@@ -698,7 +831,7 @@ install-bin:
 	@echo
 	@echo "...Installing program itself..."
 	@install -d $(BIN_PREFIX)
-	@cp tuxpaint $(BIN_PREFIX)
+	@cp tuxpaint$(EXE_EXT) $(BIN_PREFIX)
 	@chmod a+rx,g-w,o-w $(BIN_PREFIX)/tuxpaint$(EXE_EXT)
 
 # Install the required Windows DLLs into the 'bdist' directory
@@ -720,13 +853,18 @@ install-dlls:
 	@cp `which libogg-0.dll` $(BIN_PREFIX)
 	@cp `which libvorbis-0.dll` $(BIN_PREFIX)
 	@cp `which libvorbisfile-3.dll` $(BIN_PREFIX)
-	@cp `which jpeg.dll` $(BIN_PREFIX)
+	@cp `which libjpeg-8.dll` $(BIN_PREFIX)
+	@cp `which libgcc_s_dw2-1.dll` $(BIN_PREFIX)
+	@cp `which libstdc++-6.dll` $(BIN_PREFIX)
+	@cp `which libfribidi-0.dll` $(BIN_PREFIX)
+	@cp `which libpthread-2.dll` $(BIN_PREFIX)
 	@if [ "x$(BDIST_WIN9X)" == "x" ]; then \
 	  cp `which libxml2-2.dll` $(BIN_PREFIX); \
 	  cp `which libcairo-2.dll` $(BIN_PREFIX); \
 	  cp `which libfontconfig-1.dll` $(BIN_PREFIX); \
 	  cp `which libSDL_Pango-1.dll` $(BIN_PREFIX); \
 	  cp `which libgobject-2.0-0.dll` $(BIN_PREFIX); \
+	  cp `which libgthread-2.0-0.dll` $(BIN_PREFIX); \
 	  cp `which librsvg-2-2.dll` $(BIN_PREFIX); \
 	  cp `which libcroco-0.6-3.dll` $(BIN_PREFIX); \
 	  cp `which libgdk_pixbuf-2.0-0.dll` $(BIN_PREFIX); \
@@ -737,7 +875,9 @@ install-dlls:
 	  cp `which libpangoft2-1.0-0.dll` $(BIN_PREFIX); \
 	  cp `which libgmodule-2.0-0.dll` $(BIN_PREFIX); \
 	  cp `which libpangowin32-1.0-0.dll` $(BIN_PREFIX); \
-	  cp `which libfribidi-0.dll` $(BIN_PREFIX); \
+	  cp `which libpixman-1-0.dll` $(BIN_PREFIX); \
+	  cp `which libgio-2.0-0.dll` $(BIN_PREFIX); \
+	  cp `which bz2-1.dll` $(BIN_PREFIX); \
 	fi
 	@strip -s $(BIN_PREFIX)/*.dll
 	@if [ "x$(BDIST_WIN9X)" == "x" ]; then \
@@ -746,19 +886,23 @@ install-dlls:
 	  cp -R win32/etc/ $(BIN_PREFIX); \
 	  echo; \
 	  echo "...Installing Library Modules..."; \
-	  mkdir -p $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/engines; \
-	  cp /usr/local/lib/gtk-2.0/2.10.0/engines/*.dll $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/engines; \
-	  strip -s $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/engines/*.dll; \
-	  mkdir -p $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/immodules; \
-	  cp /usr/local/lib/gtk-2.0/2.10.0/immodules/*.dll $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/immodules; \
-	  strip -s $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/immodules/*.dll; \
+	  mkdir -p $(BIN_PREFIX)/lib/gdk-pixbuf-2.0/2.10.0/loaders; \
+	  cp /usr/local/lib/gdk-pixbuf-2.0/2.10.0/loaders/*.dll $(BIN_PREFIX)/lib/gdk-pixbuf-2.0/2.10.0/loaders; \
+	  strip -s $(BIN_PREFIX)/lib/gdk-pixbuf-2.0/2.10.0/loaders/*.dll; \
 	  mkdir -p $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/loaders; \
-	  cp /usr/local/lib/gtk-2.0/2.10.0/loaders/*.dll $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/loaders; \
+	  cp /usr/local/lib/gtk-2.0/loaders/*.dll $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/loaders; \
 	  strip -s $(BIN_PREFIX)/lib/gtk-2.0/2.10.0/loaders/*.dll; \
 	  mkdir -p $(BIN_PREFIX)/lib/pango/1.6.0/modules; \
 	  cp /usr/local/lib/pango/1.6.0/modules/*.dll $(BIN_PREFIX)/lib/pango/1.6.0/modules; \
 	  strip -s $(BIN_PREFIX)/lib/pango/1.6.0/modules/*.dll; \
 	fi
+
+# Install symlink:
+.PHONY: install-haiku
+install-haiku:
+	@echo
+	@echo "...Installing symlink in apps/TuxPaint to tuxpaint executable file..."
+	@ln -sf $(DESTDIR)$(shell finddir B_APPS_DIRECTORY)/TuxPaint/bin/tuxpaint $(DESTDIR)$(shell finddir B_APPS_DIRECTORY)/TuxPaint/tuxpaint
 
 # Install the import script:
 .PHONY: install-importscript
@@ -783,6 +927,15 @@ install-data:
 	@cp -R fonts/locale/* $(DATA_PREFIX)/fonts/locale
 	@chmod -R a+rX,g-w,o-w $(DATA_PREFIX)/fonts/locale
 
+
+# Install the onscreen keyboard:
+.PHONY: install-osk
+install-osk:
+	@echo
+	@echo "...Installing onscreen keyboard files..."
+	@install -d $(DATA_PREFIX)/osk
+	@cp -R osk/[a-z]* $(DATA_PREFIX)/osk
+	@chmod -R a+rX,g-w,o-w $(DATA_PREFIX)
 
 
 # Install the text documentation:
@@ -827,12 +980,12 @@ install-man:
 # Build the program!
 
 tuxpaint:	obj/tuxpaint.o obj/i18n.o obj/im.o obj/cursor.o obj/pixels.o \
-		obj/rgblinear.o obj/playsound.o obj/fonts.o \
-		obj/progressbar.o obj/dirwalk.o obj/get_fname.o \
+		obj/rgblinear.o obj/playsound.o obj/fonts.o obj/parse.o \
+		obj/progressbar.o obj/dirwalk.o obj/get_fname.o obj/onscreen_keyboard.o \
 		$(ARCH_LIBS)
 	@echo
 	@echo "...Linking Tux Paint..."
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(SDL_CFLAGS) $(FRIBIDI_CFLAGS) $(DEFS) \
+	$(CC) $(CFLAGS) $(LDFLAGS) $(DEBUG_FLAGS) $(SDL_CFLAGS) $(FRIBIDI_CFLAGS) $(DEFS) \
 		-o tuxpaint $^ \
 		$(SDL_LIBS) $(SVG_LIB) $(ARCH_LINKS)
 	@$(RSRC_CMD)
@@ -848,7 +1001,7 @@ obj/tuxpaint.o:	src/tuxpaint.c \
 		src/compiler.h src/debug.h \
 		src/tools.h src/titles.h src/colors.h src/shapes.h \
 		src/sounds.h src/tip_tux.h src/great.h \
-		src/tp_magic_api.h \
+		src/tp_magic_api.h src/parse.h src/onscreen_keyboard.h \
 		src/$(MOUSEDIR)/arrow.xbm src/$(MOUSEDIR)/arrow-mask.xbm \
 		src/$(MOUSEDIR)/hand.xbm src/$(MOUSEDIR)/hand-mask.xbm \
 		src/$(MOUSEDIR)/insertion.xbm \
@@ -868,6 +1021,28 @@ obj/tuxpaint.o:	src/tuxpaint.c \
 	@echo "...Compiling Tux Paint from source..."
 	$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(SDL_CFLAGS) $(FRIBIDI_CFLAGS) $(SVG_CFLAGS) $(MOUSE_CFLAGS) $(DEFS) \
 		-c src/tuxpaint.c -o obj/tuxpaint.o
+
+# Broke gperf|sed up into two steps so that it will fail properly if gperf is not installed; there's probably a more elegant solution -bjk 2009.11.20
+obj/parse.c:	obj/parse_step1.c
+	@echo
+	@echo "...Generating the command-line and config file parser (STEP 2)..."
+	@sed -r -e 's/^const struct/static const struct/' -e 's/_GNU/_TUX/' obj/parse_step1.c > obj/parse.c
+	
+obj/parse_step1.c:	src/parse.gperf
+	@echo
+	@echo "...Generating the command-line and config file parser (STEP 1)..."
+	@if [ -x $(GPERF) ] ; then \
+		$(GPERF) src/parse.gperf > obj/parse_step1.c ; \
+	else \
+		echo "Please install 'gperf' and try again!" ; \
+		false ; \
+	fi
+
+obj/parse.o:	obj/parse.c src/parse.h src/compiler.h
+	@echo
+	@echo "...Compiling the command-line and config file parser..."
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(DEFS) \
+		-c obj/parse.c -o obj/parse.o
 
 obj/i18n.o:	src/i18n.c src/i18n.h src/debug.h
 	@echo
@@ -957,13 +1132,19 @@ obj/postscript_print.o:	src/postscript_print.c Makefile \
 obj/resource.o:	win32/resources.rc win32/resource.h
 	@echo
 	@echo "...Compiling win32 resources..."
-	@windres -i win32/resources.rc -o obj/resource.o
+	@$(WINDRES) -i win32/resources.rc -o obj/resource.o
 
+obj/onscreen_keyboard.o:	src/onscreen_keyboard.c src/onscreen_keyboard.h src/dirwalk.h src/progressbar.h \
+		src/get_fname.h src/debug.h
+	@echo
+	@echo "...Compiling on screen keyboard support..."
+	@$(CC) $(CFLAGS) $(DEBUG_FLAGS) $(SDL_CFLAGS) $(DEFS) \
+		-c src/onscreen_keyboard.c -o obj/onscreen_keyboard.o
 
 src/tp_magic_api.h:	src/tp_magic_api.h.in
 	@echo
 	@echo "...Generating 'Magic' tool API development header file..."
-	@cat src/tp_magic_api.h.in | sed -e s/__APIVERSION__/$(MAGIC_API_VERSION)/ > src/tp_magic_api.h
+	@(echo "/*\n\n\n\n\n\n\n\nDO NOT EDIT ME!\n\n\n\n\n\n\n\n*/" ; cat src/tp_magic_api.h.in) | sed -e s/__APIVERSION__/$(MAGIC_API_VERSION)/ > src/tp_magic_api.h
 
 
 tp-magic-config:	src/tp-magic-config.sh.in Makefile
@@ -986,8 +1167,8 @@ obj:
 
 ######
 
-MAGIC_SDL_CPPFLAGS:=$(shell sdl-config --cflags)
-MAGIC_SDL_LIBS:=-L/usr/local/lib $(LIBMINGW) $(shell sdl-config --libs) -lSDL_image -lSDL_ttf $(SDL_MIXER_LIB)
+MAGIC_SDL_CPPFLAGS:=$(shell $(PKG_CONFIG) $(SDL_PCNAME) --cflags)
+MAGIC_SDL_LIBS:=-L/usr/local/lib $(LIBMINGW) $(shell $(PKG_CONFIG) $(SDL_PCNAME) --libs) -lSDL_image -lSDL_ttf $(SDL_MIXER_LIB)
 MAGIC_ARCH_LINKS:=-lintl $(PNG)
 
 windows_PLUGIN_LIBS:=$(MAGIC_SDL_LIBS) $(MAGIC_ARCH_LINKS)
@@ -998,13 +1179,13 @@ PLUGIN_LIBS:=$($(OS)_PLUGIN_LIBS)
 
 #MAGIC_CFLAGS:=-g3 -O2 -fvisibility=hidden -fno-common -W -Wstrict-prototypes -Wmissing-prototypes -Wall $(MAGIC_SDL_CPPFLAGS) -Isrc/
 MAGIC_CFLAGS:=-g3 -O2 -fno-common -W -Wstrict-prototypes -Wmissing-prototypes -Wall $(MAGIC_SDL_CPPFLAGS) -Isrc/
-SHARED_FLAGS:=-shared -fpic
+SHARED_FLAGS:=-shared -fpic -Wl,--warn-shared-textrel
 
 MAGIC_C:=$(wildcard magic/src/*.c)
 MAGIC_SO:=$(patsubst magic/src/%.c,magic/%.$(SO_TYPE),$(MAGIC_C))
 
 $(MAGIC_SO): magic/%.$(SO_TYPE): magic/src/%.c  
-	$(CC) $(MAGIC_CFLAGS) $(SHARED_FLAGS) -o $@ $< $(PLUGIN_LIBS)
+	$(CC) $(MAGIC_CFLAGS) $(LDFLAGS) $(SHARED_FLAGS) -o $@ $< $(PLUGIN_LIBS)
 # Probably should separate the various flags like the following:
 #	$(CC) $(PLUG_CPPFLAGS) $(PLUG_CFLAGS) $(PLUG_LDFLAGS) -o $@ $< $(PLUG_LIBS)
 

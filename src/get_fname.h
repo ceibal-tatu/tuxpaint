@@ -19,14 +19,14 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: get_fname.h,v 1.4 2009/06/03 20:46:07 wkendrick Exp $
+  $Id: get_fname.h,v 1.5 2009/11/23 07:45:25 albert Exp $
 */
 
 #ifndef GET_FNAME_H
 #define GET_FNAME_H
 
-extern char *savedir;
-extern char *datadir;
+extern const char *savedir;
+extern const char *datadir;
 
 enum {
   DIR_SAVE,

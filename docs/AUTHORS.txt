@@ -2,14 +2,14 @@ AUTHORS.txt for Tux Paint
 
 Tux Paint - A simple drawing program for children.
 
-Copyright (c) 2002-2009 by Bill Kendrick and others
+Copyright (c) 2002-2014 by Bill Kendrick and others
 bill@newbreedsoftware.com
 http://www.tuxpaint.org/
 
 
-June 17, 2002 - June 5, 2009
+June 17, 2002 - August 6, 2014
 
-$Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
+$Id: AUTHORS.txt,v 1.291 2014/08/16 14:28:00 perepujal Exp $
 
 
 * Design and Coding:
@@ -57,6 +57,12 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   by Andrew 'akanewbie' Corcoran <akanewbie@gmail.com>
   Contributed as part of Google Summer of Code, 2008.
 
+  Label tool.
+  by Arunodai Vudem<arunvudem@gmail.com>
+  with modifications and integration by
+  Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+  Contributed as part of Google Summer of Code, 2008.
+
   Confetti, Fisheye, TV, Rosette, Picasso and Wavelets Magic Tools.
   by Adam 'foo-script' Rakowski <foo-script@o2.pl>
   Contributed as part of Google Summer of Code, 2008.
@@ -70,6 +76,9 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   Jeff Newmiller <jdnewmil@dcn.davis.ca.us>
 
   String Art Magic Tools
+  Perspective and Zoom Magic Tools
+  Blind Magic Tool
+  Mosaic hexagon, Mosaic irregular, Mosaic square Magic Tools
   by Pere Pujal i Carabantes <pere@fornol.no-ip.org>
 
   Tornado Magic Tool
@@ -83,6 +92,80 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   Public Domain.  Archived at the Internet Archive:
   http://www.archive.org/details/tornado
 
+  Xor Colors Magic Tool
+  by Lukasz Dmitrowski <lukasz.dmitrowski@gmail.com>
+
+  Gamma-correction in thumbnail/scaling routine based
+  example code from:
+  http://www.4p8.com/eric.brasseur/gamma.html
+  which was from "Gimp-gluas" plug-in for The GIMP:
+  http://pippin.gimp.org/plug-ins/gluas/
+
+  Mouse accessibility code and keyboard access
+  Ankit Choudary <ankit.goaldecided@gmail.com>, as part of GSOC 2010,
+  with integration and fixes by Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+  Onscreen keyboard support
+  Some code from 
+    Ankit Choudary <ankit.goaldecided@gmail.com>, as part of GSOC 2010,
+
+    Markus G. Kuhn <mkuhn@acm.org>, University of Cambridge, April 2001, code taken from the source code of xterm, file keysym2ucs.c
+    Richard Verhoeven <river@win.tue.nl>                                 Public Domain
+
+    Whoever who wrote keysymdef.h from the source code of xorg
+      Copyright 1987 by Digital Equipment Corporation, Maynard, Massachusetts
+      Copyright 1987, 1994, 1998  The Open Group
+        Permission to use, copy, modify, distribute, and sell this software and its
+        documentation for any purpose is hereby granted without fee, provided that
+        the above copyright notice appear in all copies and that both that
+        copyright notice and this permission notice appear in supporting
+        documentation. (full license text at the start of the file)
+
+    David.Monniaux@ens.fr and          for the file /usr/share/X11/locale/en_US.UTF-8/Compose in the package libx11-data
+    Jungshik Shin <jshin@jshin.net>    in the source code of xorg, the following copyright notice comes from the file
+                                       /usr/share/doc/libx11-data/copyright that is shipped with the Compose file.
+      Copyright (C) 2003-2006,2008 Jamey Sharp, Josh Triplett
+      Copyright ¬© 2009 Red Hat, Inc.
+      Copyright 1990-1992,1999,2000,2004,2009,2010 Oracle and/or its affiliates.
+      All rights reserved.
+
+        Permission is hereby granted, free of charge, to any person obtaining a
+        copy of this software and associated documentation files (the "Software"),
+        to deal in the Software without restriction, including without limitation
+        the rights to use, copy, modify, merge, publish, distribute, sublicense,
+        and/or sell copies of the Software, and to permit persons to whom the
+        Software is furnished to do so, subject to the following conditions:
+
+        The above copyright notice and this permission notice (including the next
+        paragraph) shall be included in all copies or substantial portions of the
+        Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+        THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+        DEALINGS IN THE SOFTWARE.
+
+    Pere Pujal i Carabantes <perepujal@gmail.com> for gluing all toghether
+    
+
+  Joystick control
+  Ankit Choudary <ankit.goaldecided@gmail.com>, as part of GSOC 2010,
+  with integration and fixes by Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+  Various other improvements and clean-ups by
+  Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+  Cleanup of warnings in magic tools by many students as part of GCI 2011
+  Dominic Monroe
+  finaiized
+  _player1537
+  YeyaSwizaw
+  Steve Ryan
+  Peter Pol√°ƒçik
+  m4tx
 
 * Graphics
 
@@ -131,6 +214,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
       + Splat
       + Star
       + Triangle (up and down)
+      + Flower (from some open clipart)
 
 
 * Starter Images
@@ -199,7 +283,21 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Caroline Ford <caroline.ford.work@googlemail.com>
 
   * Silver Frame
-    Original is by Nicu Buculei and taken from Open Clip Art. Prepared by Caroline Ford <caroline.ford.work@googlemail.com>
+    Original is by Nicu Buculei and taken from Open Clip Art.
+    Prepared by Caroline Ford <caroline.ford.work@googlemail.com>
+
+  * Hat, Elephant, Skull, Old Soviet Car, Bald Eagle, Car 2, 
+    Desert Tortoise, Gecko, Manatee, Pansy, Stained Glass,
+    Woodpecker, fish_icon, mosaic.
+    Originals from Open Clip Art and Public Domain. 
+
+  * Frame-filmstrip, frame-television, frame-screen, frame-flowers
+    frame-picture, frame-hearts, frame-heart
+    Originals from Open clipart, PD. Prepared by C Ford
+    Frame-gold made from frame-silver.
+
+  * Frame-neon
+    Caroline Ford <caroline.ford.work@googlemail.com>
 
 * Fonts
 
@@ -215,6 +313,28 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * Other fonts: See their respective "COPYING.txt" details,
     under "fonts/locale/*_docs/"...
+
+* Templates
+  * Burnt bark
+  * Cliff
+  * Corn maze
+  * Jellyfish
+  * Lighthouse
+  * Mossy bark
+  * Mossy log
+  * Mudstone
+  * Ocean splash
+  * Ocean waves
+  * Redwoods above
+  * Rocks
+  * Sheep
+  * Spider's web
+  * Sun behind clouds
+  * Sun behind leaves
+  * Trees above
+  * Trees at dusk
+  * Wool mill machine
+    Bill Kendrick <bill@newbreedsoftware.com>
 
 
 * Sound
@@ -349,22 +469,46 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
 * Translations
 
+  * Acholi translation
+    Achuma George Patrick <chanchumgpa@gmail.com>
+    Opio June Bryan
+    Ogwal Kenneth Awio
+
   * Afrikaans
     Samuel Murray (Groenkloof) <samuel@translate.org.za>
     Petri Jooste <petri.jooste@nwu.ac.za>
+    Dawid van Wyngaard
+
+  * Akan
+    Derrick Frimpong <flexyflame2006@yahoo.com>
 
   * Albanian
     Ilir Rugova <ilirrugova@gmx.de>
     Laurent Dhima <laurenti@alblinux.net>
+
+  * Amharic translation
+    Solomon Gizaw <solohavi@yahoo.com>
+    http://pootle.locamotion.org/am/tuxpaint/
 
   * Arabic
     Tilo <Drfortilo@gmail.com>
     Khaled Hosny <khaledhosny@eglug.org>
     Khalid Al Holan <alholan@gmail.com>
 
+  * Aragones
+    Juan Pablo Martinez Cortes <jpmart@unizar.es>
+
+  * Armenian
+    Anush MKRTCHYAN 
+    Jasmine Udea
+    Aram Palyan
+
+  * Assamese translation
+    Anand Kulkarni <kulkarni1016@yahoo.co.in>
+
   * Asturian
     Xandru Armesto <alarmes@wanadoo.es>
-    Mikel Gonz·lez <mikelisimu@yahoo.es>
+    Mikel Gonz√°lez <mikelisimu@yahoo.es>
 
   * Australian English
     Chris Goerner, Canonical Ltd, and Rosetta Contributors
@@ -373,21 +517,33 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   * Azerbaijani
     Jamil Farzana <jamil.farzana@gmail.com>
 
+  * Bambara translation
+    Fasokan <konate20032001@yahoo.fr>
+
   * Basque
     Juan Irigoien <juanirigoien@yahoo.es>
+    Ander Elortondo <ander.elor@gmail.com>
 
   * Belarusian
     Eugene Zelenko <greendeath@mail.ru>
+    Alexander Geroimenko <a.geroimenko@gmail.com>
+    Hleb Valoshka
+    Pavel Shalamitski
+
+  * Bosnian
+    Samir Ribiƒá
   
   * Breton
-    Korvigello˘ An Drouizi (Philippe) <drouizig@drouizig.org>
+    Korvigello√π An Drouizi (Philippe) <drouizig@drouizig.org>
 
   * British English
+    Robert Readman <robert_readman@hotmail.com>
     Gareth Owen <gowen72@yahoo.com>
 
   * Bulgarian
     Martin Zhekov <mjekov@bginfo.net>
     Yavor Doganov <yavor@doganov.org>
+    Stefani Stoyanova
 
   * Canadian English
     Matthew Lange, Canonical Ltd, and Rosetta Contributors
@@ -416,20 +572,22 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * Croatian
     Nedjeljko Jedvaj <jedvaj.nedeljko@lexunit.com>
+    Paulo Pavaƒçiƒá
   
   * Czech
     Peter Sterba <sterba@sterba.com>
-    Martin <barin@email.cz>,
+    Martin <barin@email.cz>
     Lucie Burianova <Lucie.Burianova@global-dtp.com>
     tropikhajma <tropikhajma@seznam.cz>
     Vaclav Cermak <vaclav.cermak@gmail.com>
+    Zdenek Chalupsky <chalzd@gmail.com>
 
   * Danish
     Joe Hansen <joedalton2@yahoo.dk>
     Gruppen for Lokalisering af Frit Programmel til Dansk
       <http://dansk-gruppen.dk>
     Rasmus Erik Voel Jensen <i18n@solsort.dk> [retired]
-    Mogens JÊger <mogensjaeger@get2net.dk> 
+    Mogens J√¶ger <mogensjaeger@get2net.dk> 
     Mikkel Kirkgaard Nielsen <translation@mikini.dk>
 
   * Dutch
@@ -438,26 +596,43 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Geert Stams <geertstams@wanadoo.nl>
     Michael de Rooij <micr@zeelandnet.nl>
     Bert Saal <bertsaal@gmail.com>
+    Stephanie Schilling <stephanieschilling@online.de>
+
+  * English (Australian)
+    Caroline Ford
+    Ian
+
+  * English (Canadian)
+    Caroline Ford
 
   * Esperanto
     Edmund GRIMLEY EVANS <edmundo@rano.org>
+    Felipe Castro
+    Nuno Magalh√£es
 
   * Estonian
     Henrik Pihl <henrik@saarlane.ee>
 
   * Faroese
-    Lis G¯the Ì J·kupsstovu <morshus@gmail.com>
+    Lis G√∏the √≠ J√°kupsstovu <morshus@gmail.com>
 
   * Finnish
     Jorma Karvonen <karvjorm@users.sf.net>
     Tarmo Toikkanen <tarmo.toikkanen@iki.fi>
     Niko Lewman <niko.lewman@edu.hel.fi>
+    Olli <ollinpostit@gmail.com>
 
   * French
     Jacques Chion <Jacques.Chion@wanadoo.fr>
     Charles Vidal
-    JÈrÙme Chantreau <plovemax@hotmail.com> [documentation]
+    J√©r√¥me Chantreau <plovemax@hotmail.com> [documentation]
 
+  * Fula
+    Ibraahiima SAAR <ibrahima.sarr@pulaagu.com>, Fula Localization Project, http://www.pulaar-fulfulde.org/
+
+  * Gaelic (Scottish)
+    F√≤ram na G√†idhlig
+    
   * Galician
     Leandro Regueiro <leandro.regueiro@gmail.com>
 
@@ -468,8 +643,10 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Fabian Franz <FabianFranz@gmx.de>
     Roland Illig <roland.illig@gmx.de>
     Patrick <nc-spechtpa3 {At} netcologne [Dot] de>
-    Burkhard L¸ck <lueck@hube-lueck.de>
-
+    Burkhard L√ºck <lueck@hube-lueck.de>
+    Holger Wansing
+    Pfannenstein Erik (website)
+    
   * Gronings
     J.F.M. Lange <jfm.lange@hky.de>
 
@@ -478,6 +655,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Yannis Papatzikos <papatzikos@yahoo.gr>
     Sokratis Sofianopoulos <sokratis.sofianopoulos@gmail.com>
     The Greek Linux i18n Team <i18ngr@lists.hellug.gr>  [NOTE: mailing list]
+    Yannis Kaskamanidis
 
   * Gujarati
     Kartik Mistry <kartik.mistry@gmail.com>
@@ -492,16 +670,24 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * Hindi
     Ankit Malik <ankitmalik@gmail.com>
+    aki <akash.nawani@gmail.com>
+    Ashish Arora <ashish.arora13@gmail.com>
 
   * Hungarian
-    Tˆrˆk G·bor <gabo@linuxportal.hu>
+    T√∂r√∂k G√°bor <gabo@linuxportal.hu>
     Gabor Kelemen <kelemeng@gnome.hu>
+    Nagy Akos <nagy.akos@codespring.ro>
+    Dr. Nagy Elem√©r K√°r oly
 
   * Icelandic
     Pjetur G. Hjaltason <pjetur@pjetur.net>
 
   * Indonesian
     Tedi Heriyanto <tedi_h@gmx.net>
+    T. Surya Fajri
+
+  * Inuktitut
+    Harvey Ginter <harveyginter@gmail.com>
 
   * Irish Gaelic
     Kevin Patrick Scannell <kscanne@gmail.com>
@@ -518,21 +704,31 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Mark K. Kim <mkkim214@gmail.com>
     TOYAMA Shin-ichi <shin1@wmail.plala.or.jp>
 
+  * Kannada translation
+    Savitha Shankar <savithasprasad@yahoo.com>
+    Provided by Vrundesh Waghmare <vrundesh.waghmare@gmail.com>
+
   * Khmer
     Khoem Sokhem <khoemsokhem@khmeros.info>
     Auk Piseth <piseth_dv@khmeros.info>
+
+  * Kiga translation
+    Florence Tushabe <tushabe@cit.mak.ac.ug>
 
   * Kinyarwanda
     Steve Murphy <murf@e-tools.com>
     (Based on translations by:
     Philibert Ndandali <ndandali@yahoo.fr>,
     Viateur MUGENZI <muvia1@yahoo.fr>,
-    No√´lla Mupole <s24211045@tuks.co.za>,
+    No√É¬´lla Mupole <s24211045@tuks.co.za>,
     Carole Karema <karemacarole@hotmail.com>,
     JEAN BAPTISTE NGENDAHAYO <ngenda_denis@yahoo.co.uk>,
     Augustin KIBERWA,
     Donatien NSENGIYUMVA <ndonatienuk@yahoo.co.uk>, and
     Antoine Bigirimana <antoine@e-tools.com>.)
+
+  * Konkani (Devaganari and Roman)
+    Rahul Borade <rahulborade01@gmail.com>
 
   * Korean
     Mark K. Kim <mkkim214@gmail.com>
@@ -541,7 +737,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Mark K. Kim <mkkim214@gmail.com>
   
   * Kurdish
-    Amed «eko Jiyan <amedcj@gmail.com>
+    Amed √áeko Jiyan <amedcj@gmail.com>
 
   * Latvian
     Raivis Strogonovs <raivucis@gmail.com>
@@ -552,15 +748,77 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Rita Verbauskaite
     Gintaras Go?tautas <gintaras@nes.lt>
 
+  * Luganda
+    James Olweny <sjolweny85@yahoo.co.uk>
+
+  * Luxembourgish
+    Ren√© Brandenburger <rene@brandenburger.lu>
+
   * Macedonian
     Kliment Simoncev and fleka, Canonical Ltd, and Rosetta Contributors
     via Caroline Ford <caroline.ford.work@googlemail.com>
 
+  * Maithili
+    U.Sudhakar <sudhakaru@cdac.in>
+    sk <sk>
+    Provided by Praveen Dewangan <pdvg.cdac@gmail.com>
+
   * Malay
     Muhammad Najmi Ahmad Zabidi <mnajem@linuxmail.org>
 
+  * Malayalam
+    Students of Vocational Higher Secondary School Irimpanam
+    http://vhssirimpanam.org
+    - rimal <rimalmathew@gmail.com>
+    - Abhijith P.K
+    - Appu Ajith
+    - Vishnu Ajith
+    - Harish Vijay
+    - Mathew K.Vaidyan
+    - Manu C.Kauma
+    - Sreejith P.M
+    - Nithin M
+    - Sidharth K.Bhattathiri
+    - Thomas Peter
+    - Dona C.D
+    - Anjitha venugopal
+    - Athira Venugopal
+    - Shelmi P.R
+    - Revathi Sukumaran
+    - Salu P.SAmitha Appukuttan
+    - Geegu Varghese
+    - Ashna Manoharan
+    - sreelakshmi
+    - jithu
+    - Abhinav Thomas
+    - Abhitha Thomas
+    - Sajith P.V
+    - Vishnu Vinod
+    - Senthis
+    - Vimal <vimaljoseph@gmail.com>
+    - Sameer <sameer.thahir@gmail.com>
+    - Sanal <sanalmadatheth@gmail.com>
+    - Sooraj <soorajkenoth@gmail.com>
+    - V Sasi Kumar <sasi.fsf@gmail.com>
+    Sonith Kumar <sonith.kumar153@gmail.com>
+    Haris Ibrahim K. V. <blucalvin@gmail.com>
+
+  * Manipuri (Bengali and Metei Mayek)
+    Hidam Dolen <dolenhi@gmail.com>
+    Provided by rahul dabre <rahulvdabre@yahoo.com>
+
+  * Marathi
+    Santosh Jankiram Kshetre <quicklearning@rediffmail.com>
+
   * Ndebele
     Vincent Mahlangu <vmahlangu@parliament.gov.za>
+
+  * Nepali
+    Khagen Sharma <khagen.sharma@gmail.com>
+    Provided by Neha Aphale <aphaleneha@gmail.com>
+
+  * Northern Sotho
+    Pheledi Mathibela <pheledi@mosekolatranslation.co.za>
 
   * Norwegian Bokmal
     Knut Erik Hollund <khollund@responze.net>
@@ -575,10 +833,20 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Yannig MARCHEGAY (Kokoyaya), Canonical Ltd, and Rosetta Contributors
     via Caroline Ford <caroline.ford.work@googlemail.com>
 
+  * Odia translation
+    Kaniska Padhi <kaniska2008@gmail.com>
+
   * Ojibwe
     Ed Montgomery <edm@rocketmail.com>
 
+  * Punjabi
+    Arshpreet Singh <arsh840@gmail.com>
+
+  * Persian
+    Farinaz Hedayat <farinaz.hedayat@gmail.com>
+
   * Polish
+    Piotr Kwilinski <euvcp@hotmail.com>
     Arkadiusz Lipiec <alipiec@elka.pw.edu.pl>
     Robert Glowczynski <robertg@software.com.pl>
     Tomasz 'karave' Tarach <karave@poczta.onet.pl>
@@ -587,7 +855,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * Portuguese (Brazilian)
     Fred Ulisses Maranhao <fred_maranhao@yahoo.com.br>
-    Daniel JosÈ Viana <danjovic@vespanet.com.br>
+    Daniel Jos√© Viana <danjovic@vespanet.com.br>
       - Dedicated to my beloved daughter Scarlet
     Silvio Faria <sirofa2003@yahoo.com.br>
     Adorilson Bezerra de Araujo <adorilson@gmail.com>
@@ -601,24 +869,46 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   * Romanian
     Sorin Paliga <sorin.paliga@gmail.com>
     Laurentiu Buzdugan
+    Hodorog Andrei <tocitox@gmail.com>
 
   * Russian
     Nikolay Parukhin <parukhin@gmail.com>
     Sergei Popov <skein@rambler.ru>
     Dmitriy Ivanov <ace22b@myrealbox.com>
+    Yuri Kozlov
+
+  * Sanskrit translation
+    Babita Shinde <babitagaikwad@gmail.com>
+
+  * Santali translation (Devaganari)
+    Chandrakant Dhutadmal <cpdhutadmal@yahoo.com>
+    Ganesh Murmu <g_murmu_in@yahoo.com>
+
+  * Santali translation (Ol-Chiki)
+    Chandrakant Dhutadmal <cpdhutadmal@yahoo.com>
+    Ganesh Murmu <g_murmu_in@yahoo.com>
 
   * Scottish Gaelic
     Niall Tracey <internationiall@hotmail.com>
+    Michael "Akerbeltz" Bauer <fios@akerbeltz.org>
+    GunChleoc <fios@foramnagaidhlig.net>
 
-  * Serbian
+  * Serbian cyrillic
     Aleksandar Jelenak <jelenak@verizon.net>
+    Ivana Rakic <reci.ne.silvesteru@gmail.com>
+
+  * Serbian latin
+    Ivana <reci.ne.silvesteru@gmail.com>
   
-  * Shuswap (SecwepemctÌn)
+  * Shuswap (Secwepemct√≠n)
     Neskie Manuel <neskiem@gmail.com>
+
+  * Sinhala
+    Menik Prasantha <manikprasantha@gmail.com>
 
   * Slovak
     Jaroslav Rynik <jrynik@yahoo.co.uk>
-    Peter Tuh·rsky <tuharsky@misbb.sk>
+    Peter Tuh√°rsky <tuharsky@misbb.sk>
     Milan Plzik <mmp@golem.gymzv.sk> [retired?]
     Andrej Kacian <andrej@kacian.sk>
 
@@ -632,23 +922,30 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
     Mohomodou Houssouba <mh@bollag-areal.ch>
 
   * Spanish
+    Teresa Orive <teresa.g.orive@gmail.com>
     Gabriel Gazzan <ggabriel@internet.com.uy>
     Pablo Pita <pablo.pita@kdemail.net>
+    Mat√≠as Bellone
 
   * Spanish (Mexico)
     Ignacio Tike <ignaciotike@spymac.com>
     Daniel Illingworth <webmaster@intermagen.net>
-    Luis C. Su·rez <luiscsuarez@gmail.com>
+    Luis C. Su√°rez <luiscsuarez@gmail.com>
+
+  * Sundanese
+    kumincir <ia.adnan@gmail.com>
 
   * Swahili
     Martin Benjamin <martin.benjamin@yale.edu>
     Alberto Escudero-Pascual <aep@it46.se>
+    Emanuel Feruzi <emanuel.feruzi@trilabs.co.tz>
 
   * Swedish
     Robin Rosenberg <robin.rosenberg@dewire.com>
     Daniel Nylander <po@danielnylander.se>
-    Tomas Sk‰re <tomas@nocrew.org>
+    Tomas Sk√§re <tomas@nocrew.org>
     Magnus Dahl <magnus.dahl@bredband.net>
+    Henrik Holst <henrik.holst@millistream.com>
     Daniel Andersson <daniel@septum.org> [retired]
 
   * Tagalog
@@ -661,6 +958,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * Telugu
     Pavithran Shakamuri <pavithran.s@gmail.com>
+    saikumar <ramukiashc@gmail.com> as a task in GCI
 
   * Thai
     Ouychai Chaita <ae.freeman@gmail.com>
@@ -673,6 +971,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * Turkish
     Doruk Fisek <dfisek@fisek.com.tr>
+    Enes Burhan KURAN <asd@gmail.com>
 
   * Twi
     Joana Portia Antwi-Danso <portnass2003@yahoo.com>
@@ -681,8 +980,14 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   * Ukranian / Urkanian documentation
     Serhij Dubyk <serhijdubyk@gmail.com>
 
+  * Valencian
+    Pilar Embid Giner <embid_mar@gva.es>
+
   * Venda
     Shumani Mercy Nehulaudzi <nevhulaudzi@saps.org.za>>
+
+  * Venetian
+    Fabio Lazarin, El Galep√¨n <mistro@elgalepin.com>
 
   * Vietnamese
     Le Quang Phan <lqphan@hn.vnn.vn>
@@ -700,11 +1005,16 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
   * Zapoteco
     Rodrigo Perez Ramirez and Indigenas Sin Fronteras <isf_mx@yahoo.com>
     
+  * Zulu
+    sipho <sipho@translate.org.za>
 
 * Ports and Packaging
 
   * Windows 32-bit coding and builds
     John Popplewell <john@johnnypops.demon.co.uk>
+
+  * Tweaks to help Windows cross-compiling under Linux
+    Volker Grabsch <vog@notjusthosting.com>
 
   * Mac OS X coding and builds
     Martin Fuhrer <mfuhrer@users.sourceforge.net>
@@ -715,6 +1025,7 @@ $Id: AUTHORS.txt,v 1.216 2009/06/24 17:29:00 secretlondon Exp $
 
   * BeOS coding and builds
     Luc 'Begasus' Schrijvers <Begasus@skynet.be>
+    Scott McCreary <scottmc@users.sourceforge.net>
     Marcin 'Shard' Konicki <shard at beosjournal.org>  [retired]
 
   * Debian Linux packages

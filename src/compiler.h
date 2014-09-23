@@ -24,8 +24,8 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  June 14, 2002 - February 18, 2006
-  $Id: compiler.h,v 1.5 2006/08/27 21:00:55 wkendrick Exp $
+  June 14, 2002 - February 24, 2010
+  $Id: compiler.h,v 1.8 2013/11/04 19:17:33 scottmc Exp $
 */
 
 #ifdef WIN32
@@ -52,13 +52,13 @@
   WIN32 and MINGW don't have strcasestr().
 */
 #define NOMINMAX
-#include "Shlwapi.h"
+#include "shlwapi.h"
 #define strcasestr StrStrI
 #endif /* WIN32 */
 
 
 
-
+#ifndef __HAIKU__
 #ifdef __GNUC__
 // This version has strict type checking for safety.
 // See the "unnecessary" pointer comparison. (from Linux)
@@ -76,6 +76,7 @@
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 #endif
+#endif /* Not Haiku */
 
 #define clamp(lo,value,hi)    (min(max(value,lo),hi))
 
@@ -116,6 +117,12 @@
 #define likely(x)       (x)
 #define unlikely(x)     (x)
 #define expected(x,y)   (x)
+#endif
+
+#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
+#define MUST_CHECK __attribute__((warn_unused_result))
+#else
+#define MUST_CHECK
 #endif
 
 

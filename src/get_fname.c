@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: get_fname.c,v 1.4 2009/06/03 20:46:07 wkendrick Exp $
+  $Id: get_fname.c,v 1.5 2009/11/23 07:45:25 albert Exp $
 */
 
 #include <stdio.h>
@@ -28,18 +28,7 @@
 
 #include "get_fname.h"
 #include "debug.h"
-
-char *savedir;
-char *datadir;
-
-
-/* The filename for the current image: */
-
-char *get_fname(const char *const name, int kind)
-{
-  char f[512];
-  char * dir;
-
+#include "compiler.h"
 
   /* DIR_SAVE: Where is the user's saved directory?
      This is where their saved files are stored
@@ -58,43 +47,23 @@ char *get_fname(const char *const name, int kind)
      DIR_DATA: Where is the user's data directory?
      This is where local fonts, brushes and stamps can be found. */
 
-  if (kind == DIR_SAVE)
-    dir = savedir;
-  else if (kind == DIR_DATA)
-    dir = datadir;
-  else
-    return NULL;
 
+const char *savedir;
+const char *datadir;
 
-#ifdef WIN32
-  snprintf(f, sizeof(f), "%s/%s", dir, name);
-#elif __BEOS__
-  if (*name == '\0')
-    strcpy(f, dir);
-  else
-    snprintf(f, sizeof(f), "%s/%s", dir, name);
-#endif
+// FIXME: We shouldn't be allocating memory all the time.
+//        There should be distinct functions for each directory.
+//        There should be distinct functions for each thread,
+//        for caller-provided space, and maybe callee strdup.
+//        That's at most 4 functions per Tux Paint thread.
 
+char *get_fname(const char *const name, int kind)
+{
+  char f[512];
+  const char *restrict const dir = (kind==DIR_SAVE) ? savedir : datadir;
 
-  /* Put together home directory path + settings directory + filename... */
-
-  if (dir == NULL)
-  {
-    fprintf(stderr, "Warning: get_fname() has a NULL dir...!?\n");
-    return strdup(name);;
-  }
-
-  if (*name != '\0')
-  {
-    /* (Some mkdir()'s don't like trailing slashes) */
-
-    snprintf(f, sizeof(f), "%s/%s", dir, name);
-  }
-  else
-  {
-    snprintf(f, sizeof(f), "%s", dir);
-  }
+  // Some mkdir()'s don't like trailing slashes
+  snprintf(f, sizeof(f), "%s%c%s", dir, (*name)?'/':'\0', name);
 
   return strdup(f);
 }
-

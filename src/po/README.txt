@@ -16,3 +16,8 @@ Thanks to Karl Ove Hufthammer for explaining these steps.
 
 -----------
 Both steps are the same? Do we ever run create_pot.sh?
+
+
+Run "check_translations.sh file.po" when you add a new translation, it should 
+look at the different places where the translation should be listed and tell 
+you if there is any problem.

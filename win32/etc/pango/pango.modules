@@ -1,7 +1,7 @@
 # Pango Modules file
 # Automatically generated file, do not edit
 #
-# ModulesPath = lib\pango\1.6.0\modules
+# ModulesPath = lib/pango/1.6.0/modules
 #
 "lib\\pango\\1.6.0\\modules\\pango-arabic-fc.dll" ArabicScriptEngineFc PangoEngineShape PangoRenderFc arabic:* nko:*
 "lib\\pango\\1.6.0\\modules\\pango-arabic-lang.dll" ArabicScriptEngineLang PangoEngineLang PangoRenderNone arabic:*

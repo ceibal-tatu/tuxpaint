@@ -1,14 +1,14 @@
                                    Tux Paint
-                                 version 0.9.21
+                                 version 0.9.22
                               Extending Tux Paint
 
-                Copyright 2002-2008 by Bill Kendrick and others
+                Copyright 2002-2009 by Bill Kendrick and others
                                New Breed Software
 
                            bill@newbreedsoftware.com
                             http://www.tuxpaint.org/
 
-                         June 14, 2002 - July 10, 2008
+                          June 14, 2002 - July 1, 2009
 
      ----------------------------------------------------------------------
 
@@ -48,8 +48,8 @@ Where Files Go
     Mac OS X
 
          Tux Paint stores its data files inside the "Tux Paint" application
-         (which is actually a special kind of folder on Mac OS X). The following
-         steps explain how to get to the folders within:
+         (which is actually a special kind of folder on Mac OS X). The
+         following steps explain how to get to the folders within:
 
           1. Bring up a 'context' menu by holding the [Control] key and
              clicking the Tux Paint icon the in Finder. (If you have a mouse
@@ -63,9 +63,10 @@ Where Files Go
              content available to any user that launches this copy (icon) of
              Tux Paint.
 
-         If you install a newer version of Tux Paint and replace or discard
-         the old version, you will lose changes made by following the instructions
-         above, so keep backups of your new content (stamps, brushes, etc.).
+         Note: If you install a newer version of Tux Paint and replace or
+         discard the old version, you will lose changes made by following the
+         instructions above, so keep backups of your new content (stamps,
+         brushes, etc.).
 
          Tux Paint also looks for files in a "TuxPaint" folder that you can
          place in your system's "Application Support" folder (found under
@@ -77,9 +78,10 @@ Where Files Go
 
            /Users/(user name)/Library/Application Support/TuxPaint/
 
-         When you upgrade to a newer version of Tux Paint, the contents of this
-         TuxPaint folder will stay the same and remain accessible by all users
-         of Tux Paint.
+         When you upgrade to a newer version of Tux Paint, the contents of
+         this TuxPaint folder will stay the same and remain accessible by all
+         users of Tux Paint.
+
      ----------------------------------------------------------------------
 
   Personal Files
@@ -96,10 +98,10 @@ Where Files Go
 
     Mac OS X
 
-         Your personal Tux Paint folder is stored in your "Application Support"
-         folder:
+         Your personal Tux Paint folder is stored in your "Application
+         Support" folder:
 
-           /Users/(user name)/Library/Application Support/TuxPaint/
+           /Users/(user name)/Library/Application Support/ TuxPaint/
 
     Linux and Unix
 
@@ -494,10 +496,15 @@ Fonts
        (that will come out as white in Tux Paint), and save it as a PNG
        format file.
 
-       Note: A common mistake is to make the image black and white, rather
-       than black and transparent. Unless there are transparent zones in the
-       'starter' image, all drawing done by the user in Tux Paint will be
-       covered up by the 'starter'.
+       Note: Previous to Tux Paint 0.9.21, images needed to be black and
+       transparent. As of 0.9.21, if a Starter is black and white, with no
+       transparency, white will be converted to transparent when the Starter
+       is opened.
+
+       Note: Previous to Tux Paint 0.9.22, Starters had to be in PNG or JPEG
+       (backgrounds only) format. As of 0.9.22, they may be in SVG (vector
+       graphics) or KPX (templates from Kid Pix, another childrens' drawing
+       program; they are special files which simply contain a JPEG within).
 
      Scene-Style
 
@@ -546,6 +553,50 @@ Fonts
      to affect the drawing even after Tux Paint has been quit, or another
      picture loaded or started. (In other words, if you base a drawing on a
      'starter' image, it will always be affected by it.)
+
+     ----------------------------------------------------------------------
+
+'Templates'
+
+     'Template' images also appear in the 'New' dialog, along with solid
+     color background choices and 'Starters'. (Note: Tux Paint prior to
+     version 0.9.22 did not have the 'Template' feature.)
+
+     Unlike pictures drawn in Tux Paint by users and then opened later,
+     opening a 'template' creates a new drawing. When you save, the
+     'template' image is not overwritten. Unlike 'starters', there is no
+     immutable 'layer' above the canvas. You may draw over any part of it.
+
+     When the 'Eraser' tool is used on a picture based on a 'template',
+     rather than turning the canvas to a solid color, such as white, it
+     returns that part of the canvas to the original picture from the
+     'template'.
+
+     'Templates' are simply image files (in PNG, JPG, SVG or KPX format). No
+     preparation or conversion should be required.
+
+     The 'template' images should be the same size as Tux Paint's canvas.
+     (See the "Loading Other Pictures into Tux Paint" section of README for
+     details on sizing.) If they are not, they will be stretched, without
+     affecting the shape ("aspect ratio"); however some smudging may be
+     applied to the edges.
+
+     Place them in the "templates" directory. When the 'New' dialog is
+     accessed in Tux Paint, the 'template' images will appear in the screen
+     that appears, after the various solid color choices and 'starters'.
+
+     Note: 'Templates' can't be saved over from within Tux Paint, since
+     loading a 'template' is really like creating a new image. (Instead of
+     being blank, though there's already something there to work with.) The
+     'Save' command simply creates a new picture, like it would if the 'New'
+     command had been used.
+
+     Note: 'Templates' are 'attached' to saved pictures, via a small text
+     file that has the same name as the saved file, but with ".dat" as the
+     extension. This allows the background to continue to be available to the
+     drawing (e.g., when using the 'Eraser' tool) even after Tux Paint has
+     been quit, or another picture loaded or started. (In other words, if you
+     base a drawing on a 'template' image, it will always be affected by it.)
 
      ----------------------------------------------------------------------
 

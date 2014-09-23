@@ -1,7 +1,7 @@
 /*
   fonts.h
 
-  Copyright (c) 2009
+  Copyright (c) 2009-2014
   http://www.tuxpaint.org/
 
   This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: fonts.h,v 1.13 2009/06/03 20:46:07 wkendrick Exp $
+  $Id: fonts.h,v 1.21 2014/04/19 18:04:55 wkendrick Exp $
 */
 
 #ifndef FONTS_H
@@ -56,6 +56,9 @@
  * Move into 'fonts.c' and the code in 'tuxpaint.c' 
  * that uses this lot should be put into 'fonts.c' as well.
  */
+
+#ifdef NO_SDLPANGO
+/* Only kill SDL_thread stuff when we're not using Pango, because we need it to let fontconfig make its cache (takes a long time the first time) -bjk 2010.04.27 */
 #define SDL_CreateThread(fn,vp) (void*)(long)(fn(vp))
 #define SDL_WaitThread(tid,rcp) do{(void)tid;(void)rcp;}while(0)
 #define SDL_Thread int
@@ -66,16 +69,17 @@
 #define SDL_mutexV(lock)	// release lock
 #endif
 
+#endif
+
 extern SDL_Thread *font_thread;
 
-extern volatile long font_thread_done, font_thread_aborted;
+extern volatile long font_thread_done;
+extern volatile long font_thread_aborted;
 extern volatile long waiting_for_fonts;
-extern int font_scanner_pid;
 extern int font_socket_fd;
 
 extern int no_system_fonts;
 extern int all_locale_fonts;
-extern int was_bad_font;
 
 /* FIXME: SDL_ttf is up to 2.0.8, so we can probably fully remove this;
    -bjk 2007.06.05 */
@@ -101,19 +105,16 @@ typedef struct TuxPaint_Font_s {
   int typ;
   TTF_Font * ttf_font;
   int height;
+  char * desc;
 } TuxPaint_Font;
 
 int TuxPaint_Font_FontHeight(TuxPaint_Font * tpf);
 
 
-TuxPaint_Font *try_alternate_font(int size);
-TuxPaint_Font *load_locale_font(TuxPaint_Font * fallback, int size);
-int load_user_fonts(SDL_Surface * screen, void *vp, char * locale);
-
 #ifdef FORKED_FONTS
 void reliable_write(int fd, const void *buf, size_t count);
-void reliable_read(int fd, void *buf, size_t count);
-void run_font_scanner(SDL_Surface * screen, char * locale);
+static void reliable_read(int fd, void *buf, size_t count);
+void run_font_scanner(SDL_Surface * screen, const char *restrict const locale);
 void receive_some_font_info(SDL_Surface * screen);
 #endif
 
@@ -171,26 +172,15 @@ extern TuxPaint_Font *medium_font, *small_font, *large_font, *locale_font;
 
 extern family_info **user_font_families;
 extern int num_font_families;
-extern int num_font_families_max;
 
 extern style_info **user_font_styles;
 extern int num_font_styles;
 extern int num_font_styles_max;
 
+extern int button_label_y_nudge;
 
-int compar_fontgroup(const void *v1, const void *v2);
-int compar_fontkiller(const void *v1, const void *v2);
-int compar_fontscore(const void *v1, const void *v2);
-void parse_font_style(style_info * si);
-void groupfonts_range(style_info ** base, int count);
-void dupe_markdown_range(family_info ** base, int count);
-void groupfonts(void);
 TuxPaint_Font *getfonthandle(int desire);
-void loadfonts(SDL_Surface * screen, const char *const dir);
 
-int do_surfcmp(const SDL_Surface * const *const v1,
-	       const SDL_Surface * const *const v2);
-int surfcmp(const void *s1, const void *s2);
 int charset_works(TuxPaint_Font * font, const char *s);
 
 TuxPaint_Font * TuxPaint_Font_OpenFont(const char * pangodesc, const char * ttffilename, int size);
@@ -198,9 +188,12 @@ void TuxPaint_Font_CloseFont(TuxPaint_Font * tpf);
 const char * TuxPaint_Font_FontFaceFamilyName(TuxPaint_Font * tpf);
 const char * TuxPaint_Font_FontFaceStyleName(TuxPaint_Font * tpf);
 
-#ifndef NO_SDLPANGO
-void sdl_color_to_pango_color(SDL_Color sdl_color,
-                              SDLPango_Matrix * pango_color);
+#ifdef NO_SDLPANGO
+TuxPaint_Font *load_locale_font(TuxPaint_Font * fallback, int size);
+#else
+void sdl_color_to_pango_color(SDL_Color sdl_color, SDLPango_Matrix *pango_color);
 #endif
+
+int load_user_fonts(SDL_Surface * screen, void *vp, const char *restrict const locale);
 
 #endif

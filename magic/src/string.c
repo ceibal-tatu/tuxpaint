@@ -73,9 +73,12 @@ Uint32 string_api_version(void)
   return(TP_MAGIC_API_VERSION);
 }
 
-int string_modes(__attribute__((unused)) magic_api * api, __attribute__((unused)) int which)
+int string_modes(__attribute__((unused)) magic_api * api, int which)
 {
-  return(MODE_PAINT);
+  if (which ==  STRING_TOOL_FULL_BY_OFFSET)
+    return(MODE_PAINT);
+  else
+    return(MODE_PAINT_WITH_PREVIEW);
 }
 
 void string_set_color(__attribute__((unused)) magic_api * api, Uint8 r, Uint8 g, Uint8 b)
@@ -206,7 +209,7 @@ void string_switchin(__attribute__((unused)) magic_api * api, __attribute__((unu
 void string_switchout(__attribute__((unused)) magic_api * api, __attribute__((unused)) int which, __attribute__((unused)) int mode, __attribute__((unused)) SDL_Surface * canvas, __attribute__((unused)) SDL_Surface * snapshot)
 {
   SDL_FreeSurface(canvas_backup);
-  canvas_backup=0;
+  canvas_backup=NULL;
 }
 
 // Interactivity functions

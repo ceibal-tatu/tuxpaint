@@ -12,18 +12,18 @@ alt="Tux&nbsp;Paint"><br>
 
 version
 
-0.9.21
+0.9.22
 
 <br>
 Extending Tux Paint</h1>
 
-<p>Copyright 2002-2008 by Bill Kendrick and others<br>
+<p>Copyright 2002-2009 by Bill Kendrick and others<br>
 New Breed Software</p>
 
 <p><a href="mailto:bill@newbreedsoftware.com">bill@newbreedsoftware.com</a><br>
 <a href="http://www.tuxpaint.org/">http://www.tuxpaint.org/</a></p>
 
-<p>June 14, 2002 - July 10, 2008</p>
+<p>June 14, 2002 - July 1, 2009</p>
 </center>
 
 <hr size=2 noshade>
@@ -643,10 +643,16 @@ effect.</p>
     (that will come out as white in Tux&nbsp;Paint), and save it as a
     PNG format file.</p>
 
-    <p><b>Note:</b> A common mistake is to make the image black and white,
-    rather than black and transparent.  Unless there are transparent zones
-    in the 'starter' image, <i>all</i> drawing done by the user in
-    Tux&nbsp;Paint will be covered up by the 'starter'.</p>
+    <p><b>Note:</b> Previous to Tux Paint 0.9.21, images needed to be
+    black and transparent.  As of 0.9.21, if a Starter is black and white,
+    with no transparency, white will be converted to transparent when the
+    Starter is opened.</p>
+
+    <p><b>Note:</b> Previous to Tux Paint 0.9.22, Starters had to be in
+    PNG or JPEG (backgrounds only) format.  As of 0.9.22, they may be in
+    SVG (vector graphics) or KPX (templates from Kid Pix, another childrens'
+    drawing program; they are special files which simply contain a JPEG
+    within).</p>
   </blockquote>
 
   <b>Scene-Style</b>
@@ -701,6 +707,57 @@ effect.</p>
   Tux&nbsp;Paint has been quit, or another picture loaded or started.
   (In other words, if you base a drawing on a 'starter' image, it will
   always be affected by it.)</p>
+
+  <br clear=all>
+</blockquote>
+
+<hr size=1 noshade>
+
+<h2>'Templates'</h2>
+<blockquote>
+  <img src="images/open_open.png" width=48 height=48 alt="" align=right>
+
+  <p>'Template' images also appear in the 'New' dialog, along with solid
+  color background choices and 'Starters'. (Note: Tux Paint prior to
+  version 0.9.22 did not have the 'Template' feature.)</p>
+  
+  <p>Unlike pictures drawn in Tux&nbsp;Paint by users and then opened
+  later, opening a 'template' creates a new drawing.  When you save, the
+  'template' image is not overwritten.  Unlike 'starters', there is no
+  immutable 'layer' above the canvas. You may draw over any part of it.</p>
+
+  <p>When the 'Eraser' tool is used on a picture based on a 'template',
+  rather than turning the canvas to a solid color, such as white, it
+  returns that part of the canvas to the original picture from the
+  'template'.</p>
+
+  <p>'Templates' are simply image files (in PNG, JPG, SVG or KPX format).
+  No preparation or conversion should be required.</p>
+  
+  <p>The 'template' images should be the same size as Tux&nbsp;Paint's
+  canvas.  (See the "Loading Other Pictures into Tux&nbsp;Paint" section of
+  <a href="README.html">README</a> for details on sizing.)  If they are not,
+  they will be stretched, without affecting the shape ("aspect ratio");
+  however some smudging may be applied to the edges.</p>
+  
+  <p>Place them in the "<code><b>templates</b></code>" directory.
+  When the 'New' dialog is accessed in Tux&nbsp;Paint, the 'template'
+  images will appear in the screen that appears, after the various solid color
+  choices and 'starters'.</p>
+  
+  <p><b>Note:</b> 'Templates' can't be saved over from within Tux&nbsp;Paint,
+  since loading a 'template' is really like creating a new image.
+  (Instead of being blank, though there's already something there to work
+  with.)  The 'Save' command simply creates a new picture, like it would
+  if the 'New' command had been used.</p>
+
+  <p><b>Note:</b> 'Templates' are 'attached' to saved pictures, via a
+  small text file that has the same name as the saved file, but with
+  "<code>.dat</code>" as the extension.  This allows the background
+  to continue to be available to the drawing (e.g., when using the 'Eraser'
+  tool) even after Tux&nbsp;Paint has been quit, or another picture loaded
+  or started.  (In other words, if you base a drawing on a 'template' image,
+  it will always be affected by it.)</p>
 
   <br clear=all>
 </blockquote>

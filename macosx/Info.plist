@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Tux Paint</string>
 	<key>CFBundleGetInfoString</key>
-	<string>0.9.20, Copyright 2008, Tux Paint Development Team</string>
+	<string>0.9.22, Copyright 2009, Tux Paint Development Team</string>
 	<key>CFBundleIconFile</key>
 	<string>tuxpaint.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -19,11 +19,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.20</string>
+	<string>0.9.22</string>
 	<key>CFBundleSignature</key>
 	<string>TXPT</string>
 	<key>CFBundleVersion</key>
-	<string>2008-06-28</string>
+	<string>2009-06-29</string>
 	<key>NSMainNibFile</key>
 	<string>SDLMain</string>
 	<key>NSPrincipalClass</key>

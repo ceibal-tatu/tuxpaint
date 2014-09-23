@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: cartoon.c,v 1.11 2008/07/10 20:26:39 wkendrick Exp $
+  $Id: cartoon.c,v 1.12 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -42,6 +42,32 @@ static Mix_Chunk * cartoon_snd;
 
 #define OUTLINE_THRESH 48
 
+/* Local function prototypes: */
+int cartoon_init(magic_api * api);
+Uint32 cartoon_api_version(void);
+int cartoon_get_tool_count(magic_api * api);
+SDL_Surface * cartoon_get_icon(magic_api * api, int which);
+char * cartoon_get_name(magic_api * api, int which);
+char * cartoon_get_description(magic_api * api, int which, int mode);
+static void do_cartoon(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+		       int x, int y);
+void cartoon_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void cartoon_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void cartoon_release(magic_api * api, int which,
+		     SDL_Surface * canvas, SDL_Surface * last,
+		     int x, int y, SDL_Rect * update_rect);
+void cartoon_shutdown(magic_api * api);
+void cartoon_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int cartoon_requires_colors(magic_api * api, int which);
+void cartoon_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void cartoon_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int cartoon_modes(magic_api * api, int which);
+
+
 
 // No setup required:
 int cartoon_init(magic_api * api)
@@ -58,13 +84,13 @@ int cartoon_init(magic_api * api)
 Uint32 cartoon_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 // We have multiple tools:
-int cartoon_get_tool_count(magic_api * api)
+int cartoon_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(1);
 }
 
 // Load our icons:
-SDL_Surface * cartoon_get_icon(magic_api * api, int which)
+SDL_Surface * cartoon_get_icon(magic_api * api, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -75,13 +101,13 @@ SDL_Surface * cartoon_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * cartoon_get_name(magic_api * api, int which)
+char * cartoon_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Cartoon")));
 }
 
 // Return our descriptions, localized:
-char * cartoon_get_description(magic_api * api, int which, int mode)
+char * cartoon_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop(
 "Click and move the mouse around to turn the picture into a cartoon.")));
@@ -89,7 +115,7 @@ char * cartoon_get_description(magic_api * api, int which, int mode)
 
 // Do the effect:
 
-static void do_cartoon(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+static void do_cartoon(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * last,
                 int x, int y)
 {
   magic_api * api = (magic_api *) ptr;
@@ -191,7 +217,7 @@ void cartoon_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void cartoon_click(magic_api * api, int which, int mode,
+void cartoon_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -199,39 +225,39 @@ void cartoon_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void cartoon_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void cartoon_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+		     SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+		     int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void cartoon_shutdown(magic_api * api)
+void cartoon_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (cartoon_snd != NULL)
     Mix_FreeChunk(cartoon_snd);
 }
 
 // Record the color from Tux Paint:
-void cartoon_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void cartoon_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int cartoon_requires_colors(magic_api * api, int which)
+int cartoon_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void cartoon_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void cartoon_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void cartoon_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void cartoon_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int cartoon_modes(magic_api * api, int which)
+int cartoon_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT); /* FIXME - Can also be turned into a full-image effect */
 }

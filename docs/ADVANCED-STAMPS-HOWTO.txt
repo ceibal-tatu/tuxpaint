@@ -1,5 +1,5 @@
                                    Tux Paint
-                                 version 0.9.21
+                                 version 0.9.22
                              Advanced Stamps HOWTO
 
         Copyright 2006-2008 by Albert Cahalan for the Tux Paint project
@@ -8,7 +8,7 @@
                               albert@users.sf.net
                             http://www.tuxpaint.org/
 
-                          March 8, 2006 - July 7, 2008
+                          March 8, 2006 - July 1, 2009
 
 About this HOWTO
 

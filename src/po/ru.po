@@ -1,21 +1,25 @@
-# Tux Paint Russian messages
+# Tux Paint Russian messages.
 # Copyright (C) 2003-2004
+# This file is distributed under the same license as the tuxpaint package.
 # Translators: Dmitriy Ivanov <ace22b@myrealbox.com>
 #              Eugene Zelenko <greendeath@mail.ru>
+# Yuri Kozlov <yuray@komyakino.ru>, 2014.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: TuxPaint\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-19 12:57-0700\n"
-"PO-Revision-Date: 2009-03-30 12:55+0300\n"
-"Last-Translator: Nikolay Parukhin <nik@sevpinro.ru>\n"
-"Language-Team: Dmitriy Ivanov <ace22b@myrealbox.com>\n"
+"POT-Creation-Date: 2013-10-26 17:43+0900\n"
+"PO-Revision-Date: 2014-05-29 20:24+0400\n"
+"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
-"X-Poedit-Language: Russian\n"
-"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"Language: ru\n"
+"X-Generator: Lokalize 1.5\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 # При выборе чёрного (0, 0, 0) цвета
 #. Response to Black (0, 0, 0) color selected
@@ -161,12 +165,11 @@ msgstr "оО"
 msgid ",.?!"
 msgstr ",.?!"
 
+#  msgid "`\\%_@$~#{}<>^&*"
 #. uncommon punctuation (e.g., '@', '#', '*', etc.)
 #: ../dirwalk.c:197
-#, fuzzy
-#| msgid "`\\%_@$~#{}<>^&*"
 msgid "`\\%_@$~#{<(^&*"
-msgstr "`\\%_@$~#{}<>^&*"
+msgstr "`\\%_@$~#{<(^&*"
 
 #. digits (e.g., '0', '1' and '7')
 #: ../dirwalk.c:200
@@ -185,19 +188,19 @@ msgstr "1Il|"
 
 #: ../dirwalk.c:210
 msgid "<1>spare-1a"
-msgstr ""
+msgstr "<1>дополнительная-1a"
 
 #: ../dirwalk.c:211
 msgid "<1>spare-1b"
-msgstr ""
+msgstr "<1>дополнительная-1b"
 
 #: ../dirwalk.c:212
 msgid "<9>spare-9a"
-msgstr ""
+msgstr "<9>дополнительная-9a"
 
 #: ../dirwalk.c:213
 msgid "<9>spare-9b"
-msgstr ""
+msgstr "<9>дополнительная-9b"
 
 # Поздравление №1
 #. Congratulations #1
@@ -367,101 +370,106 @@ msgstr "Штампы"
 
 #. Title of shape selector (buttons down the right for shapes tool)
 #. Shape creation tool (square, circle, etc.)
-#: ../titles.h:71 ../tools.h:69
+#: ../titles.h:71 ../tools.h:71
 msgid "Shapes"
 msgstr "Формы"
 
-#. Title of font selector (buttons down the right for text tool)
+#. Title of font selector (buttons down the right for text and label tools)
 #: ../titles.h:74
 msgid "Letters"
 msgstr "Буквы"
 
 #. Title of magic tool selector (buttons down the right for magic (effect plugin) tool)
 #. "Magic" effects tools (blur, flip image, etc.)
-#: ../titles.h:77 ../tools.h:75
+#: ../titles.h:77 ../tools.h:83
 msgid "Magic"
 msgstr "Магия"
 
 #. Freehand painting tool
-#: ../tools.h:60
+#: ../tools.h:62
 msgid "Paint"
 msgstr "Краска"
 
 #. Stamp tool (aka Rubber Stamps)
-#: ../tools.h:63
+#: ../tools.h:65
 msgid "Stamp"
 msgstr "Штамп"
 
 #. Line drawing tool
-#: ../tools.h:66
+#: ../tools.h:68
 msgid "Lines"
 msgstr "Линии"
 
 #. Text tool
-#: ../tools.h:72
+#: ../tools.h:74
 msgid "Text"
 msgstr "Текст"
 
+#. Label tool
+#: ../tools.h:77
+msgid "Label"
+msgstr "Метка"
+
 #. Undo last action
-#: ../tools.h:78
+#: ../tools.h:86
 msgid "Undo"
 msgstr "Откат"
 
 #. Redo undone action
-#: ../tools.h:81
+#: ../tools.h:89
 msgid "Redo"
 msgstr "Возврат"
 
 #. Eraser tool
-#: ../tools.h:84
+#: ../tools.h:92
 msgid "Eraser"
 msgstr "Ластик"
 
 #. Start a new picture
-#: ../tools.h:87
+#: ../tools.h:95
 msgid "New"
 msgstr "Новая"
 
 #. Open a saved picture
 #. buttons for the file open dialog
 #. Open dialog: 'Open' button, to load the selected picture
-#: ../tools.h:90 ../tuxpaint.c:7998
+#: ../tools.h:98 ../tuxpaint.c:7605
 msgid "Open"
 msgstr "Открыть"
 
 #. Save the current picture
-#: ../tools.h:93
+#: ../tools.h:101
 msgid "Save"
 msgstr "Сохранить"
 
 #. Print the current picture
-#: ../tools.h:96
+#: ../tools.h:104
 msgid "Print"
 msgstr "Печать"
 
 #. Quit/exit Tux Paint application
-#: ../tools.h:99
+#: ../tools.h:107
 msgid "Quit"
 msgstr "Выйти"
 
 #. Paint tool instructions
-#: ../tools.h:107
+#: ../tools.h:115
 msgid "Pick a color and a brush shape to draw with."
 msgstr "Выберите цвет и форму кисточки, которой вы хотите рисовать."
 
 #. Stamp tool instructions
-#: ../tools.h:110
+#: ../tools.h:118
 msgid "Pick a picture to stamp around your drawing."
-msgstr "Выберите картину, чтобы поставить печать на вашем рисунке."
+msgstr "Выберите картинку для копирования на рисунок."
 
 #. Line tool instructions
-#: ../tools.h:113
+#: ../tools.h:121
 msgid "Click to start drawing a line. Let go to complete it."
 msgstr ""
 "Щёлкните, чтобы начать рисовать линию. Отпустите кнопку, чтобы закончить."
 
 #. Shape tool instructions
-#: ../tools.h:116
+#: ../tools.h:124
 msgid ""
 "Pick a shape. Click to pick the center, drag, then let go when it is the "
 "size you want. Move around to rotate it, and click to draw it."
@@ -470,253 +478,270 @@ msgstr ""
 "отпустите. Покрутите форму, затем щёлкните, чтобы нарисовать её."
 
 #. Text tool instructions
-#: ../tools.h:119
-msgid "Choose a style of text. Click on your drawing and you can start typing."
-msgstr "Выберите стиль текста. Щёлкните на вашем рисунке, и печатайте."
+#: ../tools.h:127
+msgid ""
+"Choose a style of text. Click on your drawing and you can start typing. "
+"Press [Enter] or [Tab] to complete the text."
+msgstr ""
+"Выберите стиль текста. Щёлкните на вашем рисунке, и печатайте. Нажмите  "
+"[Enter] или [Tab] для завершения."
+
+#. Label tool instructions
+#: ../tools.h:130
+msgid ""
+"Choose a style of text. Click on your drawing and you can start typing. "
+"Press [Enter] or [Tab] to complete the text. By using the selector button "
+"and clicking an exist label, you can move it, edit it and change its text "
+"style."
+msgstr ""
+"Выберите стиль текста. Щёлкните на вашем рисунке, и печатайте. Нажмите  "
+"[Enter] или [Tab] для завершения. С помощью кнопки выбора и нажимая на "
+"существующие метки, вы можете переместить, отредактировать его и изменить "
+"стиль текста."
 
 #. Magic tool instruction
-#: ../tools.h:122
+#: ../tools.h:136
 msgid "Pick a magical effect to use on your drawing!"
-msgstr "Выберите волшебный эффект, чтобы использовать его на вашем рисунке!"
+msgstr "Выберите волшебный эффект для своего рисунка!"
 
 #. Response to 'undo' action
-#: ../tools.h:125
+#: ../tools.h:139
 msgid "Undo!"
 msgstr "Откат!"
 
 #. Response to 'redo' action
-#: ../tools.h:128
+#: ../tools.h:142
 msgid "Redo!"
 msgstr "Переделать!"
 
 #. Eraser tool
-#: ../tools.h:131
+#: ../tools.h:145
 msgid "Eraser!"
 msgstr "Стереть!"
 
 #. Response to 'start a new image' action
-#: ../tools.h:134
+#: ../tools.h:148
 msgid "Pick a color or picture with which to start a new drawing."
 msgstr "Выберите цвет или картинку, чтобы начать новый рисунок."
 
 #. Response to 'open' action (while file dialog is being constructed)
-#: ../tools.h:137
+#: ../tools.h:151
 msgid "Open…"
 msgstr "Открыть…"
 
 #. Response to 'save' action
-#: ../tools.h:140
+#: ../tools.h:154
 msgid "Your image has been saved!"
 msgstr "Ваше картинка сохранена!"
 
 #. Response to 'print' action (while printing, or print dialog is being used)
-#: ../tools.h:143
+#: ../tools.h:157
 msgid "Printing…"
 msgstr "Печатаю…"
 
 #. Response to 'quit' (exit) action
-#: ../tools.h:146
+#: ../tools.h:160
 msgid "Bye bye!"
 msgstr "Пока!"
 
 #. Instruction while using Line tool (after click, before release)
-#: ../tools.h:150
+#: ../tools.h:164
 msgid "Let go of the button to complete the line."
 msgstr "Отпустите кнопку, чтобы закончить линию."
 
 #. Instruction while using Shape tool (after first click, before release)
-#: ../tools.h:153
+#: ../tools.h:167
 msgid "Hold the button to stretch the shape."
 msgstr "Держите кнопку, чтобы растянуть форму."
 
 #. Instruction while finishing Shape tool (after release, during rotation step before second click)
-#: ../tools.h:156
+#: ../tools.h:170
 msgid "Move the mouse to rotate the shape. Click to draw it."
 msgstr "Покрутите форму, затем щёлкните, чтобы нарисовать её."
 
 #. Notification that 'New' action was aborted (current image would have been lost)
-#: ../tools.h:159
+#: ../tools.h:173
 msgid "OK then… Let’s keep drawing this one!"
 msgstr "Хорошо, продолжаем рисовать!"
 
 #. Prompt to confirm user wishes to quit
-#: ../tuxpaint.c:1855
+#: ../tuxpaint.c:2040
 msgid "Do you really want to quit?"
 msgstr "Вы действительно хотите выйти?"
 
 #. Quit prompt positive response (quit)
-#: ../tuxpaint.c:1858
+#: ../tuxpaint.c:2043
 msgid "Yes, I’m done!"
 msgstr "Да, я закончил!"
 
 #. Quit prompt negative response (don't quit)
-#: ../tuxpaint.c:1861 ../tuxpaint.c:1888
+#: ../tuxpaint.c:2046 ../tuxpaint.c:2073
 msgid "No, take me back!"
 msgstr "Нет, хочу обратно!"
 
 #. Current picture is not saved; user is quitting
-#: ../tuxpaint.c:1865
+#: ../tuxpaint.c:2050
 msgid "If you quit, you’ll lose your picture! Save it?"
 msgstr "Если вы выйдите, вы потеряете вашу картинку! Сохранить?"
 
-#: ../tuxpaint.c:1866 ../tuxpaint.c:1871
+#: ../tuxpaint.c:2051 ../tuxpaint.c:2056
 msgid "Yes, save it!"
 msgstr "Да, сохранить!"
 
-#: ../tuxpaint.c:1867 ../tuxpaint.c:1872
+#: ../tuxpaint.c:2052 ../tuxpaint.c:2057
 msgid "No, don’t bother saving!"
 msgstr "Нет, не нужно сохранять!"
 
 #. Current picture is not saved; user is opening another picture
-#: ../tuxpaint.c:1870
+#: ../tuxpaint.c:2055
 msgid "Save your picture first?"
-msgstr "Сохранить вашу картинку сначала?"
+msgstr "Сохранить вначале вашу картинку?"
 
 #. Error opening picture
-#: ../tuxpaint.c:1875
+#: ../tuxpaint.c:2060
 msgid "Can’t open that picture!"
 msgstr "Не могу открыть эту картинку!"
 
 #. Generic dialog dismissal
-#: ../tuxpaint.c:1878 ../tuxpaint.c:1883 ../tuxpaint.c:1892 ../tuxpaint.c:1899
-#: ../tuxpaint.c:1908
+#: ../tuxpaint.c:2063 ../tuxpaint.c:2068 ../tuxpaint.c:2077 ../tuxpaint.c:2084
+#: ../tuxpaint.c:2093
 msgid "OK"
 msgstr "Хорошо"
 
 #. Notification that 'Open' dialog has nothing to show
-#: ../tuxpaint.c:1882
+#: ../tuxpaint.c:2067
 msgid "There are no saved files!"
 msgstr "Нет сохранённых картинок!"
 
 #. Verification of print action
-#: ../tuxpaint.c:1886
+#: ../tuxpaint.c:2071
 msgid "Print your picture now?"
 msgstr "Напечатать вашу картинку?"
 
-#: ../tuxpaint.c:1887
+#: ../tuxpaint.c:2072
 msgid "Yes, print it!"
 msgstr "Да, распечатать!"
 
 #. Confirmation of successful (we hope) printing
-#: ../tuxpaint.c:1891
+#: ../tuxpaint.c:2076
 msgid "Your picture has been printed!"
 msgstr "Ваша картинка распечатана!"
 
 #. We got an error printing
-#: ../tuxpaint.c:1895
+#: ../tuxpaint.c:2080
 msgid "Sorry! Your picture could not be printed!"
 msgstr "Извините! Ваша картинка не может быть распечатана!"
 
 #. Notification that it's too soon to print again (--printdelay option is in effect)
-#: ../tuxpaint.c:1898
+#: ../tuxpaint.c:2083
 msgid "You can’t print yet!"
 msgstr "Вы пока не можете печатать!"
 
 #. Prompt to confirm erasing a picture in the Open dialog
-#: ../tuxpaint.c:1902
+#: ../tuxpaint.c:2087
 msgid "Erase this picture?"
 msgstr "Удалить эту картинку?"
 
-#: ../tuxpaint.c:1903
+#: ../tuxpaint.c:2088
 msgid "Yes, erase it!"
 msgstr "Да, удалить!"
 
-#: ../tuxpaint.c:1904
+#: ../tuxpaint.c:2089
 msgid "No, don’t erase it!"
 msgstr "Нет, не удалять!"
 
 #. Reminder that Mouse Button 1 is the button to use in Tux Paint
-#: ../tuxpaint.c:1907
+#: ../tuxpaint.c:2092
 msgid "Remember to use the left mouse button!"
 msgstr "Используйте только левую кнопку мыши!"
 
 # Звук можно заглушить, используя клавиатурное сокращение.
 #. Sound has been muted (silenced) via keyboard shortcut
-#: ../tuxpaint.c:2036
+#: ../tuxpaint.c:2300
 msgid "Sound muted."
 msgstr "Звук отключен."
 
 # Звук можно включить, используя клавиатурное сокращение.
 #. Sound has been unmuted (unsilenced) via keyboard shortcut
-#: ../tuxpaint.c:2041
+#: ../tuxpaint.c:2305
 msgid "Sound unmuted."
 msgstr "Звук включён."
 
 #. Wait while Text tool finishes loading fonts
-#: ../tuxpaint.c:2508
+#: ../tuxpaint.c:3052
 msgid "Please wait…"
 msgstr "Пожалуйста, подождите..."
 
-#: ../tuxpaint.c:7221
-msgid "Pick a color."
-msgstr "Выберите цвет."
-
 #. Open dialog: 'Erase' button, to erase/deleted the selected picture
-#: ../tuxpaint.c:8001
+#: ../tuxpaint.c:7608
 msgid "Erase"
 msgstr "Удалить"
 
 #. Open dialog: 'Slides' button, to switch to slide show mode
-#: ../tuxpaint.c:8004
+#: ../tuxpaint.c:7611
 msgid "Slides"
 msgstr "Слайды"
 
 #. Open dialog: 'Back' button, to dismiss Open dialog without opening a picture
-#: ../tuxpaint.c:8007
+#: ../tuxpaint.c:7614
 msgid "Back"
 msgstr "Назад"
 
 #. Slideshow: 'Next' button, to load next slide (image)
-#: ../tuxpaint.c:8010
+#: ../tuxpaint.c:7617
 msgid "Next"
 msgstr "Далее"
 
 #. Slideshow: 'Play' button, to begin a slideshow sequence
-#: ../tuxpaint.c:8013
+#: ../tuxpaint.c:7620
 msgid "Play"
 msgstr "Запуск"
 
 #. Label for 'Letters' buttons (font selector, down the right when the Text tool is being used); used to show the difference between font faces
-#: ../tuxpaint.c:8660
+#: ../tuxpaint.c:8328
 msgid "Aa"
 msgstr "Аа"
 
 #. Admittedly stupid way of determining which keys can be used for
 #. positive and negative responses in dialogs (e.g., [Y] (for 'yes') in English)
-#: ../tuxpaint.c:11661
+#: ../tuxpaint.c:11586
 msgid "Yes"
 msgstr "Да"
 
-#: ../tuxpaint.c:11665
+#: ../tuxpaint.c:11590
 msgid "No"
 msgstr "Нет"
 
 #. Prompt to ask whether user wishes to save over old version of their file
-#: ../tuxpaint.c:12631
+#: ../tuxpaint.c:12608
 msgid "Replace the picture with your changes?"
 msgstr "Заменить старую картинку?"
 
 #. Positive response to saving over old version
 #. (like a 'File:Save' action in other applications)
-#: ../tuxpaint.c:12635
+#: ../tuxpaint.c:12612
 msgid "Yes, replace the old one!"
 msgstr "Да, заменить старую картинку!"
 
 #. Negative response to saving over old version (saves a new image)
 #. (like a 'File:Save As...' action in other applications)
-#: ../tuxpaint.c:12639
+#: ../tuxpaint.c:12616
 msgid "No, save a new file!"
 msgstr "Нет, сохранить в новый файл!"
 
-#: ../tuxpaint.c:13402
+#: ../tuxpaint.c:13861
 msgid "Choose the picture you want, then click “Open”."
-msgstr "Выберите желаемую картинку, а потом щёлкните «Открыть»."
+msgstr "Выберите картинку, а потом щёлкните «Открыть»."
 
 #. Let user choose images:
 #. Instructions for Slideshow file dialog (FIXME: Make a #define)
-#: ../tuxpaint.c:14389 ../tuxpaint.c:14703
+#: ../tuxpaint.c:14892 ../tuxpaint.c:15220
 msgid "Choose the pictures you want, then click “Play”."
 msgstr "Выберите картинку, а потом нажмите \"Запуск\"."
+
+#: ../tuxpaint.c:22159
+msgid "Pick a color."
+msgstr "Выберите цвет."
 
 #: ../tuxpaint.desktop.in.h:1
 msgid "A drawing program for children."
@@ -740,255 +765,389 @@ msgstr "Щёлкните и поводите по картинке, чтобы  
 
 #: ../../magic/src/alien.c:68
 msgid "Click to change the colors in your entire picture."
-msgstr "Щёлкните и поводите по картинке, чтобы  изменить цвет рисунка."
+msgstr "Щёлкните, чтобы  изменить цвета рисунка."
 
-#: ../../magic/src/blocks_chalk_drip.c:132
+#: ../../magic/src/blind.c:117
+msgid "Blind"
+msgstr "Штора"
+
+#: ../../magic/src/blind.c:122
+msgid ""
+"Click towards the edge of your picture to pull window blinds over it. Move "
+"perpendicularly to open or close the blinds."
+msgstr ""
+"Щёлкните около края вашего рисунка, чтобы натянуть оконные шторы над ним. "
+"Двигайте перпендикулярно, чтобы открыть или закрыть шторы."
+
+#: ../../magic/src/blocks_chalk_drip.c:136
 msgid "Blocks"
 msgstr "Мозаика"
 
-#: ../../magic/src/blocks_chalk_drip.c:134
+#: ../../magic/src/blocks_chalk_drip.c:138
 msgid "Chalk"
 msgstr "Мел"
 
-#: ../../magic/src/blocks_chalk_drip.c:136
+#: ../../magic/src/blocks_chalk_drip.c:140
 msgid "Drip"
 msgstr "Капанье"
 
-#: ../../magic/src/blocks_chalk_drip.c:146
+#: ../../magic/src/blocks_chalk_drip.c:150
 msgid "Click and move the mouse around to make the picture blocky."
 msgstr "Щёлкните и поводите по картинке, чтобы превратить её часть в мозаику."
 
-#: ../../magic/src/blocks_chalk_drip.c:149
+#: ../../magic/src/blocks_chalk_drip.c:153
 msgid ""
 "Click and move the mouse around to turn the picture into a chalk drawing."
 msgstr ""
 "Щёлкните и поводите по картинке, чтобы превратить её часть в рисунок мелом."
 
-#: ../../magic/src/blocks_chalk_drip.c:152
+#: ../../magic/src/blocks_chalk_drip.c:156
 msgid "Click and move the mouse around to make the picture drip."
 msgstr "Щёлкните и поводите по картинке, чтобы заставьте её капать."
 
-#: ../../magic/src/blur.c:57
+#: ../../magic/src/blur.c:80
 msgid "Blur"
-msgstr "Размывание"
+msgstr "Размытие"
 
-#: ../../magic/src/blur.c:60
+#: ../../magic/src/blur.c:83
 msgid "Click and move the mouse around to blur the image."
 msgstr "Щёлкните и поводите по картинке, чтобы размыть её."
 
-#: ../../magic/src/blur.c:61
+#: ../../magic/src/blur.c:84
 msgid "Click to blur the entire image."
 msgstr "Щёлкните, чтобы размыть картинку."
 
 #. Both are named "Bricks", at the moment:
-#: ../../magic/src/bricks.c:104
+#: ../../magic/src/bricks.c:124
 msgid "Bricks"
 msgstr "Кирпичи"
 
-#: ../../magic/src/bricks.c:111
+#: ../../magic/src/bricks.c:131
 msgid "Click and move to draw large bricks."
 msgstr "Щёлкните и поводите по картинке, чтобы нарисовать большие кирпичи."
 
-#: ../../magic/src/bricks.c:113
+#: ../../magic/src/bricks.c:133
 msgid "Click and move to draw small bricks."
 msgstr "Щёлкните и поводите по картинке, чтобы нарисовать маленькие кирпичи."
 
-#: ../../magic/src/calligraphy.c:108
+#: ../../magic/src/calligraphy.c:127
 msgid "Calligraphy"
 msgstr "Каллиграфия"
 
-#: ../../magic/src/calligraphy.c:115
+#: ../../magic/src/calligraphy.c:134
 msgid "Click and move the mouse around to draw in calligraphy."
 msgstr "Нажмите и ведите мышь, чтобы рисовать каллиграфической кистью."
 
-#: ../../magic/src/cartoon.c:80
+#: ../../magic/src/cartoon.c:106
 msgid "Cartoon"
 msgstr "Мультфильм"
 
-#: ../../magic/src/cartoon.c:87
+#: ../../magic/src/cartoon.c:113
 msgid "Click and move the mouse around to turn the picture into a cartoon."
 msgstr ""
 "Щёлкните и поводите по картинке, чтобы превратить её часть в мультфильм."
 
-#: ../../magic/src/confetti.c:63
+#: ../../magic/src/confetti.c:85
 msgid "Confetti"
 msgstr "Конфетти"
 
-#: ../../magic/src/confetti.c:65
+#: ../../magic/src/confetti.c:87
 msgid "Click to throw confetti!"
 msgstr "Щёлкните, чтобы разбросать конфетти!"
 
-#: ../../magic/src/distortion.c:121
+#: ../../magic/src/distortion.c:142
 msgid "Distortion"
 msgstr "Искажение"
 
-#: ../../magic/src/distortion.c:129
+#: ../../magic/src/distortion.c:150
 msgid "Click and drag the mouse to cause distortion in your picture."
 msgstr "Нажмите и ведите мышь, чтобы вызвать искажения в вашем рисунке."
 
-#: ../../magic/src/emboss.c:76
+#: ../../magic/src/emboss.c:103
 msgid "Emboss"
 msgstr "Рельеф"
 
-#: ../../magic/src/emboss.c:82
+#: ../../magic/src/emboss.c:109
 msgid "Click and drag the mouse to emboss the picture."
 msgstr "Нажмите и ведите мышь, чтобы сделать рисунок рельефным."
 
-#: ../../magic/src/fade_darken.c:119
+#: ../../magic/src/fade_darken.c:121
 msgid "Lighten"
 msgstr "Светлее"
 
-#: ../../magic/src/fade_darken.c:121
+#: ../../magic/src/fade_darken.c:123
 msgid "Darken"
 msgstr "Темнее"
 
-#: ../../magic/src/fade_darken.c:132
+#: ../../magic/src/fade_darken.c:134
 msgid "Click and move the mouse to lighten parts of your picture."
 msgstr "Щёлкните и поводите по картинке, чтобы осветлить её часть."
 
-#: ../../magic/src/fade_darken.c:134
+#: ../../magic/src/fade_darken.c:136
 msgid "Click to lighten your entire picture."
 msgstr "Щёлкните, чтобы осветлить вашу картинку."
 
-#: ../../magic/src/fade_darken.c:139
+#: ../../magic/src/fade_darken.c:141
 msgid "Click and move the mouse to darken parts of your picture."
 msgstr "Щёлкните и поводите по картинке, чтобы затемнить её часть."
 
-#: ../../magic/src/fade_darken.c:141
+#: ../../magic/src/fade_darken.c:143
 msgid "Click to darken your entire picture."
 msgstr "Щёлкните, чтобы затемнить вашу картинку."
 
-#: ../../magic/src/fill.c:87
+#: ../../magic/src/fill.c:108
 msgid "Fill"
 msgstr "Заполнить"
 
-#: ../../magic/src/fill.c:94
+#: ../../magic/src/fill.c:115
 msgid "Click in the picture to fill that area with color."
 msgstr "Щёлкните, чтобы заполнить эту область цветом."
 
-#: ../../magic/src/fisheye.c:77
+#: ../../magic/src/fisheye.c:104
 msgid "Fisheye"
 msgstr "Вздутие"
 
 #. Needs better name
-#: ../../magic/src/fisheye.c:79
+#: ../../magic/src/fisheye.c:106
 msgid "Click on part of your picture to create a fisheye effect."
 msgstr "Щёлкните по части вашей картинки, чтобы создать эффект вздутия."
 
-#: ../../magic/src/flower.c:124
+#: ../../magic/src/flower.c:150
 msgid "Flower"
 msgstr "Цветок"
 
-#: ../../magic/src/flower.c:130
+#: ../../magic/src/flower.c:156
 msgid "Click and drag to draw a flower stalk. Let go to finish the flower."
 msgstr ""
 "Нажмите и тяните, чтобы нарисовать стебель. Отпустите, чтобы завершить "
 "цветок."
 
-#: ../../magic/src/foam.c:104
+#: ../../magic/src/foam.c:121
 msgid "Foam"
 msgstr "Пузыри"
 
-#: ../../magic/src/foam.c:110
+#: ../../magic/src/foam.c:127
 msgid "Click and drag the mouse to cover an area with foamy bubbles."
 msgstr "Нажмите и ведите мышь, чтобы нарисовать мыльные пузыри."
 
-#: ../../magic/src/fold.c:84
+#: ../../magic/src/fold.c:105
 msgid "Fold"
 msgstr "Сгиб"
 
-#: ../../magic/src/fold.c:86
+#: ../../magic/src/fold.c:107
 msgid ""
 "Choose a background color and click to turn the corner of the page over."
 msgstr "Выберите фоновый цвет и щёлкните, чтобы загнуть уголок страницы."
 
-#: ../../magic/src/glasstile.c:83
-msgid "Glass Tile"
-msgstr "Стеклянная плитка"
+#: ../../magic/src/fretwork.c:176
+msgid "Fretwork"
+msgstr "Узор"
 
-#: ../../magic/src/glasstile.c:90
+#: ../../magic/src/fretwork.c:180
+#| msgid "Click and drag to draw string art aligned to the edges."
+msgid "Click and drag to draw repetitive patterns. "
+msgstr "Нажмите и потяните мышь, чтобы нарисовать повторяющиеся узоры."
+
+#: ../../magic/src/fretwork.c:182
+#| msgid "Click to cover your picture with rain drops."
+msgid "Click to surround your picture with repetitive patterns."
+msgstr "Щёлкните, чтобы окружить вашу картинку повторяющимися узорами."
+
+#: ../../magic/src/glasstile.c:107
+msgid "Glass Tile"
+msgstr "Стекло"
+
+#: ../../magic/src/glasstile.c:114
 msgid "Click and drag the mouse to put glass tile over your picture."
 msgstr "Нажмите и ведите мышь, чтобы покрыть рисунок стеклянной плиткой."
 
-#: ../../magic/src/glasstile.c:92
+#: ../../magic/src/glasstile.c:116
 msgid "Click to cover your entire picture in glass tiles."
-msgstr "Щёлкните, чтобы покрыть вашу картинку стеклянной мозаикой."
+msgstr "Щёлкните, чтобы покрыть рисунок стеклянной плиткой."
 
-#: ../../magic/src/grass.c:92
+#: ../../magic/src/grass.c:112
 msgid "Grass"
 msgstr "Трава"
 
-#: ../../magic/src/grass.c:98
+#: ../../magic/src/grass.c:118
 msgid "Click and move to draw grass. Don’t forget the dirt!"
 msgstr ""
 "Щёлкните и поводите по картинке, чтобы нарисовать траву. Не забудьте про "
-"грязь!"
+"почву!"
 
-#: ../../magic/src/kalidescope.c:77
+#: ../../magic/src/halftone.c:34
+msgid "Halftone"
+msgstr "Полутоновый оттиск"
+
+#: ../../magic/src/halftone.c:38
+#| msgid "Click to turn your painting into its negative."
+msgid "Click and drag to turn your drawing into a newspaper."
+msgstr "Нажмите и потяните мышь, чтобы превратить рисунок в газету."
+
+#: ../../magic/src/kalidescope.c:120
+msgid "Symmetric Left/Right"
+msgstr "Симметрично слева направо"
+
+#: ../../magic/src/kalidescope.c:122
+msgid "Symmetric Up/Down"
+msgstr "Симметрично сверху вниз"
+
+#: ../../magic/src/kalidescope.c:124
+msgid "Pattern"
+msgstr "Образец"
+
+#: ../../magic/src/kalidescope.c:126
+msgid "Tiles"
+msgstr "Плитки"
+
+#. KAL_BOTH
+#: ../../magic/src/kalidescope.c:128
 msgid "Kaleidoscope"
 msgstr "Калейдоскоп"
 
-#: ../../magic/src/kalidescope.c:83
+#: ../../magic/src/kalidescope.c:136
+#| msgid ""
+#| "Click and drag the mouse to draw with symmetric brushes (a kaleidoscope)."
+msgid ""
+"Click and drag the mouse to draw with two brushes that are symmetric across "
+"the left and right of your picture."
+msgstr ""
+"Нажмите и ведите мышь, чтобы рисовать двумя кистями, которые симметрично "
+"слева направо пересекают вашу картинку."
+
+#: ../../magic/src/kalidescope.c:138
+#| msgid ""
+#| "Click and drag the mouse to draw with symmetric brushes (a kaleidoscope)."
+msgid ""
+"Click and drag the mouse to draw with two brushes that are symmetric across "
+"the top and bottom of your picture."
+msgstr ""
+"Нажмите и ведите мышь, чтобы рисовать двумя кистями, которые симметрично "
+"сверху вниз пересекают вашу картинку."
+
+#: ../../magic/src/kalidescope.c:140
+#| msgid "Click and drag the mouse to emboss the picture."
+msgid "Click and drag the mouse to draw a pattern across the picture."
+msgstr "Нажмите и ведите мышь, чтобы рисовать образцом по вашей картинке."
+
+#: ../../magic/src/kalidescope.c:142
+#| msgid ""
+#| "Click and drag the mouse to draw with symmetric brushes (a kaleidoscope)."
+msgid ""
+"Click and drag the mouse to draw a pattern plus its symmetric across the "
+"picture."
+msgstr ""
+"Нажмите и ведите мышь, чтобы рисовать образом плюс его симметричным "
+"изображением по картинке."
+
+#. KAL_BOTH
+#: ../../magic/src/kalidescope.c:144
 msgid ""
 "Click and drag the mouse to draw with symmetric brushes (a kaleidoscope)."
 msgstr ""
 "Нажмите и ведите мышь, чтобы рисовать симметричными кистями (калейдоскоп)."
 
-#: ../../magic/src/light.c:84
+#: ../../magic/src/light.c:107
 msgid "Light"
 msgstr "Свет"
 
-#: ../../magic/src/light.c:90
+#: ../../magic/src/light.c:113
 msgid "Click and drag to draw a beam of light on your picture."
 msgstr "Нажмите и ведите мышь, чтобы нарисовать луч света."
 
-#: ../../magic/src/metalpaint.c:77
+#: ../../magic/src/metalpaint.c:101
 msgid "Metal Paint"
 msgstr "Металл"
 
-#: ../../magic/src/metalpaint.c:83
+#: ../../magic/src/metalpaint.c:107
 msgid "Click and drag the mouse to paint with a metallic color."
 msgstr "Нажмите и ведите мышью, чтобы рисовать металлическим цветом."
 
-#: ../../magic/src/mirror_flip.c:94
+#: ../../magic/src/mirror_flip.c:117
 msgid "Mirror"
 msgstr "Зеркало"
 
-#: ../../magic/src/mirror_flip.c:96
+#: ../../magic/src/mirror_flip.c:119
 msgid "Flip"
 msgstr "Переворот"
 
-#: ../../magic/src/mirror_flip.c:106
+#: ../../magic/src/mirror_flip.c:130
 msgid "Click to make a mirror image."
 msgstr "Щёлкните на картинку, чтобы превратить её в зеркальное отражение."
 
-#: ../../magic/src/mirror_flip.c:109
+#: ../../magic/src/mirror_flip.c:133
 msgid "Click to flip the picture upside-down."
 msgstr "Щёлкните на картинку, чтобы перевернуть её вверх тормашками."
 
-#: ../../magic/src/mosaic.c:70
+#: ../../magic/src/mosaic.c:100
 msgid "Mosaic"
 msgstr "Мозаика"
 
-#: ../../magic/src/mosaic.c:73
+#: ../../magic/src/mosaic.c:103
 msgid ""
 "Click and move the mouse to add a mosaic effect to parts of your picture."
 msgstr ""
 "Щёлкните и поводите по картинке, чтобы добавить к её части эффект мозаики."
 
-#: ../../magic/src/mosaic.c:74
+#: ../../magic/src/mosaic.c:104
 msgid "Click to add a mosaic effect to your entire picture."
 msgstr "Щёлкните, чтобы добавить эффект мозаики к вашей картинке."
 
-#: ../../magic/src/negative.c:72
+#: ../../magic/src/mosaic_shaped.c:142
+msgid "Square Mosaic"
+msgstr "Квадратная мозаика"
+
+#: ../../magic/src/mosaic_shaped.c:143
+msgid "Hexagon Mosaic"
+msgstr "Шестиугольная мозаика"
+
+#: ../../magic/src/mosaic_shaped.c:144
+msgid "Irregular Mosaic"
+msgstr "Неровная мозаика"
+
+#: ../../magic/src/mosaic_shaped.c:149
+msgid ""
+"Click and move the mouse to add a square mosaic to parts of your picture."
+msgstr ""
+"Щёлкните и поводите по картинке, чтобы добавить к её части эффект квадратной "
+"мозаики."
+
+#: ../../magic/src/mosaic_shaped.c:150
+msgid "Click to add a square mosaic to your entire picture."
+msgstr "Щёлкните, чтобы добавить эффект квадратной мозаики к вашей картинке."
+
+#: ../../magic/src/mosaic_shaped.c:152
+msgid ""
+"Click and move the mouse to add a hexagonal mosaic to parts of your picture."
+msgstr ""
+"Щёлкните и поводите по картинке, чтобы добавить к её части эффект "
+"шестиугольной мозаики."
+
+#: ../../magic/src/mosaic_shaped.c:153
+msgid "Click to add a hexagonal mosaic to your entire picture."
+msgstr ""
+"Щёлкните, чтобы добавить эффект шестиугольной мозаики к вашей картинке."
+
+#: ../../magic/src/mosaic_shaped.c:155
+msgid ""
+"Click and move the mouse to add an irregular mosaic to parts of your picture."
+msgstr ""
+"Щёлкните и поводите по картинке, чтобы добавить к её части эффект неровной "
+"мозаики."
+
+#: ../../magic/src/mosaic_shaped.c:156
+msgid "Click to add an irregular mosaic to your entire picture."
+msgstr "Щёлкните, чтобы добавить эффект неровной мозаики к вашей картинке."
+
+#: ../../magic/src/negative.c:98
 msgid "Negative"
 msgstr "Негатив"
 
-#: ../../magic/src/negative.c:80
+#: ../../magic/src/negative.c:106
 msgid "Click and move the mouse around to make your painting negative."
 msgstr "Нажмите и поводите по картинке, чтобы превратить её в негатив."
 
-#: ../../magic/src/negative.c:83
+#: ../../magic/src/negative.c:109
 msgid "Click to turn your painting into its negative."
 msgstr "Щёлкните, чтобы превратить ваш рисунок  в негатив."
 
@@ -1004,21 +1163,43 @@ msgstr "Щёлкните и поводите по картинке, чтобы �
 msgid "Click to add noise to your entire picture."
 msgstr "Щёлкните, чтобы добавить шум к вашей картинке."
 
-#: ../../magic/src/rails.c:102
+#: ../../magic/src/perspective.c:145
+msgid "Perspective"
+msgstr "Перспектива"
+
+#: ../../magic/src/perspective.c:146
+msgid "Zoom"
+msgstr "Увеличение"
+
+#: ../../magic/src/perspective.c:151
+msgid "Click on the corners and drag where you want to stretch the picture."
+msgstr "Нажмите на углы и ведите мышь там, где вы хотите растянуть рисунок."
+
+#: ../../magic/src/perspective.c:154
+msgid "Click and drag up to zoom in or drag down to zoom out the picture."
+msgstr ""
+"Щёлкните и ведите мышь вверх для увеличения или вниз для уменьшения картинки."
+
+# При выборе пурпурного (128, 0, 128) цвета
+#: ../../magic/src/puzzle.c:105
+msgid "Puzzle"
+msgstr "Пазл"
+
+#: ../../magic/src/puzzle.c:112
+msgid "Click the part of your picture where would you like a puzzle."
+msgstr "Нажмите и ведите мышь, чтобы сдвинуть рисунок относительно холста."
+
+#: ../../magic/src/puzzle.c:113
+msgid "Click to make a puzzle in fullscreen mode."
+msgstr "Щёлкните на картинку, чтобы создать пазл в полноэкранном режиме."
+
+#: ../../magic/src/rails.c:131
 msgid "Rails"
 msgstr "Рельсы"
 
-#: ../../magic/src/rails.c:104
+#: ../../magic/src/rails.c:133
 msgid "Click and drag to draw train track rails on your picture."
 msgstr "Нажмите и потяните мышь, чтобы нарисовать железнодорожные рельсы."
-
-#: ../../magic/src/rainbow.c:107
-msgid "Rainbow"
-msgstr "Радуга"
-
-#: ../../magic/src/rainbow.c:114
-msgid "You can draw in rainbow colors!"
-msgstr "Вы можете рисовать цветами радуги!"
 
 #: ../../magic/src/rain.c:65
 msgid "Rain"
@@ -1032,45 +1213,57 @@ msgstr "Щёлкните, чтобы поместить дождевые кап�
 msgid "Click to cover your picture with rain drops."
 msgstr "Щёлкните, чтобы покрыть вашу картинку дождевыми каплями."
 
-#: ../../magic/src/realrainbow.c:76
-#, fuzzy
-#| msgid "Rainbow"
+#: ../../magic/src/rainbow.c:139
+msgid "Rainbow"
+msgstr "7 цветов"
+
+#: ../../magic/src/rainbow.c:146
+msgid "You can draw in rainbow colors!"
+msgstr "Вы можете рисовать цветами радуги!"
+
+#  msgid "Rainbow"
+#: ../../magic/src/realrainbow.c:110
 msgid "Real Rainbow"
 msgstr "Радуга"
 
-#: ../../magic/src/realrainbow.c:81
+#  msgid "Rainbow"
+#: ../../magic/src/realrainbow.c:112
+msgid "ROYGBIV Rainbow"
+msgstr "Радуга"
+
+#: ../../magic/src/realrainbow.c:117
 msgid ""
 "Click where you want your rainbow to start, drag to where you want it to "
 "end, and then let go to draw a rainbow."
-msgstr ""
+msgstr "Нажмите, чтобы указать начало радуги и тяните до её конца."
 
-#: ../../magic/src/ripples.c:81
+#: ../../magic/src/ripples.c:106
 msgid "Ripples"
-msgstr "Круги на воде"
+msgstr "Круги"
 
-#: ../../magic/src/ripples.c:87
+#: ../../magic/src/ripples.c:112
 msgid "Click to make ripples appear over your picture."
-msgstr "Щёлкните и поводите по картинке, чтобы размыть её часть."
+msgstr "Щёлкните, чтобы сделать \"круги на воде\"."
 
-#: ../../magic/src/rosette.c:93
+#: ../../magic/src/rosette.c:116
 msgid "Rosette"
 msgstr "Розетка"
 
-#: ../../magic/src/rosette.c:93
+#: ../../magic/src/rosette.c:116
 msgid "Picasso"
 msgstr "Пикассо"
 
-#: ../../magic/src/rosette.c:98
+#: ../../magic/src/rosette.c:121
 msgid "Click and start drawing your rosette."
 msgstr "Щёлкните, чтобы начать рисовать розетку. "
 
-#: ../../magic/src/rosette.c:100
+#: ../../magic/src/rosette.c:123
 msgid "You can draw just like Picasso!"
-msgstr "Вы можете рисовать как Пикассо!"
+msgstr "Вы можете рисовать почти как Пикассо!"
 
 #: ../../magic/src/sharpen.c:73
 msgid "Edges"
-msgstr "Границы"
+msgstr "Края"
 
 #: ../../magic/src/sharpen.c:74
 msgid "Sharpen"
@@ -1082,11 +1275,11 @@ msgstr "Силуэт"
 
 #: ../../magic/src/sharpen.c:78
 msgid "Click and move the mouse to trace edges in parts of your picture."
-msgstr "Щёлкните и поводите по картинке, чтобы выделить границы на её части."
+msgstr "Щёлкните и поводите по картинке, чтобы выделить края объектов."
 
 #: ../../magic/src/sharpen.c:79
 msgid "Click to trace edges in your entire picture."
-msgstr "Щёлкните, чтобы выделить границы на картинке."
+msgstr "Щёлкните, чтобы выделить края объектов на всей картинке."
 
 #: ../../magic/src/sharpen.c:80
 msgid "Click and move the mouse to sharpen parts of your picture."
@@ -1102,23 +1295,34 @@ msgstr "Щёлкните и поводите по картинке, чтобы �
 
 #: ../../magic/src/sharpen.c:83
 msgid "Click to create a black and white silhouette of your entire picture."
-msgstr "Щёлкните, чтобы создать черно-белый силуэт вашей картинки."
+msgstr "Щёлкните, чтобы создать черно-белый силуэт всего рисунка."
 
-#: ../../magic/src/shift.c:104
+#: ../../magic/src/shift.c:109
 msgid "Shift"
 msgstr "Сдвиг"
 
-#: ../../magic/src/shift.c:110
+#: ../../magic/src/shift.c:115
 msgid "Click and drag to shift your picture around on the canvas."
 msgstr "Нажмите и ведите мышь, чтобы сдвинуть рисунок относительно холста."
 
-#: ../../magic/src/smudge.c:77
+#: ../../magic/src/smudge.c:106
 msgid "Smudge"
 msgstr "Смазать"
 
-#: ../../magic/src/smudge.c:84
+#. if (which == 1)
+#: ../../magic/src/smudge.c:108
+msgid "Wet Paint"
+msgstr "Мокрое рисование"
+
+#: ../../magic/src/smudge.c:115
 msgid "Click and move the mouse around to smudge the picture."
 msgstr "Щёлкните и поводите по картинке, чтобы смазать рисунок."
+
+#. if (which == 1)
+#: ../../magic/src/smudge.c:117
+msgid "Click and move the mouse around to draw with wet, smudgy paint."
+msgstr ""
+"Щёлкните и поводите по картинке, чтобы рисовать мокрыми, размытыми красками."
 
 #: ../../magic/src/snow.c:68
 msgid "Snow Ball"
@@ -1136,48 +1340,46 @@ msgstr "Щёлкните, чтобы добавить снежки на вашу
 msgid "Click to add snow flakes to your picture."
 msgstr "Щёлкните, чтобы добавить снежинки на вашу картинку."
 
-#: ../../magic/src/string.c:120
-msgid "String edges"
-msgstr "Границы строки"
-
 #: ../../magic/src/string.c:123
-msgid "String corner"
-msgstr "Угол строки"
+msgid "String edges"
+msgstr "Паутинка"
 
 #: ../../magic/src/string.c:126
-msgid "String 'V'"
-msgstr "Строка 'V'"
+msgid "String corner"
+msgstr "Уголок"
 
-#: ../../magic/src/string.c:134
-#, fuzzy
-#| msgid ""
-#| "Click and drag to draw string art. Drag top-bottom to draw less or more "
-#| "lines, to the center to approach the lines to center."
+#: ../../magic/src/string.c:129
+msgid "String 'V'"
+msgstr "Нити"
+
+#  msgid ""
+#  "Click and drag to draw string art. Drag top-bottom to draw less or more "
+#  "lines, to the center to approach the lines to center."
+#: ../../magic/src/string.c:137
 msgid ""
 "Click and drag to draw string art. Drag top-bottom to draw less or more "
 "lines, left or right to make a bigger hole."
 msgstr ""
-"Нажмите и потяните мышь, чтобы нарисовать строку. Потяните вверх-вниз, чтобы "
-"нарисовать меньше или больше линий; к центру, чтобы приблизить линии к "
-"центру."
+"Нажмите и потяните, чтобы нарисовать паутинку из нитей. Потяните вверх-вниз, "
+"чтобы нарисовать меньше или больше линий; влево или вправо, чтобы увеличить "
+"отверстие."
 
-#: ../../magic/src/string.c:137
-#, fuzzy
-#| msgid "Click and drag to draw a beam of light on your picture."
-msgid "Click and drag to draw arrows made of string art."
-msgstr "Нажмите и ведите мышь, чтобы нарисовать луч света."
-
+#  msgid "Click and drag to draw a beam of light on your picture."
 #: ../../magic/src/string.c:140
+msgid "Click and drag to draw arrows made of string art."
+msgstr "Нажмите и потяните, чтобы стрелу из нитей."
+
+#: ../../magic/src/string.c:143
 msgid "Draw string art arrows with free angles."
-msgstr ""
+msgstr "Рисуйте каркас из нитей под любым углом."
 
 #: ../../magic/src/tint.c:71
 msgid "Tint"
-msgstr "Изменить цвет"
+msgstr "Смена цвета"
 
 #: ../../magic/src/tint.c:72
 msgid "Color & White"
-msgstr "Цветной и белый"
+msgstr "Два цвета"
 
 #: ../../magic/src/tint.c:75
 msgid ""
@@ -1202,74 +1404,125 @@ msgstr "Щёлкните, чтобы оставить на картинке бе
 
 #: ../../magic/src/toothpaste.c:65
 msgid "Toothpaste"
-msgstr "Зубная паста"
+msgstr "Паста"
 
 #: ../../magic/src/toothpaste.c:68
 msgid "Click and drag to squirt toothpaste onto your picture."
 msgstr "Щёлкните и поводите по картинке, чтобы выдавить зубную пасту на неё."
 
-#: ../../magic/src/tornado.c:127
+#: ../../magic/src/tornado.c:157
 msgid "Tornado"
-msgstr ""
+msgstr "Торнадо"
 
-#: ../../magic/src/tornado.c:133
-#, fuzzy
-#| msgid "Click and drag to draw train track rails on your picture."
+#: ../../magic/src/tornado.c:163
 msgid "Click and drag to draw a tornado funnel on your picture."
-msgstr "Нажмите и потяните мышь, чтобы нарисовать железнодорожные рельсы."
+msgstr "Нажмите и потяните, чтобы нарисовать торнадо."
 
-#: ../../magic/src/tv.c:74
+#: ../../magic/src/tv.c:100
 msgid "TV"
 msgstr "ТВ"
 
-#: ../../magic/src/tv.c:79
-#, fuzzy
-#| msgid "Click to make your picture look like it's on television."
+#  msgid "Click to make your picture look like it's on television."
+#: ../../magic/src/tv.c:105
 msgid ""
 "Click and drag to make parts of your picture look like they are on "
 "television."
 msgstr "Щёлкните, чтобы ваша картинка выглядела, как телевизионная."
 
-#: ../../magic/src/tv.c:82
+#: ../../magic/src/tv.c:108
 msgid "Click to make your picture look like it's on television."
 msgstr "Щёлкните, чтобы ваша картинка выглядела, как телевизионная."
 
-#: ../../magic/src/waves.c:80
+#: ../../magic/src/waves.c:103
 msgid "Waves"
 msgstr "Волны"
 
-#: ../../magic/src/waves.c:81
+#: ../../magic/src/waves.c:104
 msgid "Wavelets"
-msgstr "Волны"
+msgstr "Рябь"
 
-#: ../../magic/src/waves.c:88
+#: ../../magic/src/waves.c:111
 msgid ""
 "Click to make the picture horizontally wavy. Click toward the top for "
 "shorter waves, the bottom for taller waves, the left for small waves, and "
 "the right for long waves."
 msgstr ""
 "Нажмите, чтобы нарисовать горизонтальные волны. Двигайте вверх, чтобы "
-"сделать волны короче, вниз - выше, налево - для низких волн, направо - для "
+"сделать волны короче, вниз - выше, налево - для коротких волн, направо - для "
 "длинных."
 
-#: ../../magic/src/waves.c:89
+#: ../../magic/src/waves.c:112
 msgid ""
 "Click to make the picture vertically wavy. Click toward the top for shorter "
 "waves, the bottom for taller waves, the left for small waves, and the right "
 "for long waves."
 msgstr ""
 "Нажмите, чтобы нарисовать вертикальные волны. Двигайте вверх, чтобы сделать "
-"волны короче, вниз - выше, налево - для низких волн, направо - для длинных."
+"волны короче, вниз - выше, налево - для коротких волн, направо - для длинных."
+
+#: ../../magic/src/xor.c:95
+#| msgid "Colors"
+msgid "Xor Colors"
+msgstr "Цвета XOR"
+
+#  msgid "Click and drag to draw a beam of light on your picture."
+#: ../../magic/src/xor.c:101
+#| msgid "Click and drag to draw arrows made of string art."
+msgid "Click and drag to draw a XOR effect"
+msgstr "Нажмите и потяните мышь, чтобы рисовать эффектом XOR"
+
+#: ../../magic/src/xor.c:103
+#| msgid "Click to add a mosaic effect to your entire picture."
+msgid "Click to draw a XOR effect on the whole picture"
+msgstr "Щёлкните, чтобы добавить эффект XOR к вашей картинке."
+
+#~ msgid " "
+#~ msgstr " "
+
+#~| msgid "Mosaic"
+#~ msgid "Mosaic square"
+#~ msgstr "Мозаика квадратная"
+
+#~| msgid "Mosaic"
+#~ msgid "Mosaic hexagon"
+#~ msgstr "Мозаика шестиугольная"
+
+#~ msgid "Mosaic irregular"
+#~ msgstr "Мозаика неровная"
+
+#~| msgid ""
+#~| "Click and move the mouse to add a mosaic effect to parts of your picture."
+#~ msgid ""
+#~ "Click and move the mouse to add a mosaic squared effect to parts of your "
+#~ "picture."
+#~ msgstr ""
+#~ "Щёлкните и поводите по картинке, чтобы добавить к её части эффект "
+#~ "квадратной мозаики."
+
+#~| msgid "Click to add a mosaic effect to your entire picture."
+#~ msgid "Click to add a mosaic squared effect to your entire picture."
+#~ msgstr ""
+#~ "Щёлкните, чтобы добавить эффект квадратной мозаики к вашей картинке."
+
+#~| msgid ""
+#~| "Click and move the mouse to add a mosaic effect to parts of your picture."
+#~ msgid ""
+#~ "Click and move the mouse to add a mosaic hexagonal effect to parts of "
+#~ "your picture."
+#~ msgstr ""
+#~ "Щёлкните и поводите по картинке, чтобы добавить к её части эффект "
+#~ "шестиугольной мозаики."
+
+#~| msgid "Click to add a mosaic effect to your entire picture."
+#~ msgid "Click to add a mosaic hexagonal effect to your entire picture."
+#~ msgstr ""
+#~ "Щёлкните, чтобы добавить эффект шестиугольной мозаики к вашей картинке."
 
 #~ msgid "qy"
 #~ msgstr "qy"
 
 #~ msgid "QY"
 #~ msgstr "QY"
-
-#~ msgid "Click and drag to draw string art aligned to the edges."
-#~ msgstr ""
-#~ "Нажмите и потяните мышь, чтобы нарисовать строку, выровненную по границам."
 
 #~ msgid ""
 #~ "Draw string art with free angles. Click and drag a V: drag to the vertex, "
@@ -1278,7 +1531,6 @@ msgstr ""
 #~ "Рисует строки по любыми углами. Нажмите и потяните V: потяните - будет "
 #~ "создана вершина, потяните немного назад к началу, затем потяните к концу."
 
-#, fuzzy
 #~| msgid "Click and drag to draw a flower stalk. Let go to finish the flower."
 #~ msgid ""
 #~ "Click and drag to draw a tornado stalk. Let go to finish the tornado."
@@ -1295,19 +1547,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Click to give your entire picture an \"alien\" appearance."
 #~ msgstr "Щёлкните и поводите по картинке, чтобы изменить цвет рисунка."
-
-# При выборе пурпурного (128, 0, 128) цвета
-#, fuzzy
-#~ msgid "Puzzle"
-#~ msgstr "Пурпурный!"
-
-#~| msgid "Click and drag to shift your picture around on the canvas."
-#~ msgid "Click the part of your picture where would you like a puzzle."
-#~ msgstr "Нажмите и ведите мышь, чтобы сдвинуть рисунок относительно холста."
-
-#, fuzzy
-#~ msgid "Click to make a puzzle in fullscreen mode."
-#~ msgstr "Щёлкните на картинку, чтобы превратить её в зеркальное отражение."
 
 #, fuzzy
 #~ msgid "Click and move the mouse to add noise to the image."

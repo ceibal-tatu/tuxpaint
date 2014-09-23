@@ -1,27 +1,27 @@
                                    Tux Paint
-                                 version 0.9.21
+                                 version 0.9.22
 
   A simple drawing program for children
 
-                Copyright 2002-2009 by Bill Kendrick and others
+                Copyright 2002-2014 by Bill Kendrick and others
                          New Breed Software & Tux4Kids
 
                            bill@newbreedsoftware.com
                             http://www.tuxpaint.org/
 
-                         June 14, 2002 - April 28, 2009
+                         June 14, 2002 - August 5, 2014
 
      ----------------------------------------------------------------------
 
-   +-------------------------------------------+
-   |             Table of Contents             |
-   |-------------------------------------------|
-   |  * About                                  |
-   |  * Using Tux Paint                        |
-   |  * Loading Other Pictures into Tux Paint  |
-   |  * Further Reading                        |
-   |  * How to Get Help                        |
-   +-------------------------------------------+
+   +------------------------------------------------------------------------+
+   |Table of Contents                                                       |
+   |------------------------------------------------------------------------|
+   |  * About                                                               |
+   |  * Using Tux Paint                                                     |
+   |  * Loading Other Pictures into Tux Paint                               |
+   |  * Further Reading                                                     |
+   |  * How to Get Help                                                     |
+   +------------------------------------------------------------------------+
 
      ----------------------------------------------------------------------
 
@@ -100,8 +100,8 @@ Loading Tux Paint
 
   Windows Users
 
-                                                                    [Icon]    
-                                                                   Tux Paint  
+                                                          [Icon]              
+                                                         Tux Paint            
 
          If you installed Tux Paint on your computer using the
          'Tux Paint Installer,' it will have asked you whether you wanted a
@@ -150,8 +150,8 @@ Main Screen
 
                The toolbar contains the drawing and editing controls.
 
-[Tools: Paint, Stamp, Lines, Shapes, Text, Magic, Undo, Redo,       Eraser, New,
-                            Open, Save, Print, Quit]
+   [Tools: Paint, Stamp, Lines, Shapes, Text, Magic, Label, Undo, Redo,      
+                     Eraser, New, Open, Save, Print, Quit]
 
        Middle: Drawing Canvas
 
@@ -294,7 +294,7 @@ Available Tools
 
      ----------------------------------------------------------------------
 
-         Text
+         Text and Label
 
                  Choose a font (from the 'Letters' available on the right)
                  and a color (from the color palette near the bottom). Click
@@ -313,6 +313,29 @@ Available Tools
                  Clicking elsewhere in the picture while the text entry is
                  still active causes the current line of text to move to that
                  location (where you can continue editing it).
+
+                      Text versus Label
+
+                              The Text tool is the original text-entry tool
+                              in Tux Paint. Text entered using this tool
+                              can't be modified or moved later, since it
+                              becomes part of the drawing. However, because
+                              the text becomes part of the picture, it can be
+                              drawn over or modified using Magic tool effects
+                              (e.g., smudged, tinted, embossed, etc.)
+
+                              When using the Label tool (which was added to
+                              Tux Paint in version 0.9.22), the text 'floats'
+                              over the image, and the details of the label
+                              (the text, the position of the label, the font
+                              choice and the color) get stored separately.
+                              This allows the label to be repositioned or
+                              edited later.
+
+                              The Label tool can be disabled (e.g., by
+                              selecting "Disable 'Label' Tool" in
+                              Tux Paint Config. or running Tux Paint with the
+                              "--nolabel" command-line option).
 
                       International Character Input
 
@@ -451,6 +474,9 @@ Available Tools
                       * Click the brown "Erase" (trash can) button at the
                         lower right of the list to erase the selected
                         picture. (You will be asked to confirm.)
+
+                        Note: As of version 0.9.22, the picture will be
+                        placed in your desktop's trash can, on Linux only.
 
                       * Click the blue "Slides" (slide projector) button at
                         the lower left to go to slideshow mode. See "Slides",

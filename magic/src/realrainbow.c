@@ -4,9 +4,9 @@
   Draws an arc with semi-transparent rainbow colors.
 
   by Bill Kendrick <bill@newbreedsoftware.com>
-  Math assistence by Jeff Newmiller <jdnewmil@dcn.davis.ca.us>
+  Math assistance by Jeff Newmiller <jdnewmil@dcn.davis.ca.us>
 
-  2009.04.02 - 2009.06.06
+  2009.04.02 - 2014.08.14
 
 FIXME:
 * Color/alpha art needs improvement.
@@ -23,16 +23,40 @@ FIXME:
 Mix_Chunk * realrainbow_snd;
 int realrainbow_x1, realrainbow_y1, realrainbow_x2, realrainbow_y2;
 SDL_Rect realrainbow_rect;
-SDL_Surface * realrainbow_colors;
+SDL_Surface * realrainbow_colors[2];
 Uint8 realrainbow_blendr, realrainbow_blendg, realrainbow_blendb, realrainbow_blenda;
 
 
-void realrainbow_arc(magic_api * api, SDL_Surface * canvas, SDL_Surface * last,
+void realrainbow_arc(magic_api * api, int which, SDL_Surface * canvas, SDL_Surface * last,
                      int x1, int y1, int x2, int y2,
                      int fulldraw, SDL_Rect * update_rect);
 static void realrainbow_linecb(void * ptr, int which,
                                SDL_Surface * canvas, SDL_Surface * last,
                                int x, int y);
+Uint32 realrainbow_api_version(void);
+int realrainbow_init(magic_api * api);
+int realrainbow_get_tool_count(magic_api * api);
+SDL_Surface * realrainbow_get_icon(magic_api * api, int which);
+char * realrainbow_get_name(magic_api * api, int which);
+char * realrainbow_get_description(magic_api * api, int which, int mode);
+int realrainbow_modes(magic_api * api, int which);
+int realrainbow_requires_colors(magic_api * api, int which);
+void realrainbow_shutdown(magic_api * api);
+void realrainbow_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+void realrainbow_click(magic_api * api, int which, int mode,
+                       SDL_Surface * canvas, SDL_Surface * last,
+                       int x, int y,
+                       SDL_Rect * update_rect);
+void realrainbow_drag(magic_api * api, int which,
+                      SDL_Surface * canvas, SDL_Surface * last,
+                      int ox, int oy, int x, int y,
+                      SDL_Rect * update_rect);
+void realrainbow_release(magic_api * api, int which,
+                         SDL_Surface * canvas, SDL_Surface * last,
+                         int x, int y,
+                         SDL_Rect * update_rect);
+void realrainbow_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void realrainbow_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
 
 
 Uint32 realrainbow_api_version(void)
@@ -45,8 +69,13 @@ int realrainbow_init(magic_api * api)
   char fname[1024];
 
   snprintf(fname, sizeof(fname), "%s/images/magic/realrainbow-colors.png", api->data_directory);
-  realrainbow_colors = IMG_Load(fname);
-  if (realrainbow_colors == NULL)
+  realrainbow_colors[0] = IMG_Load(fname);
+  if (realrainbow_colors[0] == NULL)
+    return(0);
+
+  snprintf(fname, sizeof(fname), "%s/images/magic/realrainbow-roygbiv-colors.png", api->data_directory);
+  realrainbow_colors[1] = IMG_Load(fname);
+  if (realrainbow_colors[1] == NULL)
     return(0);
 
   snprintf(fname, sizeof(fname), "%s/sounds/magic/realrainbow.ogg",
@@ -56,56 +85,66 @@ int realrainbow_init(magic_api * api)
   return(1);
 }
 
-int realrainbow_get_tool_count(magic_api * api)
+int realrainbow_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
-  return(1);
+  return(2);
 }
 
 SDL_Surface * realrainbow_get_icon(magic_api * api, int which)
 {
   char fname[1024];
 
-  snprintf(fname, sizeof(fname), "%s/images/magic/realrainbow.png",
-           api->data_directory);
+  if (which == 0)
+    snprintf(fname, sizeof(fname), "%s/images/magic/realrainbow.png",
+             api->data_directory);
+  else
+    snprintf(fname, sizeof(fname), "%s/images/magic/realrainbow-roygbiv.png",
+             api->data_directory);
 
   return(IMG_Load(fname));
 }
 
-char * realrainbow_get_name(magic_api * api, int which)
+char * realrainbow_get_name(magic_api * api ATTRIBUTE_UNUSED, int which)
 {
-  return(strdup(gettext_noop("Real Rainbow")));
+  if (which == 0)
+    return(strdup(gettext_noop("Real Rainbow")));
+  else
+    return(strdup(gettext_noop("ROYGBIV Rainbow")));
 }
 
-char * realrainbow_get_description(magic_api * api, int which, int mode)
+char * realrainbow_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Click where you want your rainbow to start, drag to where you want it to end, and then let go to draw a rainbow.")));
 }
 
-int realrainbow_modes(magic_api * api, int which)
+int realrainbow_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
-  return(MODE_PAINT);
+  return(MODE_PAINT_WITH_PREVIEW);
 }
 
-int realrainbow_requires_colors(magic_api * api, int which)
+int realrainbow_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(0);
 }
 
-void realrainbow_shutdown(magic_api * api)
+void realrainbow_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
-  SDL_FreeSurface(realrainbow_colors);
+  if (realrainbow_colors[0] != NULL)
+    SDL_FreeSurface(realrainbow_colors[0]);
+  if (realrainbow_colors[1] != NULL)
+    SDL_FreeSurface(realrainbow_colors[1]);
   if (realrainbow_snd != NULL)
     Mix_FreeChunk(realrainbow_snd);
 }
 
-void realrainbow_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void realrainbow_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
-void realrainbow_click(magic_api * api, int which, int mode,
-                       SDL_Surface * canvas, SDL_Surface * last,
+void realrainbow_click(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED,
+                       SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
                        int x, int y,
-                       SDL_Rect * update_rect)
+                       SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
   realrainbow_x1 = x;
   realrainbow_y1 = y;
@@ -118,7 +157,7 @@ void realrainbow_click(magic_api * api, int which, int mode,
 
 void realrainbow_drag(magic_api * api, int which,
                       SDL_Surface * canvas, SDL_Surface * last,
-                      int ox, int oy, int x, int y,
+                      int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED, int x, int y,
                       SDL_Rect * update_rect)
 {
   int rx1, ry1, rx2, ry2;
@@ -129,7 +168,7 @@ void realrainbow_drag(magic_api * api, int which,
 
   SDL_BlitSurface(last, &realrainbow_rect, canvas, &realrainbow_rect);
 
-  realrainbow_arc(api, canvas, last, realrainbow_x1, realrainbow_y1, realrainbow_x2, realrainbow_y2, 0, update_rect);
+  realrainbow_arc(api, which, canvas, last, realrainbow_x1, realrainbow_y1, realrainbow_x2, realrainbow_y2, 0, update_rect);
 
   memcpy(&rect, &realrainbow_rect, sizeof(SDL_Rect));
   memcpy(&realrainbow_rect, update_rect, sizeof(SDL_Rect));
@@ -167,7 +206,7 @@ void realrainbow_release(magic_api * api, int which,
 
   SDL_BlitSurface(last, &realrainbow_rect, canvas, &realrainbow_rect);
 
-  realrainbow_arc(api, canvas, last, realrainbow_x1, realrainbow_y1, realrainbow_x2, realrainbow_y2, 1, update_rect);
+  realrainbow_arc(api, which, canvas, last, realrainbow_x1, realrainbow_y1, realrainbow_x2, realrainbow_y2, 1, update_rect);
 
   memcpy(&rect, &realrainbow_rect, sizeof(SDL_Rect));
   memcpy(&realrainbow_rect, update_rect, sizeof(SDL_Rect));
@@ -194,16 +233,16 @@ void realrainbow_release(magic_api * api, int which,
   api->playsound(realrainbow_snd, 128, 255);
 }
 
-void realrainbow_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void realrainbow_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void realrainbow_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void realrainbow_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
 
-void realrainbow_arc(magic_api * api, SDL_Surface * canvas, SDL_Surface * last, int x1, int y1, int x2, int y2, int fulldraw, SDL_Rect * update_rect)
+void realrainbow_arc(magic_api * api, int which, SDL_Surface * canvas, SDL_Surface * last, int x1, int y1, int x2, int y2, int fulldraw, SDL_Rect * update_rect)
 {
   int lowx, lowy, hix, hiy, xm, ym, xc, yc, r, a1, atan2_a, atan2_b;
   int a, oa, ox, oy, nx, ny, step, thick, rr, done;
@@ -220,7 +259,7 @@ void realrainbow_arc(magic_api * api, SDL_Surface * canvas, SDL_Surface * last, 
 
   if (y1 == y2)
   {
-    xc = x1 + abs(x2 - x1) / 2;
+    xc = x1 + (x2 - x1) / 2;
     yc = y1;
     r = abs(xc - x1);
 
@@ -294,10 +333,10 @@ void realrainbow_arc(magic_api * api, SDL_Surface * canvas, SDL_Surface * last, 
       nx = (rr * cos(a * M_PI / 180.0)) + xc;
       ny = (rr * sin(a * M_PI / 180.0)) + yc;
 
-      colorindex = realrainbow_colors->h - 1 - (((rr - r + (thick / 2)) * realrainbow_colors->h) / thick);
+      colorindex = realrainbow_colors[which]->h - 1 - (((rr - r + (thick / 2)) * realrainbow_colors[which]->h) / thick);
 
-      SDL_GetRGBA(api->getpixel(realrainbow_colors, 0, colorindex),
-                  realrainbow_colors->format, &realrainbow_blendr, &realrainbow_blendg, &realrainbow_blendb, &realrainbow_blenda);
+      SDL_GetRGBA(api->getpixel(realrainbow_colors[which], 0, colorindex),
+                  realrainbow_colors[which]->format, &realrainbow_blendr, &realrainbow_blendg, &realrainbow_blendb, &realrainbow_blenda);
 
       if (!fulldraw)
         realrainbow_blenda = 255;
@@ -321,7 +360,7 @@ void realrainbow_arc(magic_api * api, SDL_Surface * canvas, SDL_Surface * last, 
   update_rect->w = r * 2 + thick * 2;
 }
 
-static void realrainbow_linecb(void * ptr, int which,
+static void realrainbow_linecb(void * ptr, int which ATTRIBUTE_UNUSED,
                                SDL_Surface * canvas, SDL_Surface * last,
                                int x, int y)
 {

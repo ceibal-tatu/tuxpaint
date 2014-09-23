@@ -1,5 +1,5 @@
-.\" tuxpaint.1 - 2009.06.02
-.TH TUXPAINT 1 "2 June 2009" "0.9.21" "Tux Paint"
+.\" tuxpaint.1 - 2014.08.05
+.TH TUXPAINT 1 "5 August 2014" "0.9.22" "Tux Paint"
 .SH NAME
 tuxpaint -- "Tux Paint", a drawing program for young children.
 
@@ -59,7 +59,61 @@ tuxpaint -- "Tux Paint", a drawing program for young children.
 .br
 [\-\-nomagiccontrols]
 .br
+[\-\-nolabel]
+.br
 [\-\-mirrorstamps]
+.br
+[\-\-mouse-accessibility]
+.br
+[\-\-onscreen-keyboard]
+.br
+[\-\-joystick-dev=\fIDEVICE\fP]
+.br
+[\-\-joystick-dev=list]
+.br
+[\-\-joystick-slowness=\fISPEED\fP]
+.br
+[\-\-joystick-threshold=\fITHRESHOLD\fP]
+.br
+[\-\-joystick-maxsteps=\fISTEPS\fP]
+.br
+[\-\-joystick-hat-timeout=\fIMILLISECONDS\fP]
+.br
+[\-\-joystick-hat-slowness=\fISPEED\fP]
+.br
+[\-\-joystick-btn-escape=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-brush=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-stamp=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-lines=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-shapes=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-text=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-label=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-magic=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-undo=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-redo=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-eraser=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-new=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-open=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-save=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-pgsetup=\fIBUTTON\fP]
+.br
+[\-\-joystick-btn-print=\fIBUTTON\fP]
+.br
+[\-\-joystick-buttons-ignore=\fIBUTTON1,BUTTON2,...\fP]
 .br
 [\-\-stampsize=\fISIZE\fP]
 .br
@@ -131,6 +185,8 @@ tuxpaint -- "Tux Paint", a drawing program for young children.
 .br
 [\-\-magiccontrols]
 .br
+[\-\-label]
+.br
 [\-\-dontmirrorstamps]
 .br
 [\-\-stampsize=default]
@@ -191,6 +247,7 @@ Display a list of all commandline options.
 Show the license (GNU GPL) under which Tux Paint is released.
 
 .SH OPTIONS - INTERFACE
+.l
 \fItuxpaint\fP accepts the following options to alter the interface.
 They can be used along with, instead of, or to override options set in
 configuration files. (See below.)
@@ -347,10 +404,25 @@ affects the entire image at once.  (Note: Not all Magic tools will be
 controllable.)
 
 .TP 8
+.B \-\-nolabel \-\-label
+Disable or enable (default) the \fILabel\fP tool, which lets you create
+text which can be altered or moved later.
+
+.TP 8
 .B \-\-mirrorstamps \-\-dontmirrorstamps
 With \fImirrorstamps\fP set, stamps which can be mirrored will appear
 mirrored by default.  This can be useful when used by people who prefer
 things right-to-left over left-to-right.
+
+.TP 8
+.B \-\-mouse-accessibility
+In this mode, instead of clicking, dragging and releasing (e.g., to draw),
+you click, move, and click again to end the motion.
+
+.TP 8
+.B \-\-onscreen-keyboard
+Presents a clickable on-screen keyboard when using the \fIText\fP and
+\fILabel\fP tools.
 
 .TP 8
 .B \-\-stampsize=\fIsize\fP \-\-stampsize=default
@@ -424,6 +496,7 @@ containing one color description per line. Colors may be in decimal or
 "\fI#000 Black\fP" and "\fI255 192 64 Orange\fP".)
 
 .SH OPTIONS - LANGUAGE
+.l
 Various parts of \fITux Paint\fP have been translated into numerous languages.
 \fITux Paint\fP will try its best to honor your \fIlocale\fP setting
 (i.e., the \fILANG\fP environment variable), if possible.
@@ -457,13 +530,31 @@ listed below:
 english | american-english
 .TP 2
 -
+acholi | acoli
+.TP 2
+-
 afrikaans
+.TP 2
+-
+akan | twi-fante
 .TP 2
 -
 albanian
 .TP 2
 -
+amharic
+.TP 2
+-
 arabic
+.TP 2
+-
+aragones
+.TP 2
+-
+armenian | hayeren
+.TP 2
+-
+assamese
 .TP 2
 -
 asturian
@@ -475,6 +566,9 @@ azerbaijani
 australian-english
 .TP 2
 -
+bambara
+.TP 2
+-
 basque | euskara
 .TP 2
 -
@@ -484,7 +578,10 @@ belarusian | bielaruskaja
 bokmal
 .TP 2
 -
-brazilian-portuguese | portuges-brazilian | brazilian
+bosnian
+.TP 2
+-
+brazilian-portuguese | portugues-brazilian | brazilian
 .TP 2
 -
 breton | brezhoneg
@@ -514,7 +611,7 @@ czech | cesky
 danish | dansk
 .TP 2
 -
-dutch
+dutch | nederlands
 .TP 2
 -
 esperanto
@@ -530,6 +627,9 @@ finnish | suomi
 .TP 2
 -
 french | francais
+.TP 2
+-
+fula | fulah | pulaar-fulfulde
 .TP 2
 -
 gaelic | irish-gaelic | gaidhlig
@@ -568,10 +668,19 @@ icelandic | islenska
 indonesian | bahasa-indonesia
 .TP 2
 -
+inuktitut
+.TP 2
+-
 italian | italiano
 .TP 2
 -
 japanese
+.TP 2
+-
+kannada
+.TP 2
+-
+kiga | chiga
 .TP 2
 -
 kinyarwanda
@@ -581,6 +690,12 @@ khmer
 .TP 2
 -
 klingon | tlhIngan
+.TP 2
+-
+konkani-devaganari
+.TP 2
+-
+konkani-roman
 .TP 2
 -
 korean
@@ -595,25 +710,61 @@ latvian
 lithuanian | lietuviu
 .TP 2
 -
+luganda
+.TP 2
+-
+luxembourgish | letzebuergesch
+.TP 2
+-
 macedonian
+.TP 2
+-
+maithili
 .TP 2
 -
 malay
 .TP 2
 -
+malayalam
+.TP 2
+-
+manipuri-bengali
+.TP 2
+-
+manipuri-meitei-mayek
+.TP 2
+-
+marathi
+.TP 2
+-
 mexican-spanish | espanol-mejicano | mexican
+.TP 2
+-
+mongolian
 .TP 2
 -
 ndebele
 .TP 2
 -
-norwegian | nynorsk
+nepali
+.TP 2
+-
+northern-sotho | sesotho-sa-leboa
+.TP 2
+-
+norwegian | nynorsk | norsk
 .TP 2
 -
 occitan
 .TP 2
 -
-ojibway
+odia | oriya
+.TP 2
+-
+ojibway | ojibwe
+.TP 2
+-
+persian
 .TP 2
 -
 polish | polski
@@ -622,16 +773,31 @@ polish | polski
 portuguese | portugues
 .TP 2
 -
+punjabi | panjabi
+.TP 2
+-
 romanian
 .TP 2
 -
 russian | russkiy
 .TP 2
 -
+sanskrit
+.TP 2
+-
+santali-devaganari
+.TP 2
+-
+santali-ol-chiki
+.TP 2
+-
 scottish | scottish-gaelic | ghaidhlig
 .TP 2
 -
 serbian
+.TP 2
+-
+serbian-latin
 .TP 2
 -
 shuswap | secwepemctin
@@ -650,6 +816,9 @@ southafrican-english
 .TP 2
 -
 spanish | espanol
+.TP 2
+-
+sundanese
 .TP 2
 -
 swahili
@@ -682,16 +851,22 @@ turkish
 twi
 .TP 2
 -
-ukranian
+ukrainian
+.TP 2
+-
+valencian
 .TP 2
 -
 venda
 .TP 2
 -
+venetian | veneto
+.TP 2
+-
 vietnamese
 .TP 2
 -
-walloon
+walloon | walon
 .TP 2
 -
 welsh | cymraeg
@@ -703,7 +878,10 @@ wolof
 xhosa
 .TP 2
 -
-zapoteco
+zapotec | miahuatlan-zapotec
+.TP 2
+-
+zulu
 .RE
 .PD
 
@@ -726,6 +904,7 @@ only require one click, but users think they need to double-click.)
 This option makes \fITux Paint\fP ignore the current lockfile.
 
 .SH ENVIRONMENT
+.ad l
 While \fITux Paint\fP may refer to a number of environment variables indirectly
 (e.g., via \fISDL(3)\fP), it only directly accesses the following:
 .PP
@@ -738,7 +917,7 @@ configuration file.
 
 .TP 8
 .B LANG
-to determine langauge to use, if \fIsetlocale(3)\fP refers to 'LC_MESSAGES'.
+to determine language to use, if \fIsetlocale(3)\fP refers to 'LC_MESSAGES'.
 
 .SH FILES
 .TP 8
@@ -804,8 +983,11 @@ Bill Kendrick.  <bill@newbreedsoftware.com>
 With patches, fixes, extensions, translation, documentation and more from
 lots of people, including, but not limited to:
 
+Aki,
+Ashish Arora,
 Khalid Al Holan,
 Daniel Andersson,
+Hodorog Andrei,
 Joana Portia Antwi-Danso,
 Adorilson Bezerra de Araujo,
 Xandru Armesto,
@@ -814,41 +996,53 @@ Ravishankar Ayyakkannu,
 Dwayne Bailey,
 Martin Benjamin,
 Denis Bodor,
+René Brandenburger,
 Herman Bruyninckx,
 Lucie Burianova,
 Laurentiu Buzdugan,
 Albert Cahalan,
 Pere Pujal Carabantes,
 Ouychai Chaita,
+Zden¿k Chalupský,
 Wei-Lun Chao,
 Jacques Chion,
+Ankit Choudary,
 Abdoul Cisse,
 Urska Colner,
 Adam 'akanewbie' Corcoran,
 Helder Correia,
 Ricardo Cruz,
 Laurent Dhima,
+Chandrakant Dhutadmal,
 Yavor Doganov,
+Joe Dalton,
 Dawa Dolma,
 Kevin Donnelly,
+Ander Elortondo,
 Alberto Escudero-Pascual,
 Jamil Farzana,
 Doruk Fisek,
 Dovix,
 Korvigellou An Drouizig (Philippe),
 Fabian Franz,
+Derrick Frimpong,
 Martin Fuhrer,
+Fula Localization Project,
 Gabriel Gazzan,
+Alexander Geroimenko,
 Torsten Giebl,
+Solomon Gizaw,
 Robert Glowczynski,
 Chris Goerner,
 Mikel González,
+Volker Grabsch,
 The Greek Linux i18n Team,
 Edmund GRIMLEY EVANS,
 Frederico Goncalves Guimaraes,
 Joe Hanson,
 Sam "Criswell" Hart,
 Guy Hed,
+Farinaz Hedayat,
 Tedi Heriyanto,
 Pjetur G. Hjaltason,
 Knut Erik Hollund,
@@ -858,7 +1052,10 @@ Mohomodou Houssouba,
 Song Huang,
 Karl Ove Hufthammer,
 Roland Illig,
+Indigenas Sin Fronteras,
 Juan Irigoien,
+Students of Vocational Higher Secondary School Irimpanam,
+Ivana Rakic,
 Dmitriy Ivanov,
 Mogens Jaeger,
 Lis Gøthe í Jákupsstovu,
@@ -882,8 +1079,10 @@ Ines Kovacevic,
 Mantas Kriauciunas,
 Freek de Kruijf,
 Andrzej M. Krzysztofowicz,
+Piotr Kwilinski,
 Serafeim Kyriaki,
 Matthew Lange,
+Fabio Lazarin,
 Niko Lewman,
 Arkadiusz Lipiec,
 Ricky Lontoc,
@@ -896,8 +1095,10 @@ Fred Ulisses Maranhao,
 Yannig MARCHEGAY (Kokoyaya),
 Jorge Mariano,
 Martin,
-Marco Milanesi,
 Sergio Marques,
+Pheledi Mathibela,
+Scott McCreary,
+Marco Milanesi,
 Kartik Mistry,
 Mugunth,
 Steve Murphy,
@@ -906,6 +1107,9 @@ Shumani Mercy Nehulaudzi,
 Mikkel Kirkgaard Nielsen,
 Alesis Novik,
 Daniel Nylander,
+Olli,
+James Olweny,
+Teresa Orive,
 Gareth Owen,
 Sorin Paliga,
 Yannis Papatzikos,
@@ -913,6 +1117,7 @@ Nikolay Parukhin,
 Alessandro Pasotti,
 Flavio Pastor,
 Patrick,
+George Patrick,
 Primoz Peterlin,
 Le Quang Phan,
 Henrik Pihl,
@@ -923,14 +1128,20 @@ Sergei Popov,
 John Popplewell,
 Rodrigo Perez Ramirez and Indigenas Sin Fronteras,
 Adam 'foo-script' Rakowski,
+Rodrigo Perez Ramirez,
+Robert Readman,
 Leandro Regueiro,
 Simona Riva,
 Robin Rosenberg,
 Ilir Rugova,
 Jaroslav Rynik,
 Bert Saal,
+Ibraahiima SAAR,
+Saikumar,
 Samuel Sarpong,
 Kevin Patrick Scannell,
+Stephanie Schilling,
+Kiriaki SERAFEIM,
 Pavithran Shakamuri,
 Gia Shervashidze,
 Clytie Siddall,
@@ -948,6 +1159,7 @@ Tarmo Toikkanen,
 TOYAMA Shin-ichi,
 Niall Tracey,
 tropikhajma,
+Florence Tushabe,
 Matej Urban,
 Rita Verbauskaite,
 Daniel Jose Viana,

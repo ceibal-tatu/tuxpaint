@@ -27,7 +27,7 @@
   (See COPYING.txt)
 
   June 24, 2007 - December 7, 2008
-  $Id: postscript_print.h,v 1.4 2009/05/24 07:27:55 dolphin6k Exp $
+  $Id: postscript_print.h,v 1.5 2009/11/23 07:45:25 albert Exp $
 */
 
 #ifndef POSTSCRIPT_PRINT_H
@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include "SDL.h"
+#include "compiler.h"
 
 
 /* Method for printing images: */
@@ -78,10 +79,9 @@
 #ifdef PRINTMETHOD_PS
 
 int do_ps_save(FILE * fi,
-		// const char *restrict const fname,
-		const char *fname,
+		const char *restrict const fname,
 		SDL_Surface * surf,
-	        char * pprsize,
+	        const char *restrict pprsize,
                 int is_pipe);
 
 #endif

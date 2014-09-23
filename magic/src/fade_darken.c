@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 9, 2008
-  $Id: fade_darken.c,v 1.14 2008/07/10 20:26:39 wkendrick Exp $
+  $Id: fade_darken.c,v 1.15 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -68,7 +68,9 @@ void fade_darken_release(magic_api * api, int which,
 void fade_darken_shutdown(magic_api * api);
 void fade_darken_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
 int fade_darken_requires_colors(magic_api * api, int which);
-
+void fade_darken_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void fade_darken_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int fade_darken_modes(magic_api * api, int which);
 
 int fade_darken_init(magic_api * api)
 {
@@ -268,15 +270,15 @@ int fade_darken_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTR
   return 0;
 }
 
-void fade_darken_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void fade_darken_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void fade_darken_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void fade_darken_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int fade_darken_modes(magic_api * api, int which)
+int fade_darken_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT | MODE_FULLSCREEN);
 }
