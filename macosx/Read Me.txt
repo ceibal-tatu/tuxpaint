@@ -74,8 +74,7 @@ This library will already have been built and installed by MacPorts, but will no
 % tar xzf fontconfig*.tar.gz
 % cd fontconfig*
 % sudo port deactivate fontconfig
-% ./configure --prefix=/Users/Shared/tuxpaint --enable-static --disable-shared
-% --disable-docs --with-confdir="/Library/Application Support/TuxPaint/fontconfig/fonts" --with-cache-dir="/Library/Application Support/TuxPaint/fontconfig/cache" CPPFLAGS=-I/opt/local/include LDFLAGS=-L/opt/local/lib
+% ./configure --prefix=/Users/Shared/tuxpaint --enable-static --disable-shared --disable-docs --with-confdir="/Library/Application Support/TuxPaint/fontconfig/fonts" --with-cache-dir="/Library/Application Support/TuxPaint/fontconfig/cache" CPPFLAGS=-I/opt/local/include LDFLAGS=-L/opt/local/lib
 % sudo make install
 % sudo port activate fontconfig
 
@@ -102,6 +101,7 @@ MacPorts only installs the dynamic libraries for Pango.  We need to reconfigure 
 % cd pango*
 % sudo port deactivate pango
 % ./configure --prefix=/Users/Shared/tuxpaint --enable-static CPPFLAGS=-I/opt/local/include LDFLAGS=-L/opt/local/lib --with-included-modules=yes --with-dynamic-modules=no --disable-shared
+//EP pas de "make" ?
 % sudo make install
 % sudo find . -name "*.a" -exec cp {} /Users/Shared/tuxpaint/lib/ \;
 % sudo port activate pango
@@ -116,6 +116,7 @@ Assuming you place the sources in /Users/Shared/tuxpaint/src/libsvg, you can con
 % cd /Users/Shared/tuxpaint/src/libsvg
 % ./autogen.sh
 % ./configure --prefix=/Users/Shared/tuxpaint LIBSVG_CFLAGS=-I/usr/include LIBSVG_LIBS=-L/usr/lib --disable-shared
+//EP pas de "make" ?
 % make install
 
 SVG Cairo:

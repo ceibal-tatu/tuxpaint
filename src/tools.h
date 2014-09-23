@@ -19,12 +19,12 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  Copyright (c) 2002-2007 by Bill Kendrick
+  Copyright (c) 2002-2009 by Bill Kendrick
   bill@newbreedsoftware.com
   http://www.tuxpaint.org/
 
-  June 14, 2002 - July 17, 2007
-  $Id: tools.h,v 1.9 2009/06/03 20:46:07 wkendrick Exp $
+  June 14, 2002 - October 9, 2009
+  $Id: tools.h,v 1.14 2010/04/25 20:30:47 perepujal Exp $
 */
 
 
@@ -40,6 +40,8 @@ enum
   TOOL_LINES,
   TOOL_SHAPES,
   TOOL_TEXT,
+  TOOL_LABEL,
+  TOOL_NA,
   TOOL_MAGIC,
   TOOL_UNDO,
   TOOL_REDO,
@@ -70,6 +72,12 @@ const char *const tool_names[NUM_TOOLS] = {
 
   // Text tool
   gettext_noop("Text"),
+
+  // Label tool
+  gettext_noop("Label"),
+
+  // Reserved...
+  " ",
 
   // "Magic" effects tools (blur, flip image, etc.)
   gettext_noop("Magic"),
@@ -116,7 +124,13 @@ const char *const tool_tips[NUM_TOOLS] = {
   gettext_noop("Pick a shape. Click to pick the center, drag, then let go when it is the size you want. Move around to rotate it, and click to draw it."),
 
   // Text tool instructions
-  gettext_noop("Choose a style of text. Click on your drawing and you can start typing."),
+  gettext_noop("Choose a style of text. Click on your drawing and you can start typing. Press [Enter] or [Tab] to complete the text."),
+
+  // Label tool instructions
+  gettext_noop("Choose a style of text. Click on your drawing and you can start typing. Press [Enter] or [Tab] to complete the text. By using the selector button and clicking an exist label, you can move it, edit it and change its text style."),
+
+  // Reserved...
+  " ",
 
   // Magic tool instruction
   gettext_noop("Pick a magical effect to use on your drawing!"),
@@ -167,6 +181,8 @@ const char *const tool_img_fnames[NUM_TOOLS] = {
   DATA_PREFIX "images/tools/lines.png",
   DATA_PREFIX "images/tools/shapes.png",
   DATA_PREFIX "images/tools/text.png",
+  DATA_PREFIX "images/tools/label.png",
+  DATA_PREFIX "images/ui/dead40x40.png",
   DATA_PREFIX "images/tools/magic.png",
   DATA_PREFIX "images/tools/undo.png",
   DATA_PREFIX "images/tools/redo.png",
@@ -182,6 +198,8 @@ const char *const tool_img_fnames[NUM_TOOLS] = {
 /* Tux icons to use: */
 
 const int tool_tux[NUM_TOOLS] = {
+  TUX_DEFAULT,
+  TUX_DEFAULT,
   TUX_DEFAULT,
   TUX_DEFAULT,
   TUX_DEFAULT,

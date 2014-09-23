@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: June 6, 2008
-  $Id: noise.c,v 1.10 2009/05/26 16:10:00 dolphin6k Exp $
+  $Id: noise.c,v 1.11 2012/03/05 19:41:24 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -67,6 +67,33 @@ const char * noise_descs[noise_NUM_TOOLS][2] = {
     gettext_noop("Click to add noise to your entire picture."),},
 };
 
+Uint32 noise_api_version(void);
+int noise_init(magic_api * api);
+SDL_Surface * noise_get_icon(magic_api * api, int which);
+char * noise_get_name(magic_api * api, int which);
+char * noise_get_description(magic_api * api, int which, int mode);
+static void do_noise_pixel(void * ptr, int which,
+	         SDL_Surface * canvas, SDL_Surface * last,
+	         int x, int y);
+static void do_noise_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which);
+static void do_noise_brush(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last, int x, int y);
+void noise_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void noise_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void noise_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void noise_shutdown(magic_api * api);
+void noise_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int noise_requires_colors(magic_api * api, int which);
+void noise_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void noise_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int noise_modes(magic_api * api, int which);
+int noise_get_tool_count(magic_api * api ATTRIBUTE_UNUSED);
+
 Uint32 noise_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 //Load sounds
@@ -83,7 +110,7 @@ int noise_init(magic_api * api){
   return(1);
 }
 
-int noise_get_tool_count(magic_api * api){
+int noise_get_tool_count(magic_api * api ATTRIBUTE_UNUSED){
   return(noise_NUM_TOOLS);
 }
 
@@ -95,18 +122,18 @@ SDL_Surface * noise_get_icon(magic_api * api, int which){
 }
 
 // Return our names, localized:
-char * noise_get_name(magic_api * api, int which){
+char * noise_get_name(magic_api * api ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(noise_names[which])));
 }
 
 // Return our descriptions, localized:
-char * noise_get_description(magic_api * api, int which, int mode){
+char * noise_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode){
   return(strdup(gettext_noop(noise_descs[which][mode-1])));
 }
 
 //Do the effect for one pixel
-static void do_noise_pixel(void * ptr, int which,
-	         SDL_Surface * canvas, SDL_Surface * last,
+static void do_noise_pixel(void * ptr, int which ATTRIBUTE_UNUSED,
+	         SDL_Surface * canvas, SDL_Surface * last ATTRIBUTE_UNUSED,
 	         int x, int y){
 	magic_api * api = (magic_api *) ptr;
 
@@ -124,9 +151,6 @@ static void do_noise_pixel(void * ptr, int which,
 
 // Do the effect for the full image
 static void do_noise_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which){
-
-	magic_api * api = (magic_api *) ptr;
-
 	int x,y;
 
 	for (y = 0; y < last->h; y++){
@@ -189,14 +213,14 @@ void noise_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void noise_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void noise_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void noise_shutdown(magic_api * api)
+void noise_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -208,25 +232,25 @@ void noise_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void noise_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void noise_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int noise_requires_colors(magic_api * api, int which)
+int noise_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void noise_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void noise_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void noise_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void noise_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int noise_modes(magic_api * api, int which)
+int noise_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN|MODE_PAINT);
 }

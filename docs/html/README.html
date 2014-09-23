@@ -12,12 +12,12 @@ alt="Tux&nbsp;Paint"><br>
 
 version
 
-0.9.21
+0.9.22
 
 </h1>
 <h3>A simple drawing program for children</h3>
 
-<p>Copyright 2002-2009 by Bill Kendrick and others<br>
+<p>Copyright 2002-2014 by Bill Kendrick and others<br>
 <a href="http://www.newbreedsoftware.com/">New Breed Software &amp;
 <a href="http://tux4kids.alioth.debian.org/">Tux4Kids</a></p>
 
@@ -26,7 +26,7 @@ version
 
 <p>June 14, 2002 -
 
-				April 28, 2009</p>
+				August 5, 2014</p>
 
 </center>
 
@@ -208,8 +208,9 @@ version
     <dd>
       <p>The toolbar contains the drawing and editing controls.</p>
 
+      <!-- FIXME: Updated screenshot -->
       <p align=center><img src="images/tools.jpg" width=324 height=254
-      alt="[Tools: Paint, Stamp, Lines, Shapes, Text, Magic, Undo, Redo,
+      alt="[Tools: Paint, Stamp, Lines, Shapes, Text, Magic, Label, Undo, Redo,
       Eraser, New, Open, Save, Print, Quit]"></p>
     </dd>
 
@@ -416,7 +417,7 @@ version
       </dd>
 
 
-      <dt><b>Text</b></dt>
+      <dt><b>Text</b> and <b>Label</b></dt>
       <dd>
         <img src="images/tool_text.png" width=48 height=48 alt="" align=right>
 
@@ -441,6 +442,27 @@ version
         alt=""></p>
 
         <dl>
+        <dt><b>Text versus Label</b></dt>
+        <dd>
+          <p>The <b>Text</b> tool is the original text-entry tool in
+          Tux&nbsp;Paint.  Text entered using this tool can't be modified
+          or moved later, since it becomes part of the drawing.  However,
+          because the text becomes part of the picture, it can be drawn
+          over or modified using <b>Magic</b> tool effects (e.g., smudged,
+          tinted, embossed, etc.)</p>
+
+          <p>When using the <b>Label</b> tool (which was added to
+          Tux&nbsp;Paint in version 0.9.22), the text 'floats' over the
+          image, and the details of the label (the text, the position of
+          the label, the font choice and the color) get stored separately.
+          This allows the label to be repositioned or edited later.</p>
+
+          <p>The <b>Label</b> tool can be disabled (e.g., by selecting
+          "Disable&nbsp;'Label'&nbsp;Tool" in <i>Tux&nbsp;Paint&nbsp;Config.</i>
+          or running <i>Tux&nbsp;Paint</i> with the "<code>--nolabel</code>"
+          command-line option).</p>
+        </dd>
+
         <dt><b>International Character Input</b></dt>
         <dd>
           <p>Tux Paint allows inputting characters in different languages.
@@ -633,6 +655,9 @@ version
             <p>Click the brown "Erase" (trash can) button at the lower right of
             the list to erase the selected picture.  (You will be asked to
             confirm.)</p>
+
+            <p><b>Note:</b> As of version 0.9.22, the picture will be
+            placed in your desktop's trash can, on Linux only.</p>
 
             <br clear=all>
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # tuxpaint-import
 
@@ -25,7 +25,7 @@
 # (See COPYING.txt)
 
 
-# September 21, 2002 - June 13, 2009
+# September 21, 2002 - November 4, 2009
 
 
 SAVEDIR=$HOME/.tuxpaint

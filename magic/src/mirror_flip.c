@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: mirror_flip.c,v 1.12 2008/07/10 20:26:40 wkendrick Exp $
+  $Id: mirror_flip.c,v 1.13 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -43,6 +43,29 @@ enum {
 
 static Mix_Chunk * snd_effects[NUM_TOOLS];
 
+/* Prototypes */
+int mirror_flip_init(magic_api *);
+Uint32 mirror_flip_api_version(void);
+int mirror_flip_get_tool_count(magic_api *);
+SDL_Surface * mirror_flip_get_icon(magic_api *, int);
+char * mirror_flip_get_name(magic_api *, int);
+char * mirror_flip_get_description(magic_api *, int, int);
+void mirror_flip_drag(magic_api *, int, SDL_Surface *,
+	SDL_Surface *, int, int, int, int,
+	SDL_Rect *);
+void mirror_flip_release(magic_api *, int, SDL_Surface *,
+	SDL_Surface *, int, int, int, int,
+	SDL_Rect *);
+void mirror_flip_click(magic_api *, int, int,
+	SDL_Surface *, SDL_Surface *,
+	int, int,
+	SDL_Rect *);
+void mirror_flip_shutdown(magic_api *);
+void mirror_flip_set_color(magic_api *, Uint8, Uint8, Uint8);
+int mirror_flip_requires_colors(magic_api *, int);
+void mirror_flip_switchin(magic_api *, int, int, SDL_Surface *);
+void mirror_flip_switchout(magic_api *, int, int, SDL_Surface *);
+int mirror_flip_modes(magic_api *, int);
 
 // No setup required:
 int mirror_flip_init(magic_api * api)
@@ -63,7 +86,7 @@ int mirror_flip_init(magic_api * api)
 Uint32 mirror_flip_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 // We have multiple tools:
-int mirror_flip_get_tool_count(magic_api * api)
+int mirror_flip_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(NUM_TOOLS);
 }
@@ -88,7 +111,7 @@ SDL_Surface * mirror_flip_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * mirror_flip_get_name(magic_api * api, int which)
+char * mirror_flip_get_name(magic_api * api ATTRIBUTE_UNUSED, int which)
 {
   if (which == TOOL_MIRROR)
     return(strdup(gettext_noop("Mirror")));
@@ -99,7 +122,8 @@ char * mirror_flip_get_name(magic_api * api, int which)
 }
 
 // Return our descriptions, localized:
-char * mirror_flip_get_description(magic_api * api, int which, int mode)
+char * mirror_flip_get_description(magic_api * api ATTRIBUTE_UNUSED,
+	  int which, int mode ATTRIBUTE_UNUSED)
 {
   if (which == TOOL_MIRROR)
     return(strdup(
@@ -112,24 +136,30 @@ char * mirror_flip_get_description(magic_api * api, int which, int mode)
 }
 
 // We affect the whole canvas, so only do things on click, not drag:
-void mirror_flip_drag(magic_api * api, int which, SDL_Surface * canvas,
-	  SDL_Surface * last, int ox, int oy, int x, int y,
-	  SDL_Rect * update_rect)
+void mirror_flip_drag(magic_api * api ATTRIBUTE_UNUSED, 
+	  int which ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED,
+	  SDL_Surface * last ATTRIBUTE_UNUSED, 
+	  int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED,
+	  int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED,
+	  SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
   // No-op
 }
 
-void mirror_flip_release(magic_api * api, int which, SDL_Surface * canvas,
-	  SDL_Surface * last, int ox, int oy, int x, int y,
-	  SDL_Rect * update_rect)
+void mirror_flip_release(magic_api * api ATTRIBUTE_UNUSED,
+	  int which ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED,
+	  SDL_Surface * last ATTRIBUTE_UNUSED, 
+	  int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED,
+	  int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED,
+	  SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
   // No-op
 }
 
 // Affect the canvas on click:
-void mirror_flip_click(magic_api * api, int which, int mode,
+void mirror_flip_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	   SDL_Surface * canvas, SDL_Surface * last,
-	   int x, int y,
+	   int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED,
 	   SDL_Rect * update_rect)
 {
   int xx, yy;
@@ -179,7 +209,7 @@ void mirror_flip_click(magic_api * api, int which, int mode,
 }
 
 // No setup happened:
-void mirror_flip_shutdown(magic_api * api)
+void mirror_flip_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (snd_effects[0] != NULL)
     Mix_FreeChunk(snd_effects[0]);
@@ -188,25 +218,33 @@ void mirror_flip_shutdown(magic_api * api)
 }
 
 // We don't use colors:
-void mirror_flip_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void mirror_flip_set_color(magic_api * api ATTRIBUTE_UNUSED, 
+	  Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, 
+	  Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // We don't use colors:
-int mirror_flip_requires_colors(magic_api * api, int which)
+int mirror_flip_requires_colors(magic_api * api ATTRIBUTE_UNUSED,
+	  int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void mirror_flip_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void mirror_flip_switchin(magic_api * api ATTRIBUTE_UNUSED, 
+	  int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, 
+	  SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void mirror_flip_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void mirror_flip_switchout(magic_api * api ATTRIBUTE_UNUSED, 
+	  int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, 
+	  SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int mirror_flip_modes(magic_api * api, int which)
+int mirror_flip_modes(magic_api * api ATTRIBUTE_UNUSED, 
+	  int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN);
 }

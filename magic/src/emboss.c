@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: emboss.c,v 1.11 2008/07/10 20:26:39 wkendrick Exp $
+  $Id: emboss.c,v 1.12 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -36,6 +36,33 @@
 /* Our globals: */
 
 static Mix_Chunk * emboss_snd;
+
+// Prototypes
+Uint32 emboss_api_version(void);
+int emboss_init(magic_api * api);
+int emboss_get_tool_count(magic_api * api);
+SDL_Surface * emboss_get_icon(magic_api * api, int which);
+char * emboss_get_name(magic_api * api, int which);
+char * emboss_get_description(magic_api * api, int which, int mode);
+
+void emboss_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+
+void emboss_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+
+void emboss_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+
+void emboss_shutdown(magic_api * api);
+void emboss_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int emboss_requires_colors(magic_api * api, int which);
+void emboss_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void emboss_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int emboss_modes(magic_api * api, int which);
 
 
 Uint32 emboss_api_version(void) { return(TP_MAGIC_API_VERSION); }
@@ -54,13 +81,13 @@ int emboss_init(magic_api * api)
 }
 
 // We have multiple tools:
-int emboss_get_tool_count(magic_api * api)
+int emboss_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(1);
 }
 
 // Load our icons:
-SDL_Surface * emboss_get_icon(magic_api * api, int which)
+SDL_Surface * emboss_get_icon(magic_api * api, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -71,20 +98,20 @@ SDL_Surface * emboss_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * emboss_get_name(magic_api * api, int which)
+char * emboss_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Emboss")));
 }
 
 // Return our descriptions, localized:
-char * emboss_get_description(magic_api * api, int which, int mode)
+char * emboss_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Click and drag the mouse to emboss the picture.")));
 }
 
 // Do the effect:
 
-static void do_emboss(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+static void do_emboss(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * last,
                 int x, int y)
 {
   magic_api * api = (magic_api *) ptr;
@@ -147,7 +174,7 @@ void emboss_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void emboss_click(magic_api * api, int which, int mode,
+void emboss_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -155,39 +182,39 @@ void emboss_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void emboss_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void emboss_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void emboss_shutdown(magic_api * api)
+void emboss_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (emboss_snd != NULL)
     Mix_FreeChunk(emboss_snd);
 }
 
 // Record the color from Tux Paint:
-void emboss_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void emboss_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int emboss_requires_colors(magic_api * api, int which)
+int emboss_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void emboss_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void emboss_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void emboss_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void emboss_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int emboss_modes(magic_api * api, int which)
+int emboss_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT); /* FIXME - Can also be turned into a full-image effect */
 }

@@ -1,15 +1,15 @@
                                    Tux Paint
-                                 version 0.9.21
+                                 version 0.9.22
 
 Options Documentation
 
-                Copyright 2002-2009 by Bill Kendrick and others
+                Copyright 2002-2014 by Bill Kendrick and others
                                New Breed Software
 
                            bill@newbreedsoftware.com
                             http://www.tuxpaint.org/
 
-                                  May 31, 2009
+                                 August 4, 2014
 
      ----------------------------------------------------------------------
 
@@ -357,6 +357,10 @@ Windows Users
                the controls, and only provides the default functionality
                (usually paint-mode).
 
+       nolabel=yes
+               Disables the Label tool: the tool that allows text entry which
+               can be edited later.
+
        mirrorstamps=yes
 
                For stamps that can be mirrored, this option sets them to
@@ -364,6 +368,128 @@ Windows Users
 
                This can be useful for people who prefer things right-to-left,
                rather than left-to-right.
+
+       mouse-accessibility=yes
+               In this mode, instead of clicking, dragging and releasing
+               (e.g., to draw), you click, move, and click again to end the
+               motion.
+
+       onscreen-keyboard=yes
+               Presents a clickable on-screen keyboard when using the Text
+               and Label tools.
+
+       onscreen-keyboard-layout=LAYOUTNAME
+               Selects the initial layout for the on-screen keyboard when
+               using the Text and Label tools.
+               Note: Using this option implies automatically
+               onscreen-keyboard=yes, so setting both is redundant.
+
+       onscreen-keyboard-disable-change=yes
+               Disables the possibility for changing the layout of the
+               on-screen keyboard when using the Text and Label tools, useful
+               for simplifying things for the small children.
+               Note: Using this option implies automatically
+               onscreen-keyboard=yes, so setting both is redundant.
+
+       joystick-dev=N
+               Specify which joystick device should be used by Tux Paint.
+               Default value is 0 (the first joystick).
+
+       joystick-slowness=SPEED
+               Sets a delay at each axis motion, allowing to slow the
+               joystick. Allowed values are from 0 to 500. Default value is
+               15.
+
+       joystick-threshold=THRESHOLD
+               Sets the minimum level of axis motion to start moving the
+               pointer. Allowed values are from 0 to 32766. Default value is
+               3200.
+
+       joystick-maxsteps=STEPS
+               Sets the maximum pixels the pointer will move at once. Allowed
+               values are from 1 to 7. Default value is 7.
+
+       joystick-hat-timeout=MILLISECONDS
+               Sets the delay after wich the pointer will start moving
+               automatically if the hat is keeped pushed. Allowed values are
+               from 0 to 3000. Default value is 1000.
+
+       joystick-hat-slowness=SPEED
+               Sets a delay at each automatic motion, allowing to slow the
+               speed of the hat. Allowed values are from 0 to 500. Default
+               value is 15.
+
+       joystick-btn-escape=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be used to generate a escape event. Useful to dismiss dialogs
+               and quit.
+
+       joystick-btn-brush=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the brush tool.
+
+       joystick-btn-stamp=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the stamp tool.
+
+       joystick-btn-lines=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the lines tool.
+
+       joystick-btn-shapes=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the shapes tool.
+
+       joystick-btn-text=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the text tool.
+
+       joystick-btn-label=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the label tool.
+
+       joystick-btn-magic=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to select the magic tool.
+
+       joystick-btn-undo=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to the undo tool.
+
+       joystick-btn-redo=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to the redo tool.
+
+       joystick-btn-eraser=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt for selecting the eraser tool.
+
+       joystick-btn-new=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to launch the dialog for opening a new draw.
+
+       joystick-btn-open=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to launch the dialog for opening an existing
+               draw.
+
+       joystick-btn-save=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt for saving the draw.
+
+       joystick-btn-pgsetup=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to launch the page setup dialog for printing.
+
+       joystick-btn-print=BUTTON NUMBER
+               Selects the joystick button number, as seen by SDL, that will
+               be a shortcurt to print.
+
+       joystick-buttons-ignore=BUTTON1,BUTTON2,...
+               A set of joystick button numbers, as seen by SDL, that should
+               be ignored. Otherwise, unless they are used by one of the
+               "joystick-btn-" options above, buttons will be seen as a mouse
+               left-click.
 
        stampsize=SIZE
 
@@ -379,10 +505,38 @@ Windows Users
        keyboard=yes
 
                This allows the keyboard arrow keys to be used to control the
-               mouse pointer. (e.g., for mouseless environments.)
+               mouse pointer. (e.g., for mouseless environments, or
+               handicapped/accessibility purposes)
 
-               The [Arrow] keys move the mouse pointer. [Space] acts as the
-               mouse button.
+               Features:
+                  * Fine movement within canvas, or coarse movement if
+                    [Shift] is held.
+                  * Coarse movement within tool button areas.
+                  * Key controls:
+                       * [Left]/[Right]/[Up]/[Down], numpad [1] thru [9]:
+                         Move mouse
+                       * [Space]/[5]: Click mouse (except when using "Text"
+                         or "Label" tools)
+                       * [Insert]/[F5]: Click mouse (always)
+                       * [F4] jump mouse between "Tools", "Colors" and canvas
+                         areas
+                       * If mouse is within "Tools" section on the left, or
+                         "Colors" secton at the bottom:
+                            * [F7], [F8]: Move down/up between buttons,
+                              respectively (Tools section, only)
+                            * [F11], [F12]: Move to previous/next button,
+                              respectively
+                  * To click-and-drag, hold one of the 'click' keys (e.g.,
+                    [Insert]), and use the movement keys (e.g., [Left]).
+                       * Note: The "mouse accessibility" feature works with
+                         the keyboard mouse controls. With both options
+                         enabled, painting tools can be used to draw by
+                         pressing a 'click' key to start clicking, movement
+                         keys to move around (which will draw), and another
+                         'click' key to end the click (stop drawing).
+                  * A regular mouse and/or joystick may still be used (so you
+                    can, e.g., move with the mouse, and click with the
+                    keyboard, or vice-versa)
 
        savedir=DIRECTORY
 
@@ -516,175 +670,243 @@ Windows Users
                Run Tux Paint in one of the supported languages. Possible
                choice for LANGUAGE currently include:
 
-                 +----------------------------------------------------------+
-                 |english             |american-english     |               |
-                 |--------------------+---------------------+---------------|
-                 |afrikaans           |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |albanian            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |arabic              |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |asturian            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |australian-english  |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |azerbaijani         |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |basque              |euskara              |               |
-                 |--------------------+---------------------+---------------|
-                 |belarusian          |bielaruskaja         |               |
-                 |--------------------+---------------------+---------------|
-                 |bokmal              |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |brazilian-portuguese|portuges-brazilian   |brazilian      |
-                 |--------------------+---------------------+---------------|
-                 |breton              |brezhoneg            |               |
-                 |--------------------+---------------------+---------------|
-                 |british-english     |british              |               |
-                 |--------------------+---------------------+---------------|
-                 |bulgarian           |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |canadian-english    |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |catalan             |catala               |               |
-                 |--------------------+---------------------+---------------|
-                 |chinese             |simplified-chinese   |               |
-                 |--------------------+---------------------+---------------|
-                 |croatian            |hrvatski             |               |
-                 |--------------------+---------------------+---------------|
-                 |czech               |cesky                |               |
-                 |--------------------+---------------------+---------------|
-                 |danish              |dansk                |               |
-                 |--------------------+---------------------+---------------|
-                 |dutch               |nederlands           |               |
-                 |--------------------+---------------------+---------------|
-                 |esperanto           |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |estonian            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |faroese             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |finnish             |suomi                |               |
-                 |--------------------+---------------------+---------------|
-                 |french              |francais             |               |
-                 |--------------------+---------------------+---------------|
-                 |gaelic              |gaidhlig             |irish-gaelic   |
-                 |--------------------+---------------------+---------------|
-                 |galician            |galego               |               |
-                 |--------------------+---------------------+---------------|
-                 |georgian            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |german              |deutsch              |               |
-                 |--------------------+---------------------+---------------|
-                 |greek               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |gronings            |zudelk-veenkelonioals|               |
-                 |--------------------+---------------------+---------------|
-                 |gujarati            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |hebrew              |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |hindi               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |hungarian           |magyar               |               |
-                 |--------------------+---------------------+---------------|
-                 |icelandic           |islenska             |               |
-                 |--------------------+---------------------+---------------|
-                 |indonesian          |bahasa-indonesia     |               |
-                 |--------------------+---------------------+---------------|
-                 |italian             |italiano             |               |
-                 |--------------------+---------------------+---------------|
-                 |japanese            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |khmer               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |kinyarwanda         |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |klingon             |tlhIngan             |               |
-                 |--------------------+---------------------+---------------|
-                 |korean              |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |kurdish             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |latvian             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |lithuanian          |lietuviu             |               |
-                 |--------------------+---------------------+---------------|
-                 |macedonian          |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |malay               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |mexican-spanish     |espanol-mejicano     |mexican        |
-                 |--------------------+---------------------+---------------|
-                 |ndebele             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |norwegian           |nynorsk              |               |
-                 |--------------------+---------------------+---------------|
-                 |occitan             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |ojibwe              |ojibway              |               |
-                 |--------------------+---------------------+---------------|
-                 |polish              |polski               |               |
-                 |--------------------+---------------------+---------------|
-                 |portuguese          |portugues            |               |
-                 |--------------------+---------------------+---------------|
-                 |romanian            |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |russian             |russkiy              |               |
-                 |--------------------+---------------------+---------------|
-                 |scottish            |ghaidhlig            |scottish-gaelic|
-                 |--------------------+---------------------+---------------|
-                 |serbian             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |shuswap             |secwepemctin         |               |
-                 |--------------------+---------------------+---------------|
-                 |slovak              |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |slovenian           |slovensko            |               |
-                 |--------------------+---------------------+---------------|
-                 |songhay             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |southafrican-english|                     |               |
-                 |--------------------+---------------------+---------------|
-                 |spanish             |espanol              |               |
-                 |--------------------+---------------------+---------------|
-                 |swahili             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |swedish             |svenska              |               |
-                 |--------------------+---------------------+---------------|
-                 |tagalog             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |tamil               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |telugu              |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |thai                |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |tibetan             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |traditional-chinese |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |turkish             |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |twi                 |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |ukrainian           |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |venda               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |vietnamese          |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |walloon             |walon                |               |
-                 |--------------------+---------------------+---------------|
-                 |welsh               |cymraeg              |               |
-                 |--------------------+---------------------+---------------|
-                 |wolof               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |xhosa               |                     |               |
-                 |--------------------+---------------------+---------------|
-                 |miahuatlan-zapotec  |                     |zapotec        |
-                 +----------------------------------------------------------+
+                 +-----------------------------------------------------------+
+                 |english              |american-english     |               |
+                 |---------------------+---------------------+---------------|
+                 |acholi               |acoli                |               |
+                 |---------------------+---------------------+---------------|
+                 |afrikaans            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |akan                 |twi-fante            |               |
+                 |---------------------+---------------------+---------------|
+                 |albanian             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |amharic              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |arabic               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |aragones             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |armenian             |hayeren              |               |
+                 |---------------------+---------------------+---------------|
+                 |assamese             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |asturian             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |australian-english   |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |azerbaijani          |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |bambara              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |basque               |euskara              |               |
+                 |---------------------+---------------------+---------------|
+                 |belarusian           |bielaruskaja         |               |
+                 |---------------------+---------------------+---------------|
+                 |bokmal               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |bosnian              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |brazilian-portuguese |portugues-brazilian  |brazilian      |
+                 |---------------------+---------------------+---------------|
+                 |breton               |brezhoneg            |               |
+                 |---------------------+---------------------+---------------|
+                 |british-english      |british              |               |
+                 |---------------------+---------------------+---------------|
+                 |bulgarian            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |canadian-english     |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |catalan              |catala               |               |
+                 |---------------------+---------------------+---------------|
+                 |chinese              |simplified-chinese   |               |
+                 |---------------------+---------------------+---------------|
+                 |croatian             |hrvatski             |               |
+                 |---------------------+---------------------+---------------|
+                 |czech                |cesky                |               |
+                 |---------------------+---------------------+---------------|
+                 |danish               |dansk                |               |
+                 |---------------------+---------------------+---------------|
+                 |dutch                |nederlands           |               |
+                 |---------------------+---------------------+---------------|
+                 |esperanto            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |estonian             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |faroese              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |finnish              |suomi                |               |
+                 |---------------------+---------------------+---------------|
+                 |french               |francais             |               |
+                 |---------------------+---------------------+---------------|
+                 |fula                 |fulah                |pulaar-fulfulde|
+                 |---------------------+---------------------+---------------|
+                 |gaelic               |gaidhlig             |irish-gaelic   |
+                 |---------------------+---------------------+---------------|
+                 |galician             |galego               |               |
+                 |---------------------+---------------------+---------------|
+                 |georgian             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |german               |deutsch              |               |
+                 |---------------------+---------------------+---------------|
+                 |greek                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |gronings             |zudelk-veenkelonioals|               |
+                 |---------------------+---------------------+---------------|
+                 |gujarati             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |hebrew               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |hindi                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |hungarian            |magyar               |               |
+                 |---------------------+---------------------+---------------|
+                 |icelandic            |islenska             |               |
+                 |---------------------+---------------------+---------------|
+                 |indonesian           |bahasa-indonesia     |               |
+                 |---------------------+---------------------+---------------|
+                 |inuktitut            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |italian              |italiano             |               |
+                 |---------------------+---------------------+---------------|
+                 |japanese             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |kannada              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |khmer                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |kiga                 |chiga                |               |
+                 |---------------------+---------------------+---------------|
+                 |kinyarwanda          |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |klingon              |tlhIngan             |               |
+                 |---------------------+---------------------+---------------|
+                 |konkani-devaganari   |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |konkani-roman        |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |korean               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |kurdish              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |latvian              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |lithuanian           |lietuviu             |               |
+                 |---------------------+---------------------+---------------|
+                 |luganda              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |luxembourgish        |letzebuergesch       |               |
+                 |---------------------+---------------------+---------------|
+                 |macedonian           |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |maithili             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |malay                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |malayalam            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |manipuri-bengali     |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |manipuri-meitei-mayek|                     |               |
+                 |---------------------+---------------------+---------------|
+                 |marathi              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |mexican-spanish      |espanol-mejicano     |mexican        |
+                 |---------------------+---------------------+---------------|
+                 |mongolian            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |ndebele              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |nepali               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |northern-sotho       |sesotho-sa-leboa     |               |
+                 |---------------------+---------------------+---------------|
+                 |norwegian            |nynorsk              |norsk          |
+                 |---------------------+---------------------+---------------|
+                 |occitan              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |odia                 |oriya                |               |
+                 |---------------------+---------------------+---------------|
+                 |ojibwe               |ojibway              |               |
+                 |---------------------+---------------------+---------------|
+                 |persian              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |polish               |polski               |               |
+                 |---------------------+---------------------+---------------|
+                 |portuguese           |portugues            |               |
+                 |---------------------+---------------------+---------------|
+                 |punjabi              |panjabi              |               |
+                 |---------------------+---------------------+---------------|
+                 |romanian             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |russian              |russkiy              |               |
+                 |---------------------+---------------------+---------------|
+                 |sanskrit             |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |santali-devaganari   |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |santali-ol-chiki     |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |scottish             |ghaidhlig            |scottish-gaelic|
+                 |---------------------+---------------------+---------------|
+                 |serbian              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |serbian-latin        |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |shuswap              |secwepemctin         |               |
+                 |---------------------+---------------------+---------------|
+                 |slovak               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |slovenian            |slovensko            |               |
+                 |---------------------+---------------------+---------------|
+                 |songhay              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |southafrican-english |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |spanish              |espanol              |               |
+                 |---------------------+---------------------+---------------|
+                 |sundanese            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |swahili              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |swedish              |svenska              |               |
+                 |---------------------+---------------------+---------------|
+                 |tagalog              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |tamil                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |telugu               |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |thai                 |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |tibetan              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |traditional-chinese  |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |turkish              |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |twi                  |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |ukrainian            |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |venda                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |venetian             |veneto               |               |
+                 |---------------------+---------------------+---------------|
+                 |vietnamese           |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |walloon              |walon                |               |
+                 |---------------------+---------------------+---------------|
+                 |welsh                |cymraeg              |               |
+                 |---------------------+---------------------+---------------|
+                 |wolof                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |xhosa                |                     |               |
+                 |---------------------+---------------------+---------------|
+                 |miahuatlan-zapotec   |                     |zapotec        |
+                 |---------------------+---------------------+---------------|
+                 |zulu                 |                     |zulu           |
+                 +-----------------------------------------------------------+
 
      ----------------------------------------------------------------------
 
@@ -742,6 +964,34 @@ Windows Users
          --nostamps
          --nostampcontrols
          --nomagiccontrols
+         --nolabel
+         --mouse-accessibility
+         --onscreen-keyboard
+         --onscreen-keyboard-layout
+         --onscreen-keyboard-disable-change
+         --joystick-dev
+         --joystick-slowness
+         --joystick-threshold
+         --joystick-maxsteps
+         --joystick-hat-slowness
+         --joystick-hat-timeout
+         --joystick-btn-escape
+         --joystick-btn-brush
+         --joystick-btn-stamp
+         --joystick-btn-lines
+         --joystick-btn-shapes
+         --joystick-btn-text
+         --joystick-btn-label
+         --joystick-btn-magic
+         --joystick-btn-undo
+         --joystick-btn-redo
+         --joystick-btn-eraser
+         --joystick-btn-new
+         --joystick-btn-open
+         --joystick-btn-save
+         --joystick-btn-pgsetup
+         --joystick-btn-print
+         --joystick-buttons-ignore
          --sysfonts
          --alllocalefonts
          --mirrorstamps
@@ -784,6 +1034,7 @@ Windows Users
          --stamps
          --stampcontrols
          --magiccontrols
+         --label
          --nosysfonts
          --currentlocalefont
          --dontmirrorstamps
@@ -843,6 +1094,9 @@ Command-Line Informational Options
            --lang help
                    Display a list of available languages in Tux Paint.
 
+           --joystick-dev list
+                   Display list of attached joysticks available to Tux Paint.
+
      ----------------------------------------------------------------------
 
                          Choosing a Different Language
@@ -862,184 +1116,266 @@ Command-Line Informational Options
 Available Languages
 
          +------------------------------------------------------------------+
-         | Locale  |     Language      |    Language     |Input Method Cycle|
-         |  Code   |   (native name)   | (English name)  | Key Combination  |
-         |---------+-------------------+-----------------+------------------|
-         |C        |                   |English          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |af_ZA    |                   |Afrikaans        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ar_SA    |                   |Arabic           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ast_ES   |                   |Asturian         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |az_AZ    |                   |Azerbaijani      |                  |
-         |---------+-------------------+-----------------+------------------|
-         |be_BY    |Bielaruskaja       |Belarusian       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |bg_BG    |                   |Bulgarian        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |bo_CN (*)|                   |Tibetan          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |br_FR    |Brezhoneg          |Breton           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ca_ES    |Catal`a            |Catalan          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |cs_CZ    |Cesky              |Czech            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |cy_GB    |Cymraeg            |Welsh            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |da_DK    |Dansk              |Danish           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |de_DE    |Deutsch            |German           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |et_EE    |                   |Estonian         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |el_GR (*)|                   |Greek            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |en_AU    |                   |Australian       |                  |
-         |         |                   |English          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |en_CA    |                   |Canadian English |                  |
-         |---------+-------------------+-----------------+------------------|
-         |en_GB    |                   |British English  |                  |
-         |---------+-------------------+-----------------+------------------|
-         |en_ZA    |                   |South African    |                  |
-         |         |                   |English          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |eo       |                   |Esperanto        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |es_ES    |Espanol            |Spanish          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |es_MX    |Espanol-Mejicano   |Mexican Spanish  |                  |
-         |---------+-------------------+-----------------+------------------|
-         |eu_ES    |Euskara            |Basque           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |fi_FI    |Suomi              |Finnish          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |fo_FO    |                   |Faroese          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |fr_FR    |Franc,ais          |French           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ga_IE    |G`aidhlig          |Irish Gaelic     |                  |
-         |---------+-------------------+-----------------+------------------|
-         |gd_GB    |Ghaidhlig          |Scottish Gaelic  |                  |
-         |---------+-------------------+-----------------+------------------|
-         |gl_ES    |Galego             |Galician         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |gos_NL   |Zudelk             |Gronings         |                  |
-         |         |Veenkelonioals     |                 |                  |
-         |---------+-------------------+-----------------+------------------|
-         |gu_IN    |                   |Gujarati         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |he_IL (*)|                   |Hebrew           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |hi_IN (*)|                   |Hindi            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |hr_HR    |Hrvatski           |Croatian         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |hu_HU    |Magyar             |Hungarian        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |id_ID    |Bahasa Indonesia   |Indonesian       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |is_IS    |Islenska           |Icelandic        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |it_IT    |Italiano           |Italian          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ja_JP (*)|                   |Japanese         |right [Alt]       |
-         |---------+-------------------+-----------------+------------------|
-         |ka_GE    |                   |Georgian         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |km_KH    |                   |Khmer            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ko_KR (*)|                   |Korean           |right [Alt] or    |
-         |         |                   |                 |left [Alt]        |
-         |---------+-------------------+-----------------+------------------|
-         |ku_TR    |                   |Kurdish          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |lt_LT    |Lietuviu           |Lithuanian       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |lv_LV    |                   |Latvian          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |mk_MK    |                   |Macedonian       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ms_MY    |                   |Malay            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |nb_NO    |Norsk (bokmaal)    |Norwegian Bokmaal|                  |
-         |---------+-------------------+-----------------+------------------|
-         |nl_NL    |                   |Dutch            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |nn_NO    |Norsk (nynorsk)    |Norwegian Nynorsk|                  |
-         |---------+-------------------+-----------------+------------------|
-         |nr_ZA    |                   |Ndebele          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |oc_FR    |                   |Occitan          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |oj_CA    |                   |Ojibwe           |Ojibway           |
-         |---------+-------------------+-----------------+------------------|
-         |pl_PL    |Polski             |Polish           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |pt_BR    |Portuges Brazileiro|Brazilian        |                  |
-         |         |                   |Portuguese       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |pt_PT    |Portuges           |Portuguese       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ro_RO    |                   |Romanian         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ru_RU    |Russkiy            |Russian          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |rw_RW    |                   |Kinyarwanda      |                  |
-         |---------+-------------------+-----------------+------------------|
-         |shs_CA   |Secwepemctin       |Shuswap          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |sk_SK    |                   |Slovak           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |sl_SI    |                   |Slovenian        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |son      |                   |Songhay          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |sq_AL    |                   |Albanian         |                  |
-         |---------+-------------------+-----------------+------------------|
-         |sr_YU    |                   |Serbian          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |sv_SE    |Svenska            |Swedish          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |sw_TZ    |                   |Swahili          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ta_IN (*)|                   |Tamil            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |te_IN (*)|                   |Telugu           |                  |
-         |---------+-------------------+-----------------+------------------|
-         |th_TH (*)|                   |Thai             |                  |
-         |---------+-------------------+-----------------+------------------|
-         |tl_PH (*)|                   |Tagalog          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |tlh      |tlhIngan           |Klingon          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |tr_TR    |                   |Turkish          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |twi_GH   |                   |Twi              |                  |
-         |---------+-------------------+-----------------+------------------|
-         |uk_UA    |                   |Ukrainian        |                  |
-         |---------+-------------------+-----------------+------------------|
-         |ve_ZA    |                   |Venda            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |vi_VN    |                   |Vietnamese       |                  |
-         |---------+-------------------+-----------------+------------------|
-         |wa_BE    |                   |Walloon          |                  |
-         |---------+-------------------+-----------------+------------------|
-         |wo_SN    |                   |Wolof            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |xh_ZA    |                   |Xhosa            |                  |
-         |---------+-------------------+-----------------+------------------|
-         |zh_CN (*)|                   |Chinese          |                  |
-         |         |                   |(Simplified)     |                  |
-         |---------+-------------------+-----------------+------------------|
-         |zh_TW (*)|                   |Chinese          |                  |
-         |         |                   |(Traditional)    |                  |
-         |---------+-------------------+-----------------+------------------|
-         |zam      |                   |Zapotec          |                  |
-         |         |                   |(Miahuatlan)     |                  |
+         |               |Language        |Language       |Input Method     |
+         |Locale Code    |(native name)   |(English name) |Cycle Key        |
+         |               |                |               |Combination      |
+         |---------------+----------------+---------------+-----------------|
+         |C              |                |English        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ach_UG         |Acoli           |Acholi         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |af_ZA          |                |Afrikaans      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ak_GH          |                |Akan           |                 |
+         |---------------+----------------+---------------+-----------------|
+         |am_ET          |                |Amharic        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |an_ES          |                |Aragones       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ar_SA          |                |Arabic         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |as_IN          |                |Assamese       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ast_ES         |                |Asturian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |az_AZ          |                |Azerbaijani    |                 |
+         |---------------+----------------+---------------+-----------------|
+         |bm_ML          |                |Bambara        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |be_BY          |Bielaruskaja    |Belarusian     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |bg_BG          |                |Bulgarian      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |bo_CN (*)      |                |Tibetan        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |br_FR          |Brezhoneg       |Breton         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |bs_BA          |                |Bosnian        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ca_ES          |Catal`a         |Catalan        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ca_ES@valencia |Valencia        |Valencian      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |cgg_UG         |Chiga           |Kiga           |                 |
+         |---------------+----------------+---------------+-----------------|
+         |cs_CZ          |Cesky           |Czech          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |cy_GB          |Cymraeg         |Welsh          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |da_DK          |Dansk           |Danish         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |de_DE          |Deutsch         |German         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |et_EE          |                |Estonian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |el_GR (*)      |                |Greek          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |en_AU          |                |Australian     |                 |
+         |               |                |English        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |en_CA          |                |Canadian       |                 |
+         |               |                |English        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |en_GB          |                |British English|                 |
+         |---------------+----------------+---------------+-----------------|
+         |en_ZA          |                |South African  |                 |
+         |               |                |English        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |eo             |                |Esperanto      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |es_ES          |Espanol         |Spanish        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |es_MX          |Espanol-Mejicano|Mexican Spanish|                 |
+         |---------------+----------------+---------------+-----------------|
+         |eu_ES          |Euskara         |Basque         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |fa_IR          |                |Persian        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ff_SN          |Fulah           |Fula           |                 |
+         |---------------+----------------+---------------+-----------------|
+         |fi_FI          |Suomi           |Finnish        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |fo_FO          |                |Faroese        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |fr_FR          |Franc,ais       |French         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ga_IE          |G`aidhlig       |Irish Gaelic   |                 |
+         |---------------+----------------+---------------+-----------------|
+         |gd_GB          |Ghaidhlig       |Scottish Gaelic|                 |
+         |---------------+----------------+---------------+-----------------|
+         |gl_ES          |Galego          |Galician       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |gos_NL         |Zudelk          |Gronings       |                 |
+         |               |Veenkelonioals  |               |                 |
+         |---------------+----------------+---------------+-----------------|
+         |gu_IN          |                |Gujarati       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |he_IL (*)      |                |Hebrew         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |hi_IN (*)      |                |Hindi          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |hr_HR          |Hrvatski        |Croatian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |hu_HU          |Magyar          |Hungarian      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |hy_AM          |Hayeren         |Armenian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |id_ID          |Bahasa Indonesia|Indonesian     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |is_IS          |Islenska        |Icelandic      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |it_IT          |Italiano        |Italian        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |iu_CA          |                |Inuktitut      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ja_JP (*)      |                |Japanese       |right [Alt]      |
+         |---------------+----------------+---------------+-----------------|
+         |ka_GE          |                |Georgian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |km_KH          |                |Khmer          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |kn_IN          |                |Kannada        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ko_KR (*)      |                |Korean         |right [Alt] or   |
+         |               |                |               |left [Alt]       |
+         |---------------+----------------+---------------+-----------------|
+         |kok_IN         |                |Konkani        |                 |
+         |               |                |(Devaganari)   |                 |
+         |---------------+----------------+---------------+-----------------|
+         |kok@roman      |                |Konkani (Roman)|                 |
+         |---------------+----------------+---------------+-----------------|
+         |ku_TR          |                |Kurdish        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |lb_LU          |Letzebuergesch  |Luxembourgish  |                 |
+         |---------------+----------------+---------------+-----------------|
+         |lg_UG          |                |Luganda        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |lt_LT          |Lietuviu        |Lithuanian     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |lv_LV          |                |Latvian        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |mk_MK          |                |Macedonian     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |mai_IN         |                |Maithili       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ml_IN          |                |Malayalam      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |mn_MN          |                |Mongolian      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |mni_IN         |                |Manipuri       |                 |
+         |               |                |(Bengali)      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |mni@meiteimayek|                |Manipuri       |                 |
+         |               |                |(Meitei Mayek) |                 |
+         |---------------+----------------+---------------+-----------------|
+         |mr_IN          |                |Marathi        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ms_MY          |                |Malay          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |nb_NO          |Norsk (bokmaal) |Norwegian      |                 |
+         |               |                |Bokmaal        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ne_NP          |Nepali          |               |                 |
+         |---------------+----------------+---------------+-----------------|
+         |nl_NL          |                |Dutch          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |nn_NO          |Norsk (nynorsk) |Norwegian      |                 |
+         |               |                |Nynorsk        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |nr_ZA          |                |Ndebele        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |nso_ZA         |Sesotho sa Leboa|Northern Sotho |                 |
+         |---------------+----------------+---------------+-----------------|
+         |oc_FR          |                |Occitan        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |oj_CA          |                |Ojibwe         |Ojibway          |
+         |---------------+----------------+---------------+-----------------|
+         |pa_IN          |                |Punjabi        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |or_IN          |                |Odia           |Oriya            |
+         |---------------+----------------+---------------+-----------------|
+         |pl_PL          |Polski          |Polish         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |pt_BR          |Portuges        |Brazilian      |                 |
+         |               |Brazileiro      |Portuguese     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |pt_PT          |Portuges        |Portuguese     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ro_RO          |                |Romanian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ru_RU          |Russkiy         |Russian        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |rw_RW          |                |Kinyarwanda    |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sa_IN          |                |Sanskrit       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sat_IN         |                |Santali        |                 |
+         |               |                |(Devaganari)   |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sat@olchiki    |                |Santali        |                 |
+         |               |                |(Ol-Chikii)    |                 |
+         |---------------+----------------+---------------+-----------------|
+         |shs_CA         |Secwepemctin    |Shuswap        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |si_LK          |                |Sinhala        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sk_SK          |                |Slovak         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sl_SI          |                |Slovenian      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |son            |                |Songhay        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sq_AL          |                |Albanian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sr_YU          |                |Serbian        |                 |
+         |               |                |(cyrillic)     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sr_RS@latin    |                |Serbian (latin)|                 |
+         |---------------+----------------+---------------+-----------------|
+         |su_ID          |                |Sundanese      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sv_SE          |Svenska         |Swedish        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |sw_TZ          |                |Swahili        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ta_IN (*)      |                |Tamil          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |te_IN (*)      |                |Telugu         |                 |
+         |---------------+----------------+---------------+-----------------|
+         |th_TH (*)      |                |Thai           |                 |
+         |---------------+----------------+---------------+-----------------|
+         |tl_PH (*)      |                |Tagalog        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |tlh            |tlhIngan        |Klingon        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |tr_TR          |                |Turkish        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |tw_GH          |                |Twi            |                 |
+         |---------------+----------------+---------------+-----------------|
+         |uk_UA          |                |Ukrainian      |                 |
+         |---------------+----------------+---------------+-----------------|
+         |ve_ZA          |                |Venda          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |vec            |Veneto          |Venetian       |                 |
+         |---------------+----------------+---------------+-----------------|
+         |vi_VN          |                |Vietnamese     |                 |
+         |---------------+----------------+---------------+-----------------|
+         |wa_BE          |                |Walloon        |                 |
+         |---------------+----------------+---------------+-----------------|
+         |wo_SN          |                |Wolof          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |xh_ZA          |                |Xhosa          |                 |
+         |---------------+----------------+---------------+-----------------|
+         |zh_CN (*)      |                |Chinese        |                 |
+         |               |                |(Simplified)   |                 |
+         |---------------+----------------+---------------+-----------------|
+         |zh_TW (*)      |                |Chinese        |                 |
+         |               |                |(Traditional)  |                 |
+         |---------------+----------------+---------------+-----------------|
+         |zam            |                |Zapotec        |                 |
+         |               |                |(Miahuatlan)   |                 |
+         |---------------+----------------+---------------+-----------------|
+         |zu_ZA          |                |Zulu           |                 |
          +------------------------------------------------------------------+
 
          (*) - These languages require their own fonts, since they are not

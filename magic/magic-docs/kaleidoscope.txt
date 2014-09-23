@@ -6,4 +6,4 @@
    symmetrically, both horizontally and vertically. It uses the currently
    selected color.
 
-   See also: Picasso
+   See also: Picasso Pattern Tiles

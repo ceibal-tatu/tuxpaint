@@ -36,12 +36,33 @@ static void fold_print_line(void * ptr, int which, SDL_Surface * canvas, SDL_Sur
 static void fold_print_dark_line(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
 				  int x, int y);
 void translate_xy(SDL_Surface * canvas, int x, int y, int * a, int * b, int rotation);
-
+Uint32 fold_api_version(void);
+void fold_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int fold_init(magic_api * api);
+int fold_get_tool_count(magic_api * api);
+SDL_Surface * fold_get_icon(magic_api * api, int which);
+char * fold_get_name(magic_api * api, int which);
+char * fold_get_description(magic_api * api, int which, int mode);
+int fold_requires_colors(magic_api * api, int which);
+void fold_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * snapshot,
+	           int x, int y, SDL_Rect * update_rect);
+void fold_shutdown(magic_api * api);
+void fold_click(magic_api * ptr, int which, int mode,
+		SDL_Surface * canvas, SDL_Surface * snapshot,
+		int x, int y, SDL_Rect * update_rect);
+void fold_preview(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * snapshot, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+int fold_modes(magic_api * api, int which);
 //				Housekeeping functions
 
 void fold_drag(magic_api * api, int which, SDL_Surface * canvas,
 	          SDL_Surface * snapshot, int ox, int oy, int x, int y,
 		  SDL_Rect * update_rect);
+void fold_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+inline Uint8 fold_what_corner(int x, int y, SDL_Surface * canvas);
+void fold_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
 
 Uint32 fold_api_version(void)
 
@@ -49,7 +70,7 @@ Uint32 fold_api_version(void)
   return(TP_MAGIC_API_VERSION);
 }
 
-void fold_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)	//get the colors from API and store it in structure
+void fold_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r, Uint8 g, Uint8 b)	//get the colors from API and store it in structure
 {
 	fold_r=r;
 	fold_g=g;
@@ -66,12 +87,12 @@ int fold_init(magic_api * api)
   return(1);
 }
 
-int fold_get_tool_count(magic_api * api)
+int fold_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return 1;
 }
 
-SDL_Surface * fold_get_icon(magic_api * api, int which)
+SDL_Surface * fold_get_icon(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -81,14 +102,14 @@ SDL_Surface * fold_get_icon(magic_api * api, int which)
   return(IMG_Load(fname));
 }
 
-char * fold_get_name(magic_api * api, int which) { return(gettext_noop("Fold")); }
+char * fold_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED) { return(gettext_noop("Fold")); }
 
-char * fold_get_description(magic_api * api, int which, int mode) { return strdup(gettext_noop("Choose a background color and click to turn the corner of the page over.")); }
+char * fold_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED) { return strdup(gettext_noop("Choose a background color and click to turn the corner of the page over.")); }
 
-int fold_requires_colors(magic_api * api, int which) { return 1; }		//selected color will be a "backpage" color
+int fold_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED) { return 1; }		//selected color will be a "backpage" color
 
 
-static void fold_shadow(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * temp,
+static void fold_shadow(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * temp,
 		       int x, int y)
 {
   magic_api * api = (magic_api *) ptr;
@@ -101,7 +122,7 @@ static void fold_shadow(void * ptr, int which, SDL_Surface * canvas, SDL_Surface
 
 void fold_draw(magic_api * api, int which,
 	       SDL_Surface * canvas, SDL_Surface * snapshot,
-	       int x, int y, SDL_Rect * update_rect)
+	       int x, int y, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
   float right_step_x, right_step_y, left_step_x, left_step_y;
   float dist_x, dist_y;
@@ -332,7 +353,7 @@ void fold_release(magic_api * api, int which,
   api->playsound(fold_snd, (x * 255) / canvas->w, 255);
 }
 
-void fold_shutdown(magic_api * api)
+void fold_shutdown(magic_api * api ATTRIBUTE_UNUSED) 
 	{ 
 		Mix_FreeChunk(fold_snd);
 		SDL_FreeSurface(fold_surface_dst);
@@ -356,27 +377,27 @@ inline Uint8 fold_what_corner(int x, int y, SDL_Surface * canvas)
 }
 
 
-static void fold_print_line(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+static void fold_print_line(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * last,
                 int x, int y)
 {
 	magic_api * api = (magic_api *) ptr;
 	api->putpixel(canvas, x, y, SDL_MapRGB(last->format, 222, 222, 222));		//Middle gray. Color have been set arbitrary. 
 }
-static void fold_print_dark_line(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+static void fold_print_dark_line(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * last ATTRIBUTE_UNUSED,
                 int x, int y)
 {
   magic_api * api = (magic_api *) ptr;
   api->putpixel(canvas, x, y, SDL_MapRGB(last->format, 90, 90, 90));	//It should not look too black nor too white with shadowed colors. 
 }
 
-static void fold_erase(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+static void fold_erase(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * last ATTRIBUTE_UNUSED,
                 int x, int y)
 {
 	magic_api * api = (magic_api *) ptr;
 	api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, fold_r, fold_g, fold_b));
 }
 
-void fold_click(magic_api * ptr, int which, int mode,
+void fold_click(magic_api * ptr, int which, int mode ATTRIBUTE_UNUSED,
 		SDL_Surface * canvas, SDL_Surface * snapshot,
 		int x, int y, SDL_Rect * update_rect)
 {
@@ -406,7 +427,7 @@ void fold_click(magic_api * ptr, int which, int mode,
 }
 
 void fold_preview(magic_api * api, int which, SDL_Surface * canvas,
-	          SDL_Surface * snapshot, int ox, int oy, int x, int y,
+	          SDL_Surface * snapshot, int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED, int x, int y,
 		  SDL_Rect * update_rect)
 {
   int middle_point_x;
@@ -473,15 +494,15 @@ void fold_drag(magic_api * api, int which, SDL_Surface * canvas,
   fold_preview(api, which, canvas, snapshot, ox, oy, x, y, update_rect);
 }
 
-void fold_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void fold_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void fold_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void fold_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int fold_modes(magic_api * api, int which)
+int fold_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
-  return(MODE_PAINT);
+  return(MODE_PAINT_WITH_PREVIEW);
 }

@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: May 6, 2009
-  $Id: sharpen.c,v 1.21 2009/06/06 16:07:39 secretlondon Exp $
+  $Id: sharpen.c,v 1.22 2011/12/17 23:46:13 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -83,6 +83,36 @@ const char * sharpen_descs[sharpen_NUM_TOOLS][2] = {
     gettext_noop("Click to create a black and white silhouette of your entire picture.")},
 };
 
+Uint32 sharpen_api_version(void);
+int sharpen_init(magic_api * api);
+int sharpen_get_tool_count(magic_api * api);
+SDL_Surface * sharpen_get_icon(magic_api * api, int which);
+char * sharpen_get_name(magic_api * api, int which);
+char * sharpen_get_description(magic_api * api, int which, int mode);
+static int sharpen_grey(Uint8 r1,Uint8 g1,Uint8 b1);
+static void do_sharpen_pixel(void * ptr, int which,
+	         SDL_Surface * canvas, SDL_Surface * last,
+	         int x, int y);
+static void do_sharpen_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which);
+static void do_sharpen_brush(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last, int x, int y);
+void sharpen_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void sharpen_click(magic_api * api, int which, int mode,
+	            SDL_Surface * canvas, SDL_Surface * last,
+	            int x, int y, SDL_Rect * update_rect);
+
+void sharpen_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+
+void sharpen_shutdown(magic_api * api);
+void sharpen_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int sharpen_requires_colors(magic_api * api, int which);
+void sharpen_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void sharpen_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int sharpen_modes(magic_api * api, int which);
+
 Uint32 sharpen_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 
@@ -101,7 +131,7 @@ int sharpen_init(magic_api * api){
 }
 
 // We have multiple tools:
-int sharpen_get_tool_count(magic_api * api)
+int sharpen_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(sharpen_NUM_TOOLS);
 }
@@ -114,12 +144,12 @@ SDL_Surface * sharpen_get_icon(magic_api * api, int which){
 }
 
 // Return our names, localized:
-char * sharpen_get_name(magic_api * api, int which){
+char * sharpen_get_name(magic_api * api ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(sharpen_names[which])));
 }
 
 // Return our descriptions, localized:
-char * sharpen_get_description(magic_api * api, int which, int mode){
+char * sharpen_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode){
   return(strdup(gettext_noop(sharpen_descs[which][mode-1])));
 }
 
@@ -186,7 +216,7 @@ static void do_sharpen_pixel(void * ptr, int which,
 // Do the effect for the full image
 static void do_sharpen_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which){
 
-	magic_api * api = (magic_api *) ptr;
+	// magic_api * api = (magic_api *) ptr;
 
 	int x,y;
 
@@ -250,14 +280,14 @@ void sharpen_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void sharpen_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void sharpen_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void sharpen_shutdown(magic_api * api)
+void sharpen_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -269,25 +299,25 @@ void sharpen_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void sharpen_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void sharpen_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int sharpen_requires_colors(magic_api * api, int which)
+int sharpen_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void sharpen_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void sharpen_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void sharpen_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void sharpen_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int sharpen_modes(magic_api * api, int which)
+int sharpen_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN|MODE_PAINT);
 }

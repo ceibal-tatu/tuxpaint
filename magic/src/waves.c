@@ -36,6 +36,29 @@
 
 static Mix_Chunk * waves_snd[2];
 
+/* Local function prototypes: */
+
+Uint32 waves_api_version(void);
+int waves_init(magic_api * api);
+int waves_get_tool_count(magic_api * api);
+SDL_Surface * waves_get_icon(magic_api * api, int which);
+char * waves_get_name(magic_api * api, int which);
+char * waves_get_description(magic_api * api, int which, int mode);
+void waves_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		      SDL_Rect * update_rect);
+void waves_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void waves_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void waves_shutdown(magic_api * api);
+void waves_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int waves_requires_colors(magic_api * api, int which);
+void waves_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void waves_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int waves_modes(magic_api * api, int which);
 
 Uint32 waves_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
@@ -58,7 +81,7 @@ int waves_init(magic_api * api)
 }
 
 // We have multiple tools:
-int waves_get_tool_count(magic_api * api)
+int waves_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return 2;
 }
@@ -75,14 +98,14 @@ SDL_Surface * waves_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * waves_get_name(magic_api * api, int which)
+char * waves_get_name(magic_api * api ATTRIBUTE_UNUSED, int which)
 {
   if (!which) return(strdup(gettext_noop("Waves")));
   else return strdup(gettext_noop("Wavelets"));
 }
 
 // Return our descriptions, localized:
-char * waves_get_description(magic_api * api, int which, int mode)
+char * waves_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode ATTRIBUTE_UNUSED)
 {
   if (!which)
 	return(strdup(gettext_noop("Click to make the picture horizontally wavy. Click toward the top for shorter waves, the bottom for taller waves, the left for small waves, and the right for long waves.")));
@@ -90,8 +113,8 @@ char * waves_get_description(magic_api * api, int which, int mode)
 }	
 
 
-void waves_drag(magic_api * api, int which, SDL_Surface * canvas,
-	          SDL_Surface * last, int ox, int oy, int x, int y,
+void waves_drag(magic_api * api ATTRIBUTE_UNUSED, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED, int x, int y,
 		  SDL_Rect * update_rect)
 {
   int xx, yy;
@@ -149,7 +172,7 @@ void waves_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void waves_click(magic_api * api, int which, int mode,
+void waves_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -158,14 +181,14 @@ void waves_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void waves_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void waves_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void waves_shutdown(magic_api * api)
+void waves_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (waves_snd[0] != NULL)
     Mix_FreeChunk(waves_snd[0]);
@@ -174,25 +197,25 @@ void waves_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void waves_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void waves_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int waves_requires_colors(magic_api * api, int which)
+int waves_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void waves_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void waves_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void waves_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void waves_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int waves_modes(magic_api * api, int which)
+int waves_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
-  return(MODE_FULLSCREEN);
+  return(MODE_PAINT);
 }

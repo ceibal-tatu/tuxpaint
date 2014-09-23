@@ -10,6 +10,7 @@ tools.h
 tuxpaint.c
 tuxpaint.desktop.in
 ../magic/src/alien.c
+../magic/src/blind.c
 ../magic/src/blocks_chalk_drip.c
 ../magic/src/blur.c
 ../magic/src/bricks.c
@@ -31,8 +32,10 @@ tuxpaint.desktop.in
 ../magic/src/metalpaint.c
 ../magic/src/mirror_flip.c
 ../magic/src/mosaic.c
+../magic/src/mosaic_shaped.c
 ../magic/src/negative.c
 ../magic/src/noise.c
+../magic/src/perspective.c
 ../magic/src/puzzle.c
 ../magic/src/rails.c
 ../magic/src/rainbow.c

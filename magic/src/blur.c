@@ -1,6 +1,6 @@
 /*
   blur.c
-
+//
   blur, Blur tool
   Tux Paint - A simple drawing program for children.
 
@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: blur.c,v 1.18 2009/05/26 16:10:00 dolphin6k Exp $
+  $Id: blur.c,v 1.19 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -37,6 +37,29 @@
 #include "SDL_mixer.h"
 #include <math.h>
 #include <limits.h>
+
+// Prototypes
+Uint32 blur_api_version(void);
+int blur_init(magic_api * api);
+int blur_get_tool_count(magic_api * api);
+SDL_Surface * blur_get_icon(magic_api * api, int which);
+char * blur_get_name(magic_api * api, int which);
+char * blur_get_description(magic_api * api, int which, int mode);
+void blur_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void blur_click(magic_api * api, int which, int mode,
+	            SDL_Surface * canvas, SDL_Surface * last,
+	            int x, int y, SDL_Rect * update_rect);
+void blur_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void blur_shutdown(magic_api * api);
+void blur_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int blur_requires_colors(magic_api * api, int which);
+void blur_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void blur_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int blur_modes(magic_api * api, int which);
 
 enum {
 	TOOL_blur,
@@ -76,7 +99,7 @@ int blur_init(magic_api * api){
   return(1);
 }
 
-int blur_get_tool_count(magic_api * api){
+int blur_get_tool_count(magic_api * api ATTRIBUTE_UNUSED){
   return(blur_NUM_TOOLS);
 }
 
@@ -88,17 +111,17 @@ SDL_Surface * blur_get_icon(magic_api * api, int which){
 }
 
 // Return our names, localized:
-char * blur_get_name(magic_api * api, int which){
+char * blur_get_name(magic_api * api ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(blur_names[which])));
 }
 
 // Return our descriptions, localized:
-char * blur_get_description(magic_api * api, int which, int mode){
+char * blur_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode){
   return(strdup(gettext_noop(blur_descs[which][mode-1])));
 }
 
 //Do the effect for one pixel
-static void do_blur_pixel(void * ptr, int which,
+static void do_blur_pixel(void * ptr, int which ATTRIBUTE_UNUSED, 
 	         SDL_Surface * canvas, SDL_Surface * last,
 	         int x, int y){
   magic_api * api = (magic_api *) ptr;
@@ -134,7 +157,7 @@ static void do_blur_pixel(void * ptr, int which,
 // Do the effect for the full image
 static void do_blur_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which){
 
-	magic_api * api = (magic_api *) ptr;
+	//magic_api * api = (magic_api *) ptr;
 
 	int x,y;
 
@@ -198,14 +221,14 @@ void blur_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void blur_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void blur_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void blur_shutdown(magic_api * api)
+void blur_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -217,25 +240,25 @@ void blur_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void blur_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void blur_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int blur_requires_colors(magic_api * api, int which)
+int blur_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void blur_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void blur_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void blur_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void blur_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int blur_modes(magic_api * api, int which)
+int blur_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN|MODE_PAINT);
 }

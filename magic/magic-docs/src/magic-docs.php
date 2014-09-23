@@ -5,7 +5,7 @@ individual HTML files for each of them, and an index.html that links to
 them all. */
 
 /* Bill Kendrick <bill@newbreedsoftware.com> */
-/* 2008.04.28 */
+/* 2009.10.08 */
 
 
 /* Authors of the Magic tools: */
@@ -49,6 +49,11 @@ $AUTHOR_PERE = "Pere Pujal i Carabantes|pere@fornol.no-ip.org";
 
 
 $tools = array(
+
+  array('name'=>'Blinds',
+   'desc'=>'Click towards the edge of your picture to pull window blinds over it. Move perpendicularly to open or close the blinds.',
+   'author'=>$AUTHOR_PERE),
+
   array('name'=>'Blocks',
    'desc'=>'This makes the picture blocky looking ("pixelated") wherever you drag the mouse.',
    'author'=>array($AUTHOR_KENDRICK,$AUTHOR_ALBERT)),
@@ -167,6 +172,42 @@ $tools = array(
    'author'=>$AUTHOR_KENDRICK,
    'see'=>'Flip'),
 
+  array('name'=>'Mosaic',
+   'desc'=>'Adds a glass mosaic effect to your picture.',
+   'author'=>array($AUTHOR_ADAMR, $AUTHOR_PERE),
+   'see'=>array(
+                'Hexagon Mosaic',
+                'Irregular Mosaic',
+                'Square Mosaic',
+               )),
+
+  array('name'=>'Hexagon Mosaic',
+   'desc'=>'Converts parts of your picture into a mosaic of hexagon cells.',
+   'author'=>$AUTHOR_PERE,
+   'see'=>array(
+                'Irregular Mosaic',
+                'Square Mosaic',
+                'Mosaic',
+               )),
+
+  array('name'=>'Irregular Mosaic',
+   'desc'=>'Converts parts of your picture into a mosaic of irregularly-shaped cells.',
+   'author'=>$AUTHOR_PERE,
+   'see'=>array(
+                'Hexagon Mosaic',
+                'Square Mosaic',
+                'Mosaic',
+               )),
+
+  array('name'=>'Square Mosaic',
+   'desc'=>'Converts parts of your picture into a mosaic of square cells.',
+   'author'=>$AUTHOR_PERE,
+   'see'=>array(
+                'Hexagon Mosaic',
+                'Irregular Mosaic',
+                'Mosaic',
+               )),
+
   array('name'=>'Negative',
    'desc'=>'This inverts the colors wherever you drag the mouse.  (e.g., white becomes black, and vice versa.)',
    'author'=>$AUTHOR_KENDRICK),
@@ -174,6 +215,10 @@ $tools = array(
   array('name'=>'Noise',
    'desc'=>'Add random noise and static to your picture.',
    'author'=>$AUTHOR_ANDREWC),
+
+  array('name'=>'Perspective',
+   'desc'=>'Click and drag from the corners to change the perspective of your picture.',
+   'author'=>$AUTHOR_PERE),
 
   array('name'=>'Picasso',
    'desc'=>'Draw three swirling brushes at once, in a Picasso style.',
@@ -195,6 +240,10 @@ $tools = array(
 
   array('name'=>'Real Rainbow',
    'desc'=>'Draw a transparent arc that looks like a real rainbow.',
+   'author'=>$AUTHOR_KENDRICK),
+
+  array('name'=>'ROYGBIV Rainbow',
+   'desc'=>'Draw a rainbow arc of red, orange, yellow, green, blue, indigo and violet.',
    'author'=>$AUTHOR_KENDRICK),
 
   array('name'=>'Ripples',
@@ -223,7 +272,7 @@ $tools = array(
   array('name'=>'Smudge',
    'desc'=>'This pushes the colors around under the mouse, like finger painting with wet paint.',
    'author'=>$AUTHOR_ALBERT,
-   'see'=>'Blur'),
+   'see'=>array('Blur', 'Wet Paint')),
 
   array('name'=>'Snow Ball',
    'desc'=>'Fill the picture with snowballs.',
@@ -263,6 +312,8 @@ $tools = array(
    'desc'=>'Paint thick blobs of color on your picture that look like toothpaste.',
    'author'=>$AUTHOR_ANDREWC),
 
+/* FIXME: Tornado */
+
   array('name'=>'Waves',
    'desc'=>'Click to make the entire picture wavy, side-to-side.  Drag the mouse up and down to change the height of the ripples, and left and right to change the width.  Release the mouse button when it looks the way you like it.', /* FIXME: Dragging went away! */
    'author'=>$AUTHOR_KENDRICK,
@@ -273,6 +324,14 @@ $tools = array(
    'author'=>array($AUTHOR_KENDRICK, $AUTHOR_ADAMR),
    'see'=>'Waves'),
 
+  array('name'=>'Wet Paint',
+   'desc'=>'This draws a light, smudgy coat of paint on the picture.',
+   'author'=>array($AUTHOR_ALBERT, $AUTHOR_KENDRICK),
+   'see'=>'Smudge'),
+
+  array('name'=>'Zoom',
+   'desc'=>'Click and drag up to zoom in, or down to zoom out.',
+   'author'=>$AUTHOR_PERE),
 );
 
 $fiidx = fopen("../html/index.html", "w");

@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: June 6, 2008
-  $Id: snow.c,v 1.8 2009/06/24 17:29:01 secretlondon Exp $
+  $Id: snow.c,v 1.9 2011/12/18 23:49:01 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -73,6 +73,29 @@ const char * snow_descs[snow_NUM_TOOLS] = {
   gettext_noop("Click to add snow flakes to your picture."),
 };
 
+Uint32 snow_api_version(void);
+int snow_init(magic_api * api);
+int snow_get_tool_count(magic_api * api);
+SDL_Surface * snow_get_icon(magic_api * api, int which);
+char * snow_get_name(magic_api * api, int which);
+char * snow_get_description(magic_api * api, int which);
+static void do_snow(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which, int snowAmount);
+void snow_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void snow_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+
+void snow_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void snow_shutdown(magic_api * api);
+void snow_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int snow_requires_colors(magic_api * api, int which);
+void snow_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void snow_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int snow_modes(magic_api * api, int which);
 Uint32 snow_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 //Load sounds
@@ -102,7 +125,7 @@ int snow_init(magic_api * api){
   return(1);
 }
 
-int snow_get_tool_count(magic_api * api){
+int snow_get_tool_count(magic_api * api ATTRIBUTE_UNUSED){
   return(snow_NUM_TOOLS);
 }
 
@@ -114,12 +137,12 @@ SDL_Surface * snow_get_icon(magic_api * api, int which){
 }
 
 // Return our names, localized:
-char * snow_get_name(magic_api * api, int which){
+char * snow_get_name(magic_api * api ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(snow_names[which])));
 }
 
 // Return our descriptions, localized:
-char * snow_get_description(magic_api * api, int which){
+char * snow_get_description(magic_api * api ATTRIBUTE_UNUSED, int which){
   return(strdup(gettext_noop(snow_descs[which])));
 }
 
@@ -157,16 +180,16 @@ static void do_snow(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int whi
 }
 
 // Affect the canvas on drag:
-void snow_drag(magic_api * api, int which, SDL_Surface * canvas,
-	          SDL_Surface * last, int ox, int oy, int x, int y,
-		  SDL_Rect * update_rect){
+void snow_drag(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED,
+	          SDL_Surface * last ATTRIBUTE_UNUSED, int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED, int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED,
+		  SDL_Rect * update_rect ATTRIBUTE_UNUSED){
    // No-op
 }
 
 // Affect the canvas on click:
-void snow_click(magic_api * api, int which, int mode,
+void snow_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect){
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect){
   update_rect->x = 0;
   update_rect->y = 0;
   update_rect->w = canvas->w;
@@ -177,14 +200,14 @@ void snow_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void snow_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void snow_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void snow_shutdown(magic_api * api)
+void snow_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -202,24 +225,24 @@ void snow_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void snow_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void snow_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int snow_requires_colors(magic_api * api, int which)
+int snow_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void snow_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas){
+void snow_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED){
 }
 
-void snow_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void snow_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int snow_modes(magic_api * api, int which)
+int snow_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN);
 }

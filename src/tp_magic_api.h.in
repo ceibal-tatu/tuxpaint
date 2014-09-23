@@ -10,6 +10,7 @@
 
 /* min() and max() variable comparisons: */
 
+#ifndef __HAIKU__
 #ifdef __GNUC__
 // This version has strict type checking for safety.
 // See the "unnecessary" pointer comparison. (from Linux)
@@ -27,7 +28,7 @@
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 #endif
-
+#endif /* Not Haiku */
 
 /* clamp() returns 'value', unless it's less than 'lo' or greater than 'hi',
    in which cases it returns 'lo' or 'hi', respectively: */
@@ -47,10 +48,30 @@
 
 
 /* Flags you return when asked what modes you work in */
-/* (as of API version 0x00000002) */
-#define MODE_PAINT      0x0001  /* User can paint the tool, freehand */
-#define MODE_FULLSCREEN 0x0002  /* User can apply effect to entire canvas at once */
-#define MAX_MODES 2
+
+/* User can paint the tool, freehand */
+/* (Icon: Paint) */
+#define MODE_PAINT              0x0001 /* (as of API version 0x00000002) */
+
+/* User can apply effect to entire canvas at once */
+/* (Icon: Fullscreen) */
+#define MODE_FULLSCREEN         0x0002 /* (as of API version 0x00000002) */
+
+/* User can paint the tool, freehand -- shows a preview in the meantime */
+/* (Icon: Paint) */
+#define MODE_PAINT_WITH_PREVIEW 0x0004 /* (as of API version 0x00000003) */
+
+/* User can click once at different points on the canvas */
+/* (Icon: Paint) */
+#define MODE_ONECLICK           0x0008 /* (as of API version 0x00000003) */
+
+/* Note: You can "|" (OR) together MODE_FULLSCREEN with one of the other modes
+   (e.g., "MODE_PAINT | MODE_FULLSCREEN", or "MODE_ONECLICK | MODE_FULLSCREEN")
+   You cannot OR those others together (e.g., "MODE_PAINT | MODE_ONECLICK");
+   "MODE_PAINT" will take precedence */
+
+#define MAX_MODES 2 /* Paint & Fullscreen */
+
 
 typedef struct magic_api_t {
   /* A string containing the current version of Tux Paint (e.g., "0.9.18") */

@@ -30,7 +30,7 @@
   (See COPYING.txt)
 
   Last updated: May 6, 2009
-  $Id: tint.c,v 1.26 2009/06/06 16:52:06 secretlondon Exp $
+  $Id: tint.c,v 1.27 2011/12/18 23:49:01 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -78,6 +78,34 @@ const char * tint_descs[tint_NUM_TOOLS][2] = {
     gettext_noop("Click to turn your entire picture into white and a color you choose.")}
 };
 
+int tint_init(magic_api * api);
+Uint32 tint_api_version(void);
+int tint_get_tool_count(magic_api * api);
+SDL_Surface * tint_get_icon(magic_api * api, int which);
+char * tint_get_name(magic_api * api, int which);
+char * tint_get_description(magic_api * api, int which, int mode);
+static int tint_grey(Uint8 r1,Uint8 g1,Uint8 b1);
+static void do_tint_pixel(void * ptr, int which,
+	         SDL_Surface * canvas, SDL_Surface * last,
+	         int x, int y);
+static void do_tint_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which);
+static void do_tint_brush(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last, int x, int y);
+void tint_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void tint_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void tint_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void tint_shutdown(magic_api * api);
+void tint_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int tint_requires_colors(magic_api * api, int which);
+void tint_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void tint_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int tint_modes(magic_api * api, int which);
+
 Uint32 tint_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 //Load sounds
@@ -92,7 +120,7 @@ int tint_init(magic_api * api){
   return(1);
 }
 
-int tint_get_tool_count(magic_api * api){
+int tint_get_tool_count(magic_api * api ATTRIBUTE_UNUSED){
   return(tint_NUM_TOOLS);
 }
 
@@ -104,12 +132,12 @@ SDL_Surface * tint_get_icon(magic_api * api, int which){
 }
 
 // Return our names, localized:
-char * tint_get_name(magic_api * api, int which){
+char * tint_get_name(magic_api * api ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(tint_names[which])));
 }
 
 // Return our descriptions, localized:
-char * tint_get_description(magic_api * api, int which, int mode){
+char * tint_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode){
   return(strdup(gettext_noop(tint_descs[which][mode-1])));
 }
 
@@ -119,38 +147,35 @@ static int tint_grey(Uint8 r1,Uint8 g1,Uint8 b1){
 }
 
 static void do_tint_pixel(void * ptr, int which,
-	         SDL_Surface * canvas, SDL_Surface * last,
-	         int x, int y){
-
-	magic_api * api = (magic_api *) ptr;
-  Uint8 r,g,b;
-  float h,s,v;
-
-  SDL_GetRGB(api->getpixel(last, x, y), last->format, &r, &g, &b);
-  {
-
-  int greyValue = tint_grey(r,g,b);
-
-  if (which == TOOL_TINT){
-    api->rgbtohsv(tint_r, tint_g, tint_b, &h, &s, &v);
-    api->hsvtorgb(h, s, greyValue/255.0, &r, &g, &b);
-    api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, r, g, b));
-  }else if (which == TOOL_THRESHOLD){
-    int thresholdValue = (tint_max-tint_min)/2;
-		if (greyValue < thresholdValue){
-			api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, tint_r, tint_g, tint_b));
-		}else{
-			api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, 255, 255, 255));
-		}
-  }
-  }
+SDL_Surface * canvas, SDL_Surface * last,
+int x, int y){
+    
+    magic_api * api = (magic_api *) ptr;
+    Uint8 r,g,b;
+    float h,s,v;
+    
+    SDL_GetRGB(api->getpixel(last, x, y), last->format, &r, &g, &b);
+    {
+        
+        int greyValue = tint_grey(r,g,b);
+        
+        if (which == TOOL_TINT){
+            api->rgbtohsv(tint_r, tint_g, tint_b, &h, &s, &v);
+            api->hsvtorgb(h, s, greyValue/255.0, &r, &g, &b);
+            api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, r, g, b));
+            } else if (which == TOOL_THRESHOLD){
+            int thresholdValue = (tint_max-tint_min)/2;
+            if (greyValue < thresholdValue){
+                api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, tint_r, tint_g, tint_b));
+                } else{
+                api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, 255, 255, 255));
+            }
+        }
+    }
 }
 
 // Do the effect:
 static void do_tint_full(void * ptr,SDL_Surface * canvas, SDL_Surface * last, int which){
-
-	magic_api * api = (magic_api *) ptr;
-
 	int x,y;
 	for (y = 0; y < last->h; y++){
 		for (x=0; x < last->w; x++){
@@ -211,14 +236,14 @@ void tint_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void tint_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void tint_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void tint_shutdown(magic_api * api)
+void tint_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -230,7 +255,7 @@ void tint_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void tint_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void tint_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r, Uint8 g, Uint8 b)
 {
   tint_r = r;
   tint_g = g;
@@ -238,12 +263,12 @@ void tint_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
 }
 
 // Use colors:
-int tint_requires_colors(magic_api * api, int which)
+int tint_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 1;
 }
 
-void tint_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas){
+void tint_switchin(magic_api * api, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas){
 
 	int x,y;
 	Uint8 r1,g1,b1;
@@ -264,11 +289,11 @@ void tint_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas){
 	}
 }
 
-void tint_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void tint_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int tint_modes(magic_api * api, int which)
+int tint_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN|MODE_PAINT);
 }

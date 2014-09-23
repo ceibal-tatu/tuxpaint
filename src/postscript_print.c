@@ -37,7 +37,7 @@
 
 
   June 24, 2007 - January 29, 2009
-  $Id: postscript_print.c,v 1.7 2009/01/29 20:51:37 wkendrick Exp $
+  $Id: postscript_print.c,v 1.9 2009/11/23 07:45:25 albert Exp $
 */
 
 #include "postscript_print.h"
@@ -66,25 +66,21 @@
 
 #define my_min(x,y) ((x < y) ? (x) : (y))
 
-int f2int(float f);
-int f2dec(float f);
-
-int f2int(float f)
+static int f2int(float f)
 {
   return ((int)f);
 }
 
-int f2dec(float f)
+static int f2dec(float f)
 {
   return (int)((f - f2int(f)) * 100);
 }
 
 /* Actually save the PostScript data to the file stream: */
 int do_ps_save(FILE * fi,
-		// const char *restrict const fname,
-		const char * fname,
+		const char *restrict const fname,
 		SDL_Surface * surf,
-		char * pprsize,
+		const char *restrict pprsize,
                 int is_pipe)
 {
   const struct paper * ppr;
@@ -116,13 +112,13 @@ int do_ps_save(FILE * fi,
        in config file), ask the system.  It will return either their
        $PAPER env. var., the value from /etc/papersize, or NULL: */
 
-    pprsize = (char *) systempapername();
+    pprsize = systempapername();
 
     if (pprsize == NULL)
     {
       /* No setting, env. var. or /etc/ file; use the default! */
 
-      pprsize = (char *) defaultpapername();
+      pprsize = defaultpapername();
 
 #ifdef DEBUG
       printf("Using default paper\n");

@@ -23,8 +23,8 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  June 14, 2002 - July 17, 2007
-  $Id: titles.h,v 1.7 2009/06/03 20:46:07 wkendrick Exp $
+  June 14, 2002 - October 9, 2009
+  $Id: titles.h,v 1.9 2009/10/10 06:33:38 wkendrick Exp $
 */
 
 
@@ -70,7 +70,7 @@ const char *const title_names[NUM_TITLES] = {
   // Title of shape selector (buttons down the right for shapes tool)
   gettext_noop("Shapes"),
 
-  // Title of font selector (buttons down the right for text tool)
+  // Title of font selector (buttons down the right for text and label tools)
   gettext_noop("Letters"),
 
   // Title of magic tool selector (buttons down the right for magic (effect plugin) tool)

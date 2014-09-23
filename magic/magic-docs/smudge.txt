@@ -5,4 +5,4 @@
    This pushes the colors around under the mouse, like finger painting with
    wet paint.
 
-   See also: Blur
+   See also: Blur Wet Paint

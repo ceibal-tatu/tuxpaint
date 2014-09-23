@@ -131,7 +131,7 @@ static NSString *getApplicationName(void)
     mainBundle = [NSBundle mainBundle];
     path = [mainBundle pathForResource:@"data" ofType:nil];
 
-    [path getCString:(macosx.dataPath)];
+    [path getCString:(macosx.dataPath) maxLength:sizeof(macosx.dataPath) encoding:NSUTF8StringEncoding];        //EP added maxLength: and encoding: to avoid deprecation warning for 10.6
 }
 
 -(void) preferencesPath;
@@ -139,10 +139,11 @@ static NSString *getApplicationName(void)
     NSString *path;
 
     path = [@"~/Library/Application Support/TuxPaint" stringByExpandingTildeInPath];
-    [path getCString:(macosx.preferencesPath)];
-
+    [path getCString:(macosx.preferencesPath) maxLength:sizeof(macosx.preferencesPath) encoding:NSUTF8StringEncoding];  //EP added maxLength: and encoding: to avoid deprecation warning for 10.6
+        
     path = @"/Library/Application Support/TuxPaint";
-    [path getCString:(macosx.globalPreferencesPath)];
+    [path getCString:(macosx.globalPreferencesPath) maxLength:sizeof(macosx.globalPreferencesPath) encoding:NSUTF8StringEncoding];      //EP added maxLength: and encoding: to avoid deprecation warning for 10.6
+
 }
 
 -(void) fontsPath;
@@ -150,7 +151,7 @@ static NSString *getApplicationName(void)
     NSString *path;
 
     path = [@"~/Library/Fonts" stringByExpandingTildeInPath];
-    [path getCString:(macosx.fontsPath)];
+    [path getCString:(macosx.fontsPath) maxLength:sizeof(macosx.fontsPath) encoding:NSUTF8StringEncoding];      //EP added maxLength: and encoding: to avoid deprecation warning for 10.6
 }
 
 @end
@@ -330,7 +331,7 @@ static NSString *getApplicationName(void)
         if ([menuItem hasSubmenu])
             [self fixMenu:[menuItem submenu] withAppName:appName];
     }
-    [aMenu sizeToFit];
+    //EP commented line to avoid deprecation warning for 10.6:  [aMenu sizeToFit];
 }
 
 #else
@@ -488,7 +489,8 @@ static void CustomApplicationMain (argc, argv)
     NSString *arguments = [NSString stringWithCString:(macosx.globalPreferencesPath)];
     
     char command[4096];
-    sprintf(command, "\"%s\" \"%s\"", [executable cString], [arguments cString]);
+        //EP commented to avoid deprecation warning for 10.6:    sprintf(command, "\"%s\" \"%s\"", [executable cString], [arguments cString]);
+        sprintf(command, "\"%@\" \"%@\"", executable, arguments);
     
     int result = system(command);
     
@@ -520,7 +522,7 @@ static void CustomApplicationMain (argc, argv)
         char *arguments[] = { "/Library/Application Support/TuxPaint", NULL };
         FILE *communicationsPipe = NULL;
         
-        strcpy(executable, [fcInstallerPath cString]);
+        strcpy(executable, [fcInstallerPath cStringUsingEncoding:NSUTF8StringEncoding]);        //EP replaced cString by cStringUsingEncoding: to avoid deprecation warning for 10.6
         
         flags = kAuthorizationFlagDefaults;
         status = AuthorizationExecuteWithPrivileges(authorizationRef, executable, flags, arguments, &communicationsPipe);
@@ -547,8 +549,8 @@ static void CustomApplicationMain (argc, argv)
 - (void) setupFontconfig
 {
     /* Tell Fontconfig to use font configuration file in application bundle */
-    setenv ("FONTCONFIG_PATH", [[[NSBundle mainBundle] resourcePath] cString], 1);
-    
+    setenv ("FONTCONFIG_PATH", [[[NSBundle mainBundle] resourcePath] cStringUsingEncoding:NSUTF8StringEncoding], 1);            //EP replaced cString by cStringUsingEncoding: to avoid deprecation warning for 10.6
+
     /* Install font configuration file */
     /*
     BOOL filesExist = [self fontconfigFilesAreInstalled];

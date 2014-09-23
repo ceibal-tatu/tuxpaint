@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: negative.c,v 1.14 2008/11/01 21:49:11 secretlondon Exp $
+  $Id: negative.c,v 1.15 2012/03/05 19:41:24 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -34,6 +34,32 @@
 #include "SDL_mixer.h"
 
 static Mix_Chunk * negative_snd;
+
+int negative_init(magic_api * api);
+Uint32 negative_api_version(void);
+int negative_get_tool_count(magic_api * api);
+SDL_Surface * negative_get_icon(magic_api * api, int which);
+char * negative_get_name(magic_api * api, int which);
+char * negative_get_description(magic_api * api, int which, int mode);
+static void do_negative(void * ptr, int which,
+	         SDL_Surface * canvas, SDL_Surface * last,
+	         int x, int y);
+void negative_drag(magic_api * api, int which, SDL_Surface * canvas,
+	           SDL_Surface * last, int ox, int oy, int x, int y,
+		   SDL_Rect * update_rect);
+
+void negative_click(magic_api * api, int which, int mode,
+	            SDL_Surface * canvas, SDL_Surface * last,
+	            int x, int y, SDL_Rect * update_rect);
+void negative_release(magic_api * api, int which,
+	            SDL_Surface * canvas, SDL_Surface * last,
+	            int x, int y, SDL_Rect * update_rect);
+void negative_shutdown(magic_api * api);
+void negative_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int negative_requires_colors(magic_api * api, int which);
+void negative_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void negative_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int negative_modes(magic_api * api, int which);
 
 // No setup required:
 int negative_init(magic_api * api)
@@ -51,13 +77,13 @@ int negative_init(magic_api * api)
 Uint32 negative_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 // Only one tool:
-int negative_get_tool_count(magic_api * api)
+int negative_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(1);
 }
 
 // Load our icon:
-SDL_Surface * negative_get_icon(magic_api * api, int which)
+SDL_Surface * negative_get_icon(magic_api * api, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -67,13 +93,13 @@ SDL_Surface * negative_get_icon(magic_api * api, int which)
 }
 
 // Return our name, localized:
-char * negative_get_name(magic_api * api, int which)
+char * negative_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Negative")));
 }
 
 // Return our description, localized:
-char * negative_get_description(magic_api * api, int which, int mode)
+char * negative_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode)
 {
   if (mode == MODE_PAINT)
     return(strdup(
@@ -86,7 +112,7 @@ char * negative_get_description(magic_api * api, int which, int mode)
 }
 
 // Callback that does the negative color effect on a circle centered around x,y
-static void do_negative(void * ptr, int which,
+static void do_negative(void * ptr, int which ATTRIBUTE_UNUSED,
 	         SDL_Surface * canvas, SDL_Surface * last,
 	         int x, int y)
 {
@@ -171,39 +197,39 @@ void negative_click(magic_api * api, int which, int mode,
 }
 
 
-void negative_release(magic_api * api, int which,
-	            SDL_Surface * canvas, SDL_Surface * last,
-	            int x, int y, SDL_Rect * update_rect)
+void negative_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	            SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	            int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 
-void negative_shutdown(magic_api * api)
+void negative_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (negative_snd != NULL)
     Mix_FreeChunk(negative_snd);
 }
 
 // We don't use colors
-void negative_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void negative_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // We don't use colors
-int negative_requires_colors(magic_api * api, int which)
+int negative_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void negative_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void negative_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void negative_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void negative_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int negative_modes(magic_api * api, int which)
+int negative_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT | MODE_FULLSCREEN);
 }

@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: im.h,v 1.3 2007/05/06 04:00:20 vindaci Exp $
+  $Id: im.h,v 1.4 2009/11/22 23:17:35 albert Exp $
 */
 
 #ifndef TUXPAINT_IM_H
@@ -50,10 +50,7 @@ typedef struct IM_DATA {
 */
 
 void im_init(IM_DATA* im, int lang);      /* Initialize IM */
-void im_fullreset(IM_DATA* im);           /* Full Reset IM */
 void im_softreset(IM_DATA* im);           /* Soft Reset IM */
-void im_free(IM_DATA* im);                /* Free IM resources */
-
 int im_read(IM_DATA* im, SDL_keysym ks);
 
 

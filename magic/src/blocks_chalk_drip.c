@@ -1,6 +1,6 @@
 /*
   blocks_chalk_drip.c
-
+//
   Blocks, Chalk and Drip Magic Tools Plugin
   Tux Paint - A simple drawing program for children.
 
@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: blocks_chalk_drip.c,v 1.14 2008/07/10 20:26:39 wkendrick Exp $
+  $Id: blocks_chalk_drip.c,v 1.15 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -71,6 +71,10 @@ void blocks_chalk_drip_release(magic_api * api, int which,
 void blocks_chalk_drip_shutdown(magic_api * api);
 void blocks_chalk_drip_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
 int blocks_chalk_drip_requires_colors(magic_api * api, int which);
+void blocks_chalk_drip_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void blocks_chalk_drip_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int blocks_chalk_drip_modes(magic_api * api, int which);
+
 
 
 int blocks_chalk_drip_init(magic_api * api)
@@ -139,7 +143,7 @@ char * blocks_chalk_drip_get_name(magic_api * api ATTRIBUTE_UNUSED, int which)
 }
 
 // Return our descriptions, localized:
-char * blocks_chalk_drip_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode)
+char * blocks_chalk_drip_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode ATTRIBUTE_UNUSED)
 {
   if (which == TOOL_BLOCKS)
     return(strdup(gettext_noop(
@@ -285,7 +289,7 @@ void blocks_chalk_drip_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void blocks_chalk_drip_click(magic_api * api, int which, int mode,
+void blocks_chalk_drip_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -321,15 +325,15 @@ int blocks_chalk_drip_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int whic
   return 0;
 }
 
-void blocks_chalk_drip_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void blocks_chalk_drip_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void blocks_chalk_drip_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void blocks_chalk_drip_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int blocks_chalk_drip_modes(magic_api * api, int which)
+int blocks_chalk_drip_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT); /* FIXME - Blocks and Chalk, at least, can also be turned into a full-image effect */
 }

@@ -28,7 +28,7 @@
   (See COPYING.txt)
 
   Last updated: May 29, 2009
-  $Id: tornado.c,v 1.5 2009/06/20 11:51:39 dolphin6k Exp $
+  $Id: tornado.c,v 1.6 2011/05/13 10:05:57 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -73,6 +73,36 @@ static Point2D tornado_PointOnCubicBezier(Point2D* cp, float t);
 static void tornado_ComputeBezier(Point2D* cp, int numberOfPoints, Point2D* curve);
 static void tornado_colorize_cloud(magic_api * api);
 static Uint32 tornado_mess(Uint32 pixel, SDL_Surface * canvas);
+Uint32 tornado_api_version(void);
+int tornado_init(magic_api * api);
+int tornado_get_tool_count(magic_api * api);
+SDL_Surface * tornado_get_icon(magic_api * api, int which);
+char * tornado_get_name(magic_api * api, int which);
+
+char * tornado_get_description(magic_api * api, int which, int mode);
+
+
+
+
+
+
+void tornado_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void tornado_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void tornado_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+		     int x, int y, SDL_Rect * update_rect);
+
+void tornado_shutdown(magic_api * api);
+void tornado_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int tornado_requires_colors(magic_api * api, int which);
+void tornado_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void tornado_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int tornado_modes(magic_api * api, int which);
+
 
 
 Uint32 tornado_api_version(void) { return(TP_MAGIC_API_VERSION); }
@@ -105,13 +135,13 @@ int tornado_init(magic_api * api)
 }
 
 // We have multiple tools:
-int tornado_get_tool_count(magic_api * api)
+int tornado_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(1);
 }
 
 // Load our icons:
-SDL_Surface * tornado_get_icon(magic_api * api, int which)
+SDL_Surface * tornado_get_icon(magic_api * api, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -122,20 +152,20 @@ SDL_Surface * tornado_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * tornado_get_name(magic_api * api, int which)
+char * tornado_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Tornado")));
 }
 
 // Return our descriptions, localized:
-char * tornado_get_description(magic_api * api, int which, int mode)
+char * tornado_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Click and drag to draw a tornado funnel on your picture.")));
 }
 
 // Affect the canvas on drag:
-static void tornado_predrag(magic_api * api, SDL_Surface * canvas,
-	          SDL_Surface * last, int ox, int oy, int x, int y)
+static void tornado_predrag(magic_api * api ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED,
+	          SDL_Surface * last ATTRIBUTE_UNUSED, int ox, int oy, int x, int y)
 {
   if (x < tornado_min_x)
     tornado_min_x = x;
@@ -168,7 +198,7 @@ static void tornado_predrag(magic_api * api, SDL_Surface * canvas,
   }
 }
 
-void tornado_drag(magic_api * api, int which, SDL_Surface * canvas,
+void tornado_drag(magic_api * api, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas,
 	          SDL_Surface * last, int ox, int oy, int x, int y,
 		  SDL_Rect * update_rect)
 {
@@ -195,7 +225,7 @@ void tornado_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void tornado_click(magic_api * api, int which, int mode,
+void tornado_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -215,7 +245,7 @@ void tornado_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void tornado_release(magic_api * api, int which,
+void tornado_release(magic_api * api, int which ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -268,7 +298,7 @@ static void tornado_drawtornado(magic_api * api, SDL_Surface * canvas, int x, in
   SDL_FreeSurface(aux_surf);
 }
 
-static void tornado_drawbase(magic_api * api, SDL_Surface * canvas)
+static void tornado_drawbase(magic_api * api ATTRIBUTE_UNUSED, SDL_Surface * canvas)
 {
   SDL_Rect dest;
 
@@ -298,8 +328,7 @@ static void tornado_drawstalk(magic_api * api, SDL_Surface * canvas, SDL_Surface
   Point2D * curve;
   int i, n_points;
   int left, right;
-  SDL_Rect dest, src;
-  int xx, yy, side;
+  SDL_Rect dest;
   int rotation = 0;
   int p;
   int ii, ww;
@@ -396,7 +425,7 @@ static void tornado_drawstalk(magic_api * api, SDL_Surface * canvas, SDL_Surface
   free(curve);
 }
 
-void tornado_shutdown(magic_api * api)
+void tornado_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 /*
   if (tornado_click_snd != NULL)
@@ -425,7 +454,7 @@ void tornado_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
 }
 
 // Use colors:
-int tornado_requires_colors(magic_api * api, int which)
+int tornado_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 1;
 }
@@ -538,16 +567,16 @@ static void tornado_colorize_cloud(magic_api * api)
   SDL_UnlockSurface(tornado_cloud);
 }
 
-void tornado_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void tornado_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void tornado_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void tornado_switchout(magic_api * api, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
   api->stopsound();
 }
 
-int tornado_modes(magic_api * api, int which)
+int tornado_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
-  return(MODE_PAINT);
+  return(MODE_PAINT_WITH_PREVIEW);
 }

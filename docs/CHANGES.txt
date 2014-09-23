@@ -2,11 +2,677 @@ CHANGES.txt for Tux Paint
 
 Tux Paint - A simple drawing program for children.
 
-Copyright (c) 2002-2009 by Bill Kendrick and others
+Copyright (c) 2002-2014 by Bill Kendrick and others
 bill@newbreedsoftware.com
 http://www.tuxpaint.org/
 
-$Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
+$Id: CHANGES.txt,v 1.833 2014/08/16 14:28:00 perepujal Exp $
+
+2014.August.5 (0.9.22)
+
+  * New Tools:
+    ----------
+    * Label - A tool to add text to a drawing, which can be modified or
+      moved later.
+      By Arunodai Reddy Vudem (GSOC 2008)
+      With modifications and integration by
+      Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+  * New Magic Tools:
+    ----------------
+    * Blinds - Close window blinds over your picture.
+      Pattern - Draws a tiled pattern around the picture.
+      Perspective - Change the image's perspective.
+      Mosaic Hexagon, Mosaic irregular, Mosaic square - Glass mosaic effects.
+      Tiles - Draws a symettric pattern around the picture.
+      Zoom - Zoom the image in or out.
+      By Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+    * Puzzle - Slide parts of your picture around like a sliding puzzle.
+      By Adam 'foo-script' Rakowski <foo-script@o2.pl>
+      with modifications by Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+    * ROYGBIV Rainbow - Draw a rainbow arc using solid colors of
+      Red, Orange, Yellow, Green, Blue, Indigo and Violet.
+
+    * Symmetry Left/Right, Symmetry Up/Down - Paint with relfective symmetry
+      across the horizontal or vertical center of the image.
+      (Like Kaleidoscope, but only one mirrored brush, either left/right
+      or up/down.)
+
+    * Wet Paint - Draws a light coat of paint, and smudges at the same time.
+      (Based on Smudge tool.  Requested by gallery artist Angela.)
+
+    * Xor Colors - Colors based on the position drawn on the picture.
+      Lukasz Dmitrowski <lukasz.dmitrowski@gmail.com>
+
+  * Build System Improvements:
+    --------------------------
+    * Variety of tweaks to help Tux Paint cross-compile for Windows under Linux
+      Volker Grabsch <vog@notjusthosting.com>
+
+    * Added support for building under Haiku OS
+      Scott McCreary <scottmc@users.sourceforge.net>
+
+    * Integrated OpenCandy-powered recommendation service
+      into Windows installation scripts (InnoSetup), as an option.
+      <http://www.opencandy.com/>
+
+      Note: "tuxpaint.iss" still builds standard, OpenCandy-less
+      Tux Paint installer; "tuxpaint-opencandy.iss", along with a file
+      with secret key info (not included in CVS, of course!), build
+      an OpenCandy-enabled version.  The OC account is currently
+      maintained by Bill Kendrick <nbs@sonic.net>, lead developer.
+
+      For more info, see http://www.tuxpaint.org/docs/opencandy/
+
+    * Using $LDFLAGS when linking Magic tool plugins and Tux Paint binary.
+      Volkov Peter <volkov_peter@users.sourceforge.net> (SF.Net Bug #3389067)
+
+  * Collection of Mac OS X Updates:
+    -------------------------------
+    Produced by Eric Poncet <http://www.linguasoft.com/>
+    Commissioned by Harvey Ginter <harveyginter@gmail.com>
+
+    * Fix OS X 10.9 issue of current directory set by Finder
+      to something else than folder where app bundle resides.
+
+    * Customization support for Mac OS X (automatic, under XCode)
+      and Windows (manual).
+
+    * Some Mac OS X build / project changes & updates.
+
+    * Adjustments to Mac OS X fontconfig config file, to avoid warnings
+      and make things more robust.
+
+    * Updates to some #include's to catch up with newer library revisions.
+
+    * Tweaks to pixel read/write on Apple.
+
+    * Introduction of 'intprt_t' casting to avoid warnings on x64.
+
+    * Some additional debugging output.
+
+    * Logging stderr & stdout to /tmp/tuxpaint.log
+
+  * Accessibility Improvements:
+    ---------------------------
+    * Added a mouse accessibility mode to avoid the need to drag the mouse.
+      ("--mouse-accessibility")
+      by Ankit Choudary <ankit.goaldecided@gmail.com> (GSOC 2010)
+      with integration and fixes by
+      Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+    * Added an option to display an on-screen keyboard when using the
+      'Text' and 'Label' tools.  ("--onscreen-keyboard") [Experimental!]
+      by Ankit Choudary <ankit.goaldecided@gmail.com> (GSOC 2010) with 
+      integration and fixes by Pere Pujal i Carabantes <perepujal@gmail.com>
+      and some code borrowed from xorg (keysymdef.h and en_US.UTF-8_COMPOSE
+      Authors?) 
+      and xterm file keysym2ucs.c (function keysym2unicode   
+      Markus G. Kuhn <mkuhn@acm.org>, University of Cambridge, April 2001
+      Special thanks to Richard Verhoeven <river@win.tue.nl>
+      Public domain.
+
+    * Keyboard can be used to move and click mouse ("--keyboard" option).
+      [Experimental!]
+      by Ankit Choudary <ankit.goaldecided@gmail.com> (GSOC 2010)
+      * See documentation in OPTIONS for how to use it.
+
+    * Joystick can be used to drive Tux Paint
+      by Ankit Choudary <ankit.goaldecided@gmail.com> (GSOC 2010)
+      with integration and fixes by Pere Pujal i Carabantes
+
+      * Use --joystick-dev to choose joystick (otherwise
+        uses the first joystick found on the system).
+        * Use '--joystick-dev list' to list available joysticks.
+      * Uses any of the buttons found in the joystick, no need for
+        configuration.  (--joystick-buttons-ignore can be used to
+        ignore buttons.)
+      * The hat of the joystick moves one pixel at a time, useful to
+        carefully place the pointer.
+      * The ball of the joystick should also trigger pointer
+        motion.
+      * The responsivity of the joystick can be configured via command
+        line or config files:
+	* --joystick-slownes sets a delay at each axis motion event.
+	    Allowed values from 0 to 500, defaults to 15.
+	* --joystick-threshold sets the minimum value of axis motion to
+	  begin move the pointer.
+	    Allowed values from 0 to 32766, defaults to 3200.
+	* --joystick_maxsteps sets the maximum number of pixels that
+	  the pointer will move at a time.
+	    Allowed values from 1 to 7, defaults to 7.
+      * Joystick buttons can be assigned used to activate certain commands
+        in Tux Paint (--joystick-btn-COMMAND options)
+
+  * Magic Tool Improvememnts:
+    -------------------------
+    * Magic tools can register themselves as paint with one click
+      (versus click/drag/release): MODE_ONECLICK.  (e.g., "Ripples")
+      Utilized by mouse-accessibility feature.
+
+    * Magic tools can register themsevles as paint-with-a-preview:
+      MODE_PAINT_WITH_PREVIEW.  (e.g., "Flower")
+      Utilized by mouse-accessibility feature.
+
+  * Other Improvements:
+    -------------------
+    * Random brushes avoid repeating the same frame twice.
+
+    * Showing a warning when using save-related options when "nosave" is set.
+      (SourceForge Bug #3327493)
+
+    * Quicker prompt window pop-up animation.
+
+    * Left/Right Stamp navigation buttons are purple, like the other (up/down)
+      scroll buttons found in Tux Paint.
+      (SourceForge Bug #2918289)
+
+    * Slightly improved mouse motion handling when Tux Paint is very busy
+      drawing or previewing.  (e.g., when drawing a circle, you could often
+      end up with a "D" shape... now, you get more of a regular polygon shape
+      if Tux Paint is taking too long to draw.  It skips some motion events,
+      rather than ignoring all motion events after the first 1/4th second.)
+
+    * Deleting files from Tux Paint's 'Open' dialog now moves them to
+      the user's Trash folder.
+      FIXME: Only on freedesktop.org systems (e.g., Linux)
+      (SourceForge.net Feature #3101084)
+
+    * Tux Paint (in windowed mode) now only centers itself if
+      no specific positioning has been provided via
+      the SDL_VIDEO_WINDOW_POS environment variable.
+      (SourceForge Bug #3138446)
+
+    * Creating thumbnails for the starters we provide.
+      (Speeds up 'New' dialog appearance.)
+      (SourceForge Bug #1417849)
+      Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+    * On systems where Pango is used for UI text rendering, Tux Paint now
+      spawns a temporary thread during start-up (at the splash screen) to
+      allow "fontconfig" to generate its font cache in the background,
+      while showing the "please wait" animation, and responding to the US.
+      (Fontconfig takes a long time to generate its cache the first time
+      you run a Pango- and hence fontconfig-enabled application
+      (Tux Paint, Gimp, Inkscape, etc.), or after adding lots of new fonts
+      to your system).
+      SF.net Bug #2944951
+
+    * Thumbnailing (of UI elements, stamps, saved images, etc.) is now
+      gamma-corrected. See:
+      http://www.4p8.com/eric.brasseur/gamma.html
+
+    * Template images are now supported.  Similar to Starters, they are
+      pre-drawn pictures to begin a new drawing with, accessed via the
+      "New" dialog.  The "Eraser" tool will erase back to the original
+      picture (rather than a solid color).
+
+      Unlike Starters, they do not involve an immutable "layer" above the
+      drawing.  They may be drawn over in their entirety.
+
+    * After switching into, or out of, a magic tool, the canvas is updated.
+
+    * Starter images can be in SVG (Scalable Vector Graphics) format.
+      (Avoids loading PNG if SVG with the same name exists.)
+
+    * Removed white artifacts from some Starters, and reduced file size
+      of some Starters.
+
+    * When scaling/smearing a picture or Starter, to fit the current canvas
+      size, it was not drawing on the far right or bottom edges, causing
+      Fill tool to 'spill'.  (Example: fill one of the puzzle pieces on the
+      right or bottom of the 5x5 jigsaw Starter, and all pieces on the right
+      and bottom would get filled, too.)
+
+    * Starter images can be in KPX (Kid Pix Template) format.
+      (These appear to simply be JPEG with 60 byte's worth of Mac OS
+      resource fork header at the beginning.)
+      (Thanks to Sarah Curry for sharing some example templates to test.)
+
+    * When a default size was not specified, SVG-based Stamps would default
+      to the largest, which was canvas-sized.  Now defaulting to a more
+      reasonable size.  (And users can click the maximum size choice to get
+      the largest, canvas-sized rendition.)
+      (SF.net bug #2836471)
+
+    * Widened dialog windows, to help avoid word-wrap and overlap problems
+      with some prompts, in some locales.
+      (SF.net bug #2834461)
+
+    * Shape Tool now locks rotation into 15 or 5 degree steps, when the
+      radius of the shape is very small or small, respectively.
+      (SF.net bug #2837177)
+
+    * Shape Tool tries to avoid glitches where lines connect, when shape is
+      rotated.  (Rotation of fixed-aspect shapes like Square and Octagon
+      stays within the angle of the corners. i.e., rotating a square 140 deg.
+      actually only rotates it 30 deg., since it looks identical,
+      sans glitches.)
+      (SF.net bug #2837177)
+
+    * Created a BASH tab-completion file for Tux Paint, so that
+      command-line options are easier to discover (without necessarily
+      needing to consult the man page, 'Options' documentation, or --usage
+      output).
+
+    * Text (and Label) tool doesn't flicker when typing or erasing text.
+
+    * Creation of thumbnails for personal starters and templates.
+
+    * Major rewrite of configuration and locale-setting code.
+      Albert Cahalan <albert@users.sourceforge.net>,
+      Bill Kendrick <bill@newbreedsoftware.com>
+
+    * Packaging all the metadata in the PNG file. Before a draw based
+      on a starter would have need 3 files: the draw, the starter and the
+      .dat file, whith the addition of the Labels tool this increased to
+      5 files. Now all this stuff is packed in customs chunks inside the
+      PNG file.
+      Pere Pujal i Carabantes <pere@fornol.no-ip.org>
+
+    * No longer directly accessing PNG structure members directly, now using
+      png_set_IHDR().
+      Thomas Klausner, SF.net Bug #3386433
+
+    * Adapted the interface to play nice too on touchscreen devices.
+
+    * Optimised PNG files using TruePNG and PNGZopfli, for smaller file sizes.
+
+ * New Starters:
+   -------------
+    * Elephant
+    * Hat
+    * Old Soviet Car
+    * Skull 
+    * Bald Eagle
+    * Car 2
+    * Desert Tortoise
+    * Gecko
+    * Manatee
+    * Pansy
+    * Stained Glass
+    * Woodpecker
+    * Frame - Filmstrip
+    * Frame - Flowers
+    * Frame - Picture
+    * Frame - Screen
+    * Frame - Television
+    * Frame - Gold
+    * Frame - heart
+    * Frame - hearts
+    * Fish Icon
+    * Mosaic
+      From Open Clip Art, curated by 
+      Caroline Ford <caroline.ford.work@googlemail.com>
+
+    * Frame - neon
+      Made in inkscape and the gimp by Caroline Ford.
+
+  * New Templates
+    -------------
+    * Burnt bark
+    * Cliff
+    * Corn maze
+    * Jellyfish
+    * Lighthouse
+    * Mossy bark
+    * Mossy log
+    * Mudstone
+    * Ocean splash
+    * Ocean waves
+    * Redwoods above
+    * Rocks
+    * Sheep
+    * Spider's web
+    * Sun behind clouds
+    * Sun behind leaves
+    * Trees above
+    * Trees at dusk
+    * Wool mill machine
+      Photographed by Bill Kendrick <bill@newbreedsoftware.com>
+
+  * New Brushes
+    ---------
+    * Another flower brush
+      Made out of some open clipart by C Ford.
+
+    * Inksplat
+      Based on 'Splatter Brushes' for GIMP
+      By 'Flyhorn' at deviantART
+      http://browse.deviantart.com/art/Splatter-brushes-340519966
+
+  * New Locales:
+    ------------
+    * Acholi translation
+      Achuma George Patrick <chanchumgpa@gmail.com>
+      Opio June Bryan
+      Ogwal Kenneth Awio
+
+    * Akan translation
+      Derrick Frimpong <flexyflame2006@yahoo.com>
+
+    * Amharic translation
+      Solomon Gizaw <solohavi@yahoo.com>
+      http://pootle.locamotion.org/am/tuxpaint/
+
+    * Aragones translation
+      Juan Pablo Martinez Cortes <jpmart@unizar.es>
+
+    * Armenian translation
+      Anush MKRTCHYAN 
+      Jasmine Udea
+
+    * Assamese translation
+      Anand Kulkarni <kulkarni1016@yahoo.co.in>
+
+    * Bambara translation
+      Fasokan <konate20032001@yahoo.fr>
+
+    * Bosnian translation
+      Samir RibiÄ‡
+
+    * Kiga translation
+      Florence Tushabe <tushabe@cit.mak.ac.ug>
+
+    * Fula translation
+      Ibraahiima SAAR <ibrahima.sarr@pulaagu.com>,
+      Fula Localization Project, http://www.pulaar-fulfulde.org/
+
+    * Inuktitut
+      Harvey Ginter <harveyginter@gmail.com>
+
+    * Kannada translation
+      Savitha <savithasprasad@yahoo.com>
+      Provided by Vrundesh Waghmare <vrundesh.waghmare@gmail.com>
+
+    * Konkani (Devaganari and Roman)
+      Rahul Borade <rahulborade01@gmail.com>
+
+    * Luganda translation
+      James Olweny <sjolweny85@yahoo.co.uk>
+
+    * Luxembourgish translation
+      Renï¿½ Brandenburger <rene@brandenburger.lu>
+
+    * Maithili
+      U.Sudhakar <sudhakaru@cdac.in>
+      sk <sk>
+      Provided by Praveen Dewangan <pdvg.cdac@gmail.com>
+
+    * Malayalam translation
+      Students of Vocational Higher Secondary School Irimpanam
+      http://vhssirimpanam.org
+      - rimal <rimalmathew@gmail.com>
+      - Abhijith P.K
+      - Appu Ajith
+      - Vishnu Ajith
+      - Harish Vijay
+      - Mathew K.Vaidyan
+      - Manu C.Kauma
+      - Sreejith P.M
+      - Nithin M
+      - Sidharth K.Bhattathiri
+      - Thomas Peter
+      - Dona C.D
+      - Anjitha venugopal
+      - Athira Venugopal
+      - Shelmi P.R
+      - Revathi Sukumaran
+      - Salu P.SAmitha Appukuttan
+      - Geegu Varghese
+      - Ashna Manoharan
+      - sreelakshmi
+      - jithu
+      - Abhinav Thomas
+      - Abhitha Thomas
+      - Sajith P.V
+      - Vishnu Vinod
+      - Senthis
+      - Vimal <vimaljoseph@gmail.com>
+      - Sameer <sameer.thahir@gmail.com>
+      - Sanal <sanalmadatheth@gmail.com>
+      - Sooraj <soorajkenoth@gmail.com> 
+      - V Sasi Kumar <sasi.fsf@gmail.com> 
+      Updated by Sonith Kumar <sonith.kumar153@gmail.com>
+      Reviewed by Haris Ibrahim K. V. <blucalvin@gmail.com>
+
+    * Manipuri (Bengali and Metei Mayek)
+      Hidam Dolen <dolenhi@gmail.com>
+      Provided by rahul dabre <rahulvdabre@yahoo.com>
+
+    * Marathi translation
+      Santosh Jankiram Kshetre <quicklearning@rediffmail.com>
+
+    * Nepali translation
+      Khagen Sharma <khagen.sharma@gmail.com>
+      Provided by Neha Aphale <aphaleneha@gmail.com>
+
+    * Northern Sotho translation
+      Pheledi Mathibela <pheledi@mosekolatranslation.co.za>
+
+    * Odia translation
+      Kaniska Padhi <kaniska2008@gmail.com>
+
+    * Punjabi translation
+      Arshpreet Singh <arsh840@gmail.com>
+
+    * Persian translation
+      Farinaz Hedayat <farinaz.hedayat@gmail.com>
+
+    * Sanskrit translation
+      Babita Shinde <babitagaikwad@gmail.com>
+
+    * Santali translation (Devaganari)
+      Chandrakant Dhutadmal <cpdhutadmal@yahoo.com>
+      Ganesh Murmu <g_murmu_in@yahoo.com>
+
+    * Santali translation (Ol-Chiki)
+      Chandrakant Dhutadmal <cpdhutadmal@yahoo.com>
+      Ganesh Murmu <g_murmu_in@yahoo.com>
+
+    * Serbian translation (latin)
+      Ivana Rakic <reci.ne.silvesteru@gmail.com>
+
+    * Sinhala
+      Menik Prasantha <manikprasantha@gmail.com>
+
+    * Sundanese
+      kumincir <ia.adnan@gmail.com>
+
+    * Valencian
+      Pilar Embid Giner <embid_mar@gva.es>
+
+    * Venetian language
+      Fabio Lazarin, El Galepï¿½n <mistro@elgalepin.com>
+
+    * Zulu
+      sipho <sipho@translate.org.za>
+
+  * Localization Updates:
+    ---------------------
+    * Albanian translation.
+      Canonical Ubuntu Launchpad contributors
+
+    * Basque translation
+      Ander Elortondo <ander.elor@gmail.com>
+
+    * Belarusian translation
+      Alexander Geroimenko <a.geroimenko@gmail.com>
+
+    * Brazilian Portuguese translation
+      Frederico Goncalves Guimaraes <frederico@teia.bio.br>
+
+    * British English
+      Robert Readman <robert_readman@hotmail.com>
+
+    * Bulgarian
+      Stefani Stoyanova
+
+    * Chinese (Traditional) translation
+      Song Huang <songhuang@users.sourceforge.net>
+
+    * Czech translation
+      ZdenÄ›k ChalupskÃ½ <chalzd@gmail.com>
+
+    * Danish translation
+      Joe Dalton <joedalton2@yahoo.dk>
+
+    * Dutch translation
+      Freek de Kruijf <f.de.kruijf@hetnet.nl>
+
+    * Finnish translation
+      Olli <ollinpostit@gmail.com>
+      Tarmo Toikkanen <tarmo.toikkanen@iki.fi>
+
+    * German translation
+      Stephanie Schilling <stephanieschilling@online.de>
+
+    * Greek translation
+      Kiriaki SERAFEIM <pse04178@rhodes.aegean.gr>
+
+    * Gujarati translation
+      Kartik Mistry <kartik.mistry@gmail.com>
+
+    * Hindi translation
+      aki <akash.nawani@gmail.com>
+      Ashish Arora <ashish.arora13@gmail.com>
+
+    * Hungarian translation
+      Nagy Akos <nagy.akos@codespring.ro>
+
+    * Italian translation
+      Flavio "Iron Bishop" Pastore <ironbishop@fsfe.org>
+
+    * Latvian
+      Raivis Strogonovs <raivucis@gmail.com>
+
+    * Malay translation
+      Muhammad Najmi Ahmad Zabidi <najmi.zabidi@gmail.com>
+
+    * Norwegian BokmÃ¥l translation
+      Karl Ove Hufthammer <karl@huftis.org>
+
+    * Norwegian Nynorsk translation
+      Karl Ove Hufthammer <karl@huftis.org>
+
+    * Romanian translation
+      Hodorog Andrei <tocitox@gmail.com>
+
+    * Russian translation
+      Nikolay Parukhin <parukhin@gmail.com>
+      Sergei Popov <skein@rambler.ru>
+
+    * Polish translation
+      Piotr KwiliÅ„ski <euvcp@hotmail.com>
+
+    * Portuguese now using plain "pt" locale (vs. always specifying "_PT")
+
+    * Portuguese translation
+      Sergio Marques <smarquespt@gmail.com>
+
+    * Scottish Gaelic translation
+      Michael Bauer <fios@akerbeltz.org>
+
+    * Scottish Gaelic translation for Inno Setup
+      Foram na Gaidhlig <fios@foramnagaidhlig.net>
+
+    * Serbian translations (cyrillic)
+      Ivana Rakic <reci.ne.silvesteru@gmail.com>
+
+    * Slovak translation
+      Jaroslav Rynik <jrynik@yahoo.co.uk>
+
+    * Songhay translation
+      Abdoul Cisse <abdoulseydou@hotmail.com>
+      Mohomodou Houssouba  <mh@bollag-areal.ch>
+
+    * Spanish (Spain) translation
+      Teresa Orive <teresa.g.orive@gmail.com>
+
+    * Swedish translation
+      Henrik Holst <henrik.holst@millistream.com>
+
+    * Swahili translation
+      Emanuel Feruzi <emanuel.feruzi@trilabs.co.tz>
+
+    * Telugu tranlation
+      saikumar <ramukiashc@gmail.com> as a task in GCI
+
+    * Turkish
+      Enes Burhan KURAN <asd@gmail.com>
+
+    * Vietnamese translation
+      Clytie Siddall <clytie@riverland.net.au>
+
+    * Zapoteco
+      Rodrigo Perez Ramirez and Indigenas Sin Fronteras <isf_mx@yahoo.com>
+
+  * Bug Fixes
+    ---------
+    * Starter and template filenames with non-lowercase extensions (e.g. .JPG)
+      would fail to load.
+      SF.net Bug #191
+
+    * If a non-SVG starter or template with the same name as an SVG one
+      existed, it would be loaded instead of the SVG (despite a thumbnail
+      of the SVG appearing in the file selector).
+      SF.net Bug #191
+
+    * Image on right of dialogs would get scaled/cut-off even if there was
+      room for them.
+
+    * When using 'print delay' option, it would not allow printing the
+      first time until the delay had passed.
+
+    * Fixed error reporting when make_directory() fails.
+      (Fixes spurious 
+      SF.net Bug #2765872)
+      John Popplewell <john@johnnypops.demon.co.uk>
+
+    * Buffersize for holding Starter and image filenames was way too low.
+      (Could crash with Starter images with very long filenames.)
+
+    * Shape tool would only resize a shape if you dragged down or right,
+      not up or left.
+      (SF.net Bug #2834320)
+
+    * tuxpaint-import tool uses BASHisms, so changed shebang to #!/bin/bash
+      (instead of #!/bin/sh).
+
+    * Added some missing examples to the default tuxpaint.conf file.
+      (Thanks to Aapo Rantalainen <aapo.rantalainen@gmail.com>)
+
+    * Default stamp size, in some situations, was very large
+      (due to some rules that allowed stamps to be, at maximum,
+      up to 2x width of the canvas, OR 2x height of the canvas, as long
+      as it wasn't larger than the canvas in the other dimension).
+      The stamp sizing buttons were unable to re-select that size.
+      The sizing button bug has been fixed, the rule has been adjusted to
+      allow a maximum overscan of 1.5x width-or-height, and if the maximum
+      size causes overscan, then a smaller size is used for the default
+      when the stamp is first used.
+      (SF.net Bug #1668235)
+
+    * Shapes tool now draws at mouse release to help painting with
+      touchscreen devices.
+      (SF.net Feature request #3008811)
+
+    * Shapes tool would left their preview on the canvas if you leave it 
+      or change the shape before finishing to draw it.
+      (SF.net Bug #1057311)
+
+    * Example for 'savedir' in tuxpaint.conf suggested you needed /saved
+      at the end, which is not true.  Added note explaining that actual
+      image files go under 'saved' subdirectory.
+      (Thanks to Marco Menardi)
+
+    * Saved images woose path contains non-ascii chars can now be opened on Windows.
+      Fixes http://sourceforge.net/p/tuxpaint/bugs/188/
+
+    * Ignoring ".pfb" (PostScript 'Printer Font Binary') fonts, to
+      avoid crashes.
 
 2009.June.28 (0.9.21)
   * New Starters:
@@ -153,7 +819,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
 
   * New localizations:
     ------------------
-    * Shuswap (Secwepemctín) translation
+    * Shuswap (Secwepemctï¿½n) translation
       Neskie Manuel <neskiem@gmail.com>
 
     * Songhay translation
@@ -222,7 +888,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Simona Riva <simona.riva@tiscali.it>
 
     * Kurdish translation
-      Amed Çeko Jiyan <amedcj@gmail.com>
+      Amed ï¿½eko Jiyan <amedcj@gmail.com>
 
     * Portuguese translation
       Sergio Marques <smarquespt@gmail.com>
@@ -303,7 +969,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
     -----------------
     * Asturian
       Xandru Armesto <alarmes@wanadoo.es>
-      Mikel González <mikelisimu@yahoo.es>
+      Mikel Gonzï¿½lez <mikelisimu@yahoo.es>
 
   * Localization Updates:
     ---------------------
@@ -311,7 +977,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Samuel Murray (Groenkloof) <samuel@translate.org.za>
 
     * German translation
-      Burkhard Lück <lueck@hube-lueck.de>
+      Burkhard Lï¿½ck <lueck@hube-lueck.de>
 
     * Greek translation:
       Yannis Papatzikos <papatzikos@yahoo.gr>
@@ -324,7 +990,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Alesis Novik <alesisnov@gmail.com>
 
     * Slovakian translation
-      Peter Tuhársky <tuharsky@misbb.sk>
+      Peter Tuhï¿½rsky <tuharsky@misbb.sk>
 
     * Spanish translation
       Gabriel Gazzan <ggabriel@internet.com.uy>
@@ -499,7 +1165,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Edmund GRIMLEY EVANS <edmundo@rano.org>
 
     * Faroese translation
-      Lis Gøthe í Jákupsstovu <morshus@gmail.com>
+      Lis Gï¿½the ï¿½ Jï¿½kupsstovu <morshus@gmail.com>
 
     * Finnish translation
       Jorma Karvonen <karvjorm@users.sf.net>
@@ -800,7 +1466,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Jacques Chion <Jacques.Chion@wanadoo.fr>
 
     * German translation
-      Burkhard Lück <lueck@hube-lueck.de>
+      Burkhard Lï¿½ck <lueck@hube-lueck.de>
 
     * Gujarati translation
       Kartik Mistry <kartik.mistry@gmail.com>
@@ -820,7 +1486,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
     * Norwegian Nynorsk translation
       Karl Ove Hufthammer <huftis@users.sourceforge.net>
 
-    * Norwegian Bokmål translation
+    * Norwegian Bokmï¿½l translation
       Karl Ove Hufthammer <huftis@users.sourceforge.net>
 
     * Polish translation
@@ -1146,7 +1812,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Freek de Kruijf <f.de.kruijf@hetnet.nl>
 
     * Faroese
-      Lis Gøthe í Jákupsstovu <morshus@gmail.com>
+      Lis Gï¿½the ï¿½ Jï¿½kupsstovu <morshus@gmail.com>
 
     * Gujarati
       Kartik Mistry <kartik.mistry@gmail.com>
@@ -1302,7 +1968,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Khalid Al Holan <alholan@gmail.com>
 
     * Faroese
-      Lis Gøthe í Jákupsstovu <morshus@gmail.com>
+      Lis Gï¿½the ï¿½ Jï¿½kupsstovu <morshus@gmail.com>
 
     * Gujarati -- includes "gu.ttf" font
       Kartik Mistry <kartik.mistry@gmail.com>
@@ -1356,7 +2022,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Leandro Regueiro <leandro.regueiro@gmail.com>
 
     * German
-      Burkhard Lück <lueck@hube-lueck.de>
+      Burkhard Lï¿½ck <lueck@hube-lueck.de>
 
     * Greek
       Sokratis Sofianopoulos <sokratis.sofianopoulos@gmail.com>
@@ -1390,7 +2056,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
 
     * Spanish
       Pablo Pita <pablo.pita@kdemail.net>
-      Gabriel Gazzán <ggabriel@internet.com.uy>
+      Gabriel Gazzï¿½n <ggabriel@internet.com.uy>
 
     * Thai
       Ouychai Chaita <ae.freeman@gmail.com>
@@ -1875,7 +2541,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
     * Mentioned Tux Paint Config. tool in FAQ.
 
     * French documentation created.
-      Jérôme Chantreau <plovemax@hotmail.com>
+      Jï¿½rï¿½me Chantreau <plovemax@hotmail.com>
 
   * New translations:
     -----------------
@@ -1911,7 +2577,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
     * Mexican Spanish
       Ignacio Tike <ignaciotike@spymac.com>
       Daniel Illingworth <webmaster@intermagen.net>
-      Luis C. Suárez M. <luiscsuarez@gmail.com>
+      Luis C. Suï¿½rez M. <luiscsuarez@gmail.com>
 
     * Swahili
       Martin Benjamin <martin.benjamin@yale.edu>
@@ -1949,7 +2615,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
   
     * German
       Patrick <nc-spechtpa3 [At] netcologne DOT de>
-      Burkhard Lück <lueck@hube-lueck.de>
+      Burkhard Lï¿½ck <lueck@hube-lueck.de>
 
     * Greek
       The Greek Linux i18n Team <i18ngr@lists.hellug.gr>
@@ -1984,11 +2650,11 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Eugene Zelenko <greendeath@mail.ru>
 
     * Spanish and Spanish documentation.
-      Gabriel Gazzán <ggabriel@internet.com.uy>
+      Gabriel Gazzï¿½n <ggabriel@internet.com.uy>
     
     * Swedish
       Magnus Dahl <magnus.dahl@bredband.net>
-      Tomas Skäre <tomas@nocrew.org>
+      Tomas Skï¿½re <tomas@nocrew.org>
     
     * Vietnamese
       Clytie Siddall <clytie@riverland.net.au>
@@ -2130,7 +2796,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Pere Pujal Carabantes <ppujal@airtel.net>
     
     * Updated Danish translation.
-      Mogens Jæger <mogensjaeger@get2net.dk>
+      Mogens Jï¿½ger <mogensjaeger@get2net.dk>
 
     * Updated Dutch translation.
       Geert Stams <geertstams@wanadoo.nl>
@@ -2145,7 +2811,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Roland Illig <roland.illig@gmx.de>
 
     * Updated Hungarian translation.
-      Török Gábor <gabo@linuxportal.hu>
+      Tï¿½rï¿½k Gï¿½bor <gabo@linuxportal.hu>
 
     * Updated Icelandic translation.
       Pjetur G. Hjaltason <pjetur@pjetur.net>
@@ -2181,7 +2847,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
       Andrej Kacian <andrej@kacian.sk>
     
     * Updated Spanish translation.
-      Gabriel Gazzán <ggabriel@internet.com.uy>
+      Gabriel Gazzï¿½n <ggabriel@internet.com.uy>
 
     * Updated Tamil translation.
       Muguntharaj <mugunth@thamizha.com>
@@ -2587,7 +3253,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
     TOYAMA Shin-ichi <shin1@wmail.plala.or.jp>
 
   * Added support for some useful HTML escape sequences in stamp descriptions
-    (e.g., "&acute;" for "á" ("a" with "'" over it))
+    (e.g., "&acute;" for "ï¿½" ("a" with "'" over it))
     Append ".esc" to the locale code (e.g., "fr.esc=...") in the ".txt"
     description files.
 
@@ -2789,7 +3455,7 @@ $Id: CHANGES.txt,v 1.668 2009/06/28 17:11:59 wkendrick Exp $
     Karl Ove Hufthammer <karl@huftis.org>
 
   * Translated to Hungarian.
-    Török Gábor <gabo@linuxmania.hu>
+    Tï¿½rï¿½k Gï¿½bor <gabo@linuxmania.hu>
 
   * Partly translated to Korean.  PO file in an unusable charset, though...
     Mark K. Kim <mkkim214@gmail.com>

@@ -93,8 +93,8 @@ Cargando Tux Paint
 
   Usuarios de Windows
 
-                                                                    [Icon]    
-                                                                   Tux Paint  
+                                                           [Icon]             
+                                                          Tux Paint           
 
          Si Tux Paint fue instalado utilizando el 'Instalador de Tux Paint',
          el mismo debio efectuar una consulta sobre si se deseaba colocar un
@@ -550,40 +550,55 @@ Herramientas Disponibles
 
                                             Printer Settings
 
-                                        (Windows solamente)
+                                                    (Windows solamente)
 
-                                        Por defecto, Tux Paint simplemente
-                                        imprime usando la impresora por
-                                        defecto, con las preferencias
-                                        predeterminadas, cuando se presiona
-                                        el boton 'Imprimir'.
+                                                    Por defecto, Tux Paint
+                                                    simplemente imprime
+                                                    usando la impresora por
+                                                    defecto, con las
+                                                    preferencias
+                                                    predeterminadas, cuando
+                                                    se presiona el boton
+                                                    'Imprimir'.
 
-                                        Sin embargo, si se mantiene
-                                        presionada la tecla [ALT] en el
-                                        teclado al presionar el boton
-                                        (siempre y cuando no se encuentre en
-                                        modo pantalla completa), se muestra
-                                        el dialogo de impresion de Windows,
-                                        donde es posible cambiar las
-                                        preferencias.
+                                                    Sin embargo, si se
+                                                    mantiene presionada la
+                                                    tecla [ALT] en el teclado
+                                                    al presionar el boton
+                                                    (siempre y cuando no se
+                                                    encuentre en modo
+                                                    pantalla completa), se
+                                                    muestra el dialogo de
+                                                    impresion de Windows,
+                                                    donde es posible cambiar
+                                                    las preferencias.
 
-                                        Es posible guardar los cambios en la
-                                        configuracion de la impresora
-                                        utilizando la opcion "printcfg", ya
-                                        sea usando "--printcfg" en la linea
-                                        de comandos o "printcfg=yes" en el
-                                        propio archivo de configuracion del
-                                        Tux Paint ("tuxpaint.cfg").
+                                                    Es posible guardar los
+                                                    cambios en la
+                                                    configuracion de la
+                                                    impresora utilizando la
+                                                    opcion "printcfg", ya sea
+                                                    usando "--printcfg" en la
+                                                    linea de comandos o
+                                                    "printcfg=yes" en el
+                                                    propio archivo de
+                                                    configuracion del
+                                                    Tux Paint
+                                                    ("tuxpaint.cfg").
 
-                                        Si se utiliza la opcion "printcfg",
-                                        las preferencias de impresora se
-                                        cargaran desde el archivo
-                                        "userdata/print.cfg". Cualquier
-                                        cambio ocurrido sera tambien guardado
-                                        ahi.
+                                                    Si se utiliza la opcion
+                                                    "printcfg", las
+                                                    preferencias de impresora
+                                                    se cargaran desde el
+                                                    archivo
+                                                    "userdata/print.cfg".
+                                                    Cualquier cambio ocurrido
+                                                    sera tambien guardado
+                                                    ahi.
 
-                                        Ver la documentacion de las
-                                        "Opciones" del programa.
+                                                    Ver la documentacion de
+                                                    las "Opciones" del
+                                                    programa.
 
      ----------------------------------------------------------------------
 

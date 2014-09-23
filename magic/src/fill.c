@@ -28,7 +28,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: fill.c,v 1.11 2008/07/10 20:26:39 wkendrick Exp $
+  $Id: fill.c,v 1.12 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -48,6 +48,27 @@ static int colors_close(magic_api * api, SDL_Surface * canvas,
 			Uint32 c1, Uint32 c2);
 static void do_flood_fill(magic_api * api, SDL_Surface * canvas, int x, int y,
                    Uint32 cur_colr, Uint32 old_colr);
+int fill_modes(magic_api * api, int which);
+void fill_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void fill_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int fill_requires_colors(magic_api * api, int which);
+void fill_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+void fill_shutdown(magic_api * api);
+void fill_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void fill_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void fill_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+                  SDL_Rect * update_rect);
+char * fill_get_description(magic_api * api, int which, int mode);
+char * fill_get_name(magic_api * api, int which);
+int fill_get_tool_count(magic_api * api);
+SDL_Surface * fill_get_icon(magic_api * api, int which);
+Uint32 fill_api_version(void);
+int fill_init(magic_api * api);
 
 
 // No setup required:
@@ -65,13 +86,13 @@ int fill_init(magic_api * api)
 Uint32 fill_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 // We have multiple tools:
-int fill_get_tool_count(magic_api * api)
+int fill_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(1);
 }
 
 // Load our icons:
-SDL_Surface * fill_get_icon(magic_api * api, int which)
+SDL_Surface * fill_get_icon(magic_api * api, int which ATTRIBUTE_UNUSED)
 {
   char fname[1024];
 
@@ -82,13 +103,13 @@ SDL_Surface * fill_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * fill_get_name(magic_api * api, int which)
+char * fill_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Fill")));
 }
 
 // Return our descriptions, localized:
-char * fill_get_description(magic_api * api, int which, int mode)
+char * fill_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop(
 "Click in the picture to fill that area with color.")));
@@ -96,15 +117,15 @@ char * fill_get_description(magic_api * api, int which, int mode)
 
 
 // Affect the canvas on drag:
-void fill_drag(magic_api * api, int which, SDL_Surface * canvas,
-	          SDL_Surface * last, int ox, int oy, int x, int y,
-                  SDL_Rect * update_rect)
+void fill_drag(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED,
+	          SDL_Surface * last ATTRIBUTE_UNUSED, int ox ATTRIBUTE_UNUSED, int oy ATTRIBUTE_UNUSED, int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED,
+                  SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // Affect the canvas on click:
-void fill_click(magic_api * api, int which, int mode,
-	           SDL_Surface * canvas, SDL_Surface * last,
+void fill_click(magic_api * api, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
 	           int x, int y, SDL_Rect * update_rect)
 {
   do_flood_fill(api, canvas, x, y, SDL_MapRGB(canvas->format,
@@ -117,19 +138,19 @@ void fill_click(magic_api * api, int which, int mode,
   update_rect->h = canvas->h;
 }
 
-void fill_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void fill_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
-void fill_shutdown(magic_api * api)
+void fill_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   Mix_FreeChunk(fill_snd);
 }
 
 // Record the color from Tux Paint:
-void fill_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void fill_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r, Uint8 g, Uint8 b)
 {
   fill_r = r;
   fill_g = g;
@@ -137,7 +158,7 @@ void fill_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
 }
 
 // Use colors:
-int fill_requires_colors(magic_api * api, int which)
+int fill_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 1;
 }
@@ -246,15 +267,15 @@ static void do_flood_fill(magic_api * api, SDL_Surface * canvas, int x, int y,
   }
 }
 
-void fill_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void fill_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void fill_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void fill_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int fill_modes(magic_api * api, int which)
+int fill_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT);
 }

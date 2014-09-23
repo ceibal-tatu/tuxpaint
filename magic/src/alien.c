@@ -1,6 +1,6 @@
 /*
   alien.c
-
+//
   alien, Modifies the colours of the image.
   Tux Paint - A simple drawing program for children.
 
@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: June 6, 2008
-  $Id: alien.c,v 1.8 2009/05/26 16:10:00 dolphin6k Exp $
+  $Id: alien.c,v 1.10 2014/03/19 23:39:17 wkendrick Exp $
 */
 
 #include <stdio.h>
@@ -68,6 +68,31 @@ const char * alien_descs[alien_NUM_TOOLS][2] = {
     gettext_noop("Click to change the colors in your entire picture."),},
 };
 
+// Prototypes
+Uint32 alien_api_version(void);
+int alien_init(magic_api * api);
+int alien_get_tool_count(magic_api * api);
+SDL_Surface * alien_get_icon(magic_api * api, int which);
+char * alien_get_name(magic_api * api, int which);
+char * alien_get_description(magic_api * api, int which, int mode);
+void alien_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+Mix_Chunk * magic_loadsound(char* file);
+void alien_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void alien_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void alien_shutdown(magic_api * api);
+void alien_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int alien_requires_colors(magic_api * api, int which);
+void alien_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void alien_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int alien_modes(magic_api * api, int which);
+
+
 Uint32 alien_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 //Load sounds
@@ -84,7 +109,7 @@ int alien_init(magic_api * api){
   return(1);
 }
 
-int alien_get_tool_count(magic_api * api){
+int alien_get_tool_count(magic_api * api ATTRIBUTE_UNUSED){
   return(alien_NUM_TOOLS);
 }
 
@@ -96,18 +121,18 @@ SDL_Surface * alien_get_icon(magic_api * api, int which){
 }
 
 // Return our names, localized:
-char * alien_get_name(magic_api * api, int which){
+char * alien_get_name(magic_api * api ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(alien_names[which])));
 }
 
 // Return our descriptions, localized:
-char * alien_get_description(magic_api * api, int which, int mode){
+char * alien_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode){
   return(strdup(gettext_noop(alien_descs[which][mode-1])));
 }
 
 //Do the effect for one pixel
-static void do_alien_pixel(void * ptr, int which,
-	         SDL_Surface * canvas, SDL_Surface * last,
+static void do_alien_pixel(void * ptr, int which ATTRIBUTE_UNUSED,
+	         SDL_Surface * canvas, SDL_Surface * last ATTRIBUTE_UNUSED,
 	         int x, int y){
 	magic_api * api = (magic_api *) ptr;
 
@@ -115,11 +140,16 @@ static void do_alien_pixel(void * ptr, int which,
   double temp2[3];
   int k;
 
-	SDL_GetRGB(api->getpixel(canvas,x, y), canvas->format, &temp[0], &temp[1], &temp[2]);
+        SDL_GetRGB(api->getpixel(canvas,x, y), canvas->format, &temp[0], &temp[1], &temp[2]);
   for (k =0;k<3;k++){
-		temp2[k] = clamp(0,127.5 * (1.0 + sin (((temp[k] / 127.5 - 1.0) * alien_FREQUENCY[k] + alien_ANGLE[k] / 180.0) * M_PI)),255);
+//EP      temp2[k] = clamp(0,127.5 * (1.0 + sin (((temp[k] / 127.5 - 1.0) * alien_FREQUENCY[k] + alien_ANGLE[k] / 180.0) * M_PI)),255);
+          temp2[k] = clamp(0.0,
+                                           127.5 * (
+                                                                1.0 + sin (((temp[k] / 127.5 - 1.0) * alien_FREQUENCY[k] + alien_ANGLE[k] / 180.0) * M_PI)
+                                                                ),
+                                           255.0);
   }
-	api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, temp2[0], temp2[1], temp2[2]));
+        api->putpixel(canvas, x, y, SDL_MapRGB(canvas->format, temp2[0], temp2[1], temp2[2]));
 
 }
 
@@ -202,14 +232,14 @@ void alien_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void alien_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void alien_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void alien_shutdown(magic_api * api)
+void alien_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -221,25 +251,25 @@ void alien_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void alien_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void alien_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r ATTRIBUTE_UNUSED, Uint8 g ATTRIBUTE_UNUSED, Uint8 b ATTRIBUTE_UNUSED)
 {
 }
 
 // Use colors:
-int alien_requires_colors(magic_api * api, int which)
+int alien_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 0;
 }
 
-void alien_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void alien_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void alien_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void alien_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int alien_modes(magic_api * api, int which)
+int alien_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_FULLSCREEN|MODE_PAINT);
 }

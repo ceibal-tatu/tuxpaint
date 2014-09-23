@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: bricks.c,v 1.12 2008/07/10 20:26:39 wkendrick Exp $
+  $Id: bricks.c,v 1.13 2011/11/26 22:04:50 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -55,7 +55,27 @@ static Uint8 bricks_r, bricks_g, bricks_b;
 
 static void do_brick(magic_api * api, SDL_Surface * canvas,
               int x, int y, int w, int h);
-
+int bricks_init(magic_api * api);
+Uint32 bricks_api_version(void);
+int bricks_get_tool_count(magic_api * api);
+SDL_Surface * bricks_get_icon(magic_api * api, int which);
+char * bricks_get_name(magic_api * api, int which);
+char * bricks_get_description(magic_api * api, int which, int mode);
+void bricks_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+              SDL_Rect * update_rect);
+void bricks_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void bricks_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect); //An empty function. Is there a purpose to this? Ask moderator.
+void bricks_shutdown(magic_api * api);
+void bricks_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int bricks_requires_colors(magic_api * api, int which);
+void bricks_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void bricks_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int bricks_modes(magic_api * api, int which);
 
 // No setup required:
 int bricks_init(magic_api * api)
@@ -72,7 +92,7 @@ int bricks_init(magic_api * api)
 Uint32 bricks_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 // We have multiple tools:
-int bricks_get_tool_count(magic_api * api)
+int bricks_get_tool_count(magic_api * api ATTRIBUTE_UNUSED)
 {
   return(NUM_TOOLS);
 }
@@ -97,7 +117,7 @@ SDL_Surface * bricks_get_icon(magic_api * api, int which)
 }
 
 // Return our names, localized:
-char * bricks_get_name(magic_api * api, int which)
+char * bricks_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   /* Both are named "Bricks", at the moment: */
 
@@ -105,7 +125,7 @@ char * bricks_get_name(magic_api * api, int which)
 }
 
 // Return our descriptions, localized:
-char * bricks_get_description(magic_api * api, int which, int mode)
+char * bricks_get_description(magic_api * api ATTRIBUTE_UNUSED, int which, int mode ATTRIBUTE_UNUSED)
 {
   if (which == TOOL_LARGEBRICKS)
     return(strdup(gettext_noop("Click and move to draw large bricks.")));
@@ -117,7 +137,7 @@ char * bricks_get_description(magic_api * api, int which, int mode)
 
 // Do the effect:
 
-static void do_bricks(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+static void do_bricks(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last ATTRIBUTE_UNUSED,
                 int x, int y)
 {
   magic_api * api = (magic_api *) ptr;
@@ -224,28 +244,28 @@ void bricks_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void bricks_click(magic_api * api, int which, int mode,
+void bricks_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
   bricks_drag(api, which, canvas, last, x, y, x, y, update_rect);
 }
 
-void bricks_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void bricks_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void bricks_shutdown(magic_api * api)
+void bricks_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
   if (brick_snd != NULL)
     Mix_FreeChunk(brick_snd);
 }
 
 // Record the color from Tux Paint:
-void bricks_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void bricks_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r, Uint8 g, Uint8 b)
 {
   bricks_r = r;
   bricks_g = g;
@@ -253,7 +273,7 @@ void bricks_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
 }
 
 // Use colors:
-int bricks_requires_colors(magic_api * api, int which)
+int bricks_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 1;
 }
@@ -294,15 +314,17 @@ static void do_brick(magic_api * api, SDL_Surface * canvas,
   api->playsound(brick_snd, (x * 255) / canvas->w, 255);
 }
 
-void bricks_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void bricks_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+                    int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void bricks_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void bricks_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+                    int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int bricks_modes(magic_api * api, int which)
+int bricks_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT);
 }

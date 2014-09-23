@@ -7,7 +7,7 @@ bill@newbreedsoftware.com
 http://www.tuxpaint.org/
 
 June 27, 2002 - July 12, 2007
-$Id: INSTALL.txt,v 1.13 2008/06/17 20:38:19 johnnypops Exp $
+$Id: INSTALL.txt,v 1.14 2009/07/01 21:58:37 wkendrick Exp $
 
 
 Requirements:
@@ -78,6 +78,13 @@ Requirements:
       particular paper size, thanks to libpaper.
 
         http://www.debian.org/
+
+    FriBiDi
+    -------
+      As of Tux Paint 0.9.21, Tux Paint's "Text" tool supports bidirectional
+      languages, thanks to the FriBiDi library:
+
+        http://fribidi.org/
 
     SVG graphics support
     --------------------

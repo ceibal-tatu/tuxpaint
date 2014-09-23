@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: im.c,v 1.12 2008/06/27 02:35:26 dolphin6k Exp $
+  $Id: im.c,v 1.14 2014/03/19 23:39:18 wkendrick Exp $
 */
 
 /*
@@ -484,7 +484,7 @@ static int charmap_add(CHARMAP* cm, int section, char* seq, const wchar_t* unico
 
   /* For now, we only utilize one-character flags */
   if(strlen(flag) > 1) {
-    fprintf(stderr, "%04X: Multi-character flag, truncated.\n", (int)unicode);
+    fprintf(stderr, "%04X: Multi-character flag, truncated.\n", (int)(intptr_t)unicode);        //EP added (intptr_t) to avoid warning on x64
   }
 
   return sm_add(&cm->sections[section], seq, unicode, flag[0]);
@@ -655,6 +655,139 @@ static const wchar_t* charmap_search(CHARMAP* cm, wchar_t* s)
 
 
 /* ***************************************************************************
+* GENERIC IM FUNCTIONS
+*/
+
+/**
+* Default C IM event handler.
+*
+* @see im_read
+*/
+static int im_event_c(IM_DATA* im, SDL_keysym ks)
+{
+  /* Handle event requests */
+  im->s[0] = L'\0';
+  if(im->request != IM_REQ_TRANSLATE) return 0;
+
+  /* Handle key stroke */
+  switch(ks.sym) {
+    case SDLK_BACKSPACE: im->s[0] = L'\b'; break;
+    case SDLK_TAB:       im->s[0] = L'\t'; break;
+    case SDLK_RETURN:    im->s[0] = L'\r'; break;
+    default:             im->s[0] = ks.unicode;
+  }
+  im->s[1] = L'\0';
+  im->buf[0] = L'\0';
+
+  return 0;
+}
+
+/* ***************************************************************************
+* PUBLIC IM FUNCTIONS
+*/
+
+/**
+* IM-process a character.  This function simply looks up the language from
+* IM and calls the appropriate im_event_<lang>() language-specific IM event
+* handler.  im_event_c() is called by default if no language-specific
+* function is specified for the specified language.
+*
+* @param im  IM-processed data to return to the caller function.
+* @param ks  SDL_keysym typed on the keyboard.
+*
+* @return    The number of characters in im->s that should not be committed.
+*            In other words, the returned number of characters at the end of
+*            im->s should be overwritten the next time im_read is called.
+*
+* @see im_event_c()
+* @see im_event_fns
+*/
+int im_read(IM_DATA* im, SDL_keysym ks)
+{
+  IM_EVENT_FN im_event_fp = NULL;
+  int redraw = 0;
+
+  /* Sanity check */
+  if(im->lang < 0 || im->lang >= NUM_LANGS) {
+    fprintf(stderr, "im->lang out of range (%d), using default\n", im->lang);
+    im->lang = LANG_DEFAULT;
+  }
+
+  /* Function pointer to the language-specific im_event_* function */
+  im_event_fp = im_event_fns[im->lang];
+
+  /* Run the language-specific IM or run the default C IM */
+  if(im_event_fp) redraw = (*im_event_fp)(im, ks);
+  else redraw = im_event_c(im, ks);
+
+  #ifdef IM_DEBUG
+  wprintf(L"* [%8ls] [%8ls] %2d %2d (%2d)\n", im->s, im->buf, wcslen(im->s), wcslen(im->buf), im->redraw);
+  #endif
+
+  return redraw;
+}
+
+/* ***************************************************************************
+* OTHER STATIC IM FUNCTIONS
+*/
+
+/**
+* Generic event handler that calls the appropriate language handler.
+* im->request should have the event ID.
+*/
+static void im_event(IM_DATA* im)
+{
+  SDL_keysym ks;
+
+  ks.sym = 0;
+  ks.unicode = 0;
+
+  im_read(im, ks);
+}
+
+
+/**
+* Make an event request and call the event handler.
+*/
+static void im_request(IM_DATA* im, int request)
+{
+  im->request = request;
+  im_event(im);
+  im->request = IM_REQ_TRANSLATE;
+}
+
+/* ***************************************************************************
+* PUBLIC IM FUNCTIONS
+*/
+
+/**
+* Free any allocated resources.
+*/
+static void im_free(IM_DATA* im)
+{
+  im_request(im, IM_REQ_FREE);
+}
+
+
+void im_softreset(IM_DATA* im)
+{
+  im->s[0] = L'\0';
+  im->buf[0] = L'\0';
+
+  im_request(im, IM_REQ_RESET_SOFT);
+}
+
+
+static void im_fullreset(IM_DATA* im)
+{
+  im->s[0] = L'\0';
+  im->buf[0] = L'\0';
+
+  im_request(im, IM_REQ_RESET_FULL);
+}
+
+
+/* ***************************************************************************
 * LANGUAGE-SPECIFIC IM FUNCTIONS
 *
 * If you want to add a new language support, add the main code to this
@@ -689,30 +822,6 @@ static const wchar_t* charmap_search(CHARMAP* cm, wchar_t* s)
 *      changing INITIAL_SMSIZE will affect the memory consumption of all IM
 *      functions.
 */
-
-/**
-* Default C IM event handler.
-*
-* @see im_read
-*/
-static int im_event_c(IM_DATA* im, SDL_keysym ks)
-{
-  /* Handle event requests */
-  im->s[0] = L'\0';
-  if(im->request != IM_REQ_TRANSLATE) return 0;
-
-  /* Handle key stroke */
-  switch(ks.sym) {
-    case SDLK_BACKSPACE: im->s[0] = L'\b'; break;
-    case SDLK_TAB:       im->s[0] = L'\t'; break;
-    case SDLK_RETURN:    im->s[0] = L'\r'; break;
-    default:             im->s[0] = ks.unicode;
-  }
-  im->s[1] = L'\0';
-  im->buf[0] = L'\0';
-
-  return 0;
-}
 
 /**
 * Chinese Traditional IM.
@@ -1530,36 +1639,6 @@ static int im_event_ko(IM_DATA* im, SDL_keysym ks)
 
 
 /* ***************************************************************************
-* OTHER STATIC IM FUNCTIONS
-*/
-
-/**
-* Generic event handler that calls the appropriate language handler.
-* im->request should have the event ID.
-*/
-static void im_event(IM_DATA* im)
-{
-  SDL_keysym ks;
-
-  ks.sym = 0;
-  ks.unicode = 0;
-
-  im_read(im, ks);
-}
-
-
-/**
-* Make an event request and call the event handler.
-*/
-static void im_request(IM_DATA* im, int request)
-{
-  im->request = request;
-  im_event(im);
-  im->request = IM_REQ_TRANSLATE;
-}
-
-
-/* ***************************************************************************
 * PUBLIC IM FUNCTIONS
 */
 
@@ -1601,73 +1680,6 @@ void im_init(IM_DATA* im, int lang)
 }
 
 
-void im_softreset(IM_DATA* im)
-{
-  im->s[0] = L'\0';
-  im->buf[0] = L'\0';
-
-  im_request(im, IM_REQ_RESET_SOFT);
-}
-
-
-void im_fullreset(IM_DATA* im)
-{
-  im->s[0] = L'\0';
-  im->buf[0] = L'\0';
-
-  im_request(im, IM_REQ_RESET_FULL);
-}
-
-
-/**
-* Free any allocated resources.
-*/
-void im_free(IM_DATA* im)
-{
-  im_request(im, IM_REQ_FREE);
-}
-
-
-/**
-* IM-process a character.  This function simply looks up the language from
-* IM and calls the appropriate im_event_<lang>() language-specific IM event
-* handler.  im_event_c() is called by default if no language-specific
-* function is specified for the specified language.
-*
-* @param im  IM-processed data to return to the caller function.
-* @param ks  SDL_keysym typed on the keyboard.
-*
-* @return    The number of characters in im->s that should not be committed.
-*            In other words, the returned number of characters at the end of
-*            im->s should be overwritten the next time im_read is called.
-*
-* @see im_event_c()
-* @see im_event_fns
-*/
-int im_read(IM_DATA* im, SDL_keysym ks)
-{
-  IM_EVENT_FN im_event_fp = NULL;
-  int redraw = 0;
-
-  /* Sanity check */
-  if(im->lang < 0 || im->lang >= NUM_LANGS) {
-    fprintf(stderr, "im->lang out of range (%d), using default\n", im->lang);
-    im->lang = LANG_DEFAULT;
-  }
-
-  /* Function pointer to the language-specific im_event_* function */
-  im_event_fp = im_event_fns[im->lang];
-
-  /* Run the language-specific IM or run the default C IM */
-  if(im_event_fp) redraw = (*im_event_fp)(im, ks);
-  else redraw = im_event_c(im, ks);
-
-  #ifdef IM_DEBUG
-  wprintf(L"* [%8ls] [%8ls] %2d %2d (%2d)\n", im->s, im->buf, wcslen(im->s), wcslen(im->buf), im->redraw);
-  #endif
-
-  return redraw;
-}
 
 
 /* vim:ts=2:et

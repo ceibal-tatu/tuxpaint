@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   June 14, 2002 - May 15, 2007
-  $Id: cursor.c,v 1.4 2007/05/16 01:11:34 wkendrick Exp $
+  $Id: cursor.c,v 1.6 2011/08/29 22:48:18 scottmc Exp $
 */
 
 #include "cursor.h"
@@ -36,7 +36,18 @@ SDL_Cursor *cursor_hand, *cursor_arrow, *cursor_watch,
   *cursor_up, *cursor_down, *cursor_tiny, *cursor_crosshair,
   *cursor_brush, *cursor_wand, *cursor_insertion, *cursor_rotate;
 
-int no_fancy_cursors, hide_cursor;
+#ifdef NOKIA_770
+int hide_cursor = 1;
+#else
+int hide_cursor;
+#endif
+
+#if defined(NOKIA_770) || defined(__BEOS__) || defined(__HAIKU__)
+// Fancy cursors on BeOS are buggy in SDL
+int no_fancy_cursors = 1;
+#else
+int no_fancy_cursors;
+#endif
 
 void do_setcursor(SDL_Cursor * c)
 {

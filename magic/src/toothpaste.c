@@ -26,7 +26,7 @@
   (See COPYING.txt)
 
   Last updated: June 6, 2008
-  $Id: toothpaste.c,v 1.6 2009/06/06 19:37:29 secretlondon Exp $
+  $Id: toothpaste.c,v 1.7 2011/12/17 22:43:56 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -68,6 +68,31 @@ const char * toothpaste_descs[toothpaste_NUM_TOOLS] = {
   gettext_noop("Click and drag to squirt toothpaste onto your picture."),
 };
 
+
+Uint32 toothpaste_api_version(void);
+int toothpaste_init(magic_api * api);
+int toothpaste_get_tool_count(magic_api * api);
+SDL_Surface * toothpaste_get_icon(magic_api * api, int which);
+char * toothpaste_get_name(magic_api * api, int which);
+char * toothpaste_get_description(magic_api * api, int which, int mode);
+static void do_toothpaste(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
+                int x, int y);
+void toothpaste_drag(magic_api * api, int which, SDL_Surface * canvas,
+	          SDL_Surface * last, int ox, int oy, int x, int y,
+		  SDL_Rect * update_rect);
+void toothpaste_click(magic_api * api, int which, int mode,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void toothpaste_release(magic_api * api, int which,
+	           SDL_Surface * canvas, SDL_Surface * last,
+	           int x, int y, SDL_Rect * update_rect);
+void toothpaste_shutdown(magic_api * api);
+void toothpaste_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
+int toothpaste_requires_colors(magic_api * api, int which);
+void toothpaste_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void toothpaste_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int toothpaste_modes(magic_api * api, int which);
+
 Uint32 toothpaste_api_version(void) { return(TP_MAGIC_API_VERSION); }
 
 
@@ -100,34 +125,33 @@ int toothpaste_init(magic_api * api){
   return(1);
 }
 
-int toothpaste_get_tool_count(magic_api * api){
+int toothpaste_get_tool_count(magic_api * api ATTRIBUTE_UNUSED){
   return(toothpaste_NUM_TOOLS);
 }
 
 // Load our icons:
-SDL_Surface * toothpaste_get_icon(magic_api * api, int which){
+SDL_Surface * toothpaste_get_icon(magic_api * api, int which  ATTRIBUTE_UNUSED){
   char fname[1024];
   snprintf(fname, sizeof(fname), "%simages/magic/%s", api->data_directory, toothpaste_icon_filenames[which]);
   return(IMG_Load(fname));
 }
 
 // Return our names, localized:
-char * toothpaste_get_name(magic_api * api, int which){
+char * toothpaste_get_name(magic_api * api  ATTRIBUTE_UNUSED, int which){
     return(strdup(gettext_noop(toothpaste_names[which])));
 }
 
 // Return our descriptions, localized:
-char * toothpaste_get_description(magic_api * api, int which, int mode){
+char * toothpaste_get_description(magic_api * api  ATTRIBUTE_UNUSED, int which, int mode  ATTRIBUTE_UNUSED){
   return(strdup(gettext_noop(toothpaste_descs[which])));
 }
 
 // Do the effect:
-static void do_toothpaste(void * ptr, int which, SDL_Surface * canvas, SDL_Surface * last,
-                int x, int y){
+static void do_toothpaste(void * ptr, int which ATTRIBUTE_UNUSED, SDL_Surface * canvas, SDL_Surface * last  ATTRIBUTE_UNUSED, int x, int y){
   magic_api * api = (magic_api *) ptr;
 
   int xx, yy;
-  double colr;
+  // double colr;
   float h,s,v;
   Uint8 r,g,b;
 
@@ -163,7 +187,7 @@ void toothpaste_drag(magic_api * api, int which, SDL_Surface * canvas,
 }
 
 // Affect the canvas on click:
-void toothpaste_click(magic_api * api, int which, int mode,
+void toothpaste_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect){
 
@@ -171,14 +195,14 @@ void toothpaste_click(magic_api * api, int which, int mode,
 }
 
 // Affect the canvas on release:
-void toothpaste_release(magic_api * api, int which,
-	           SDL_Surface * canvas, SDL_Surface * last,
-	           int x, int y, SDL_Rect * update_rect)
+void toothpaste_release(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED,
+	           SDL_Surface * canvas ATTRIBUTE_UNUSED, SDL_Surface * last ATTRIBUTE_UNUSED,
+	           int x ATTRIBUTE_UNUSED, int y ATTRIBUTE_UNUSED, SDL_Rect * update_rect ATTRIBUTE_UNUSED)
 {
 }
 
 // No setup happened:
-void toothpaste_shutdown(magic_api * api)
+void toothpaste_shutdown(magic_api * api ATTRIBUTE_UNUSED)
 {
 	//Clean up sounds
 	int i;
@@ -194,7 +218,7 @@ void toothpaste_shutdown(magic_api * api)
 }
 
 // Record the color from Tux Paint:
-void toothpaste_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
+void toothpaste_set_color(magic_api * api ATTRIBUTE_UNUSED, Uint8 r, Uint8 g, Uint8 b)
 {
   toothpaste_r = r;
   toothpaste_g = g;
@@ -202,21 +226,21 @@ void toothpaste_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b)
 }
 
 // Use colors:
-int toothpaste_requires_colors(magic_api * api, int which)
+int toothpaste_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return 1;
 }
 
 
-void toothpaste_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void toothpaste_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void toothpaste_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void toothpaste_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int toothpaste_modes(magic_api * api, int which)
+int toothpaste_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
   return(MODE_PAINT);
 }

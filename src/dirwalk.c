@@ -1,7 +1,7 @@
 /*
   dirwalk.c
 
-  Copyright (c) 2009
+  Copyright (c) 2009-2014
   http://www.tuxpaint.org/
 
   This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   (See COPYING.txt)
 
-  $Id: dirwalk.c,v 1.16 2009/06/18 02:43:31 albert Exp $
+  $Id: dirwalk.c,v 1.20 2014/03/30 07:23:20 wkendrick Exp $
 */
 
 #include <stdio.h>
@@ -68,7 +68,7 @@
 ///////////////// directory walking callers and callbacks //////////////////
 
 void loadfont_callback(SDL_Surface * screen, const char *restrict const dir,
-		       unsigned dirlen, tp_ftw_str * files, unsigned i, char * locale)
+		       unsigned dirlen, tp_ftw_str * files, unsigned i, const char *restrict const locale)
 {
   dirlen = dirlen;
 
@@ -107,13 +107,17 @@ void loadfont_callback(SDL_Surface * screen, const char *restrict const dir,
       char fname[512];
       TuxPaint_Font *font;
       snprintf(fname, sizeof fname, "%s/%s", dir, files[i].str);
-/* printf("Loading font: %s  (locale is: %s)\n", fname, (locale != NULL ? locale : "NULL")); */
-      if (locale != NULL && strstr(fname, "locale") != NULL && all_locale_fonts == 0)
+#ifdef DEBUG
+      printf("Loading font: %s  (locale is: %s)\n", fname, (locale ? locale : "NULL")); //EP
+#endif
+      if (locale && strstr(fname, "locale") && !all_locale_fonts)
       {
         char fname_check[512];
         /* We're (probably) loading from our locale fonts folder; ONLY load our locale's font */
         snprintf(fname_check, sizeof fname_check, "%s/%s.ttf", dir, locale);
-/* printf("checking vs \"%s\" vs \"%s\"\n", fname_check, fname); */
+#ifdef DEBUG
+        printf("checking \"%s\" vs \"%s\"\n", fname_check, fname); //EP
+#endif
         if (strcmp(fname, fname_check) == 0)
           font = TuxPaint_Font_OpenFont("", fname, text_sizes[text_size]);
         else
@@ -136,7 +140,7 @@ void loadfont_callback(SDL_Surface * screen, const char *restrict const dir,
 		 family, style);
 
         printf("success: tpf: 0x%x tpf->ttf_font: 0x%x\n",
-	       (unsigned int) font, (unsigned int) font->ttf_font);
+			   (unsigned int)(intptr_t) font, (unsigned int)(intptr_t) font->ttf_font);	//EP added (intptr_t) to avoid warning on x64
 #endif
 
 	// These fonts crash Tux Paint via a library bug.
@@ -254,15 +258,15 @@ int compare_ftw_str(const void *v1, const void *v2)
 {
   const char *restrict const s1 = ((tp_ftw_str *) v1)->str;
   const char *restrict const s2 = ((tp_ftw_str *) v2)->str;
-  return -strcmp(s1, s2);
+  return -strcmp(s1, s2); /* FIXME: Should we try strcasecmp, to group things together despite uppercase/lowercase in filenames (e.g., Jigsaw* vs jigsaw* Starters)??? -bjk 2009.10.11 */
 }
 
 void tp_ftw(SDL_Surface * screen, char *restrict const dir, unsigned dirlen,
 	    int rsrc, void (*fn) (SDL_Surface * screen,
 				  const char *restrict const dir,
 				  unsigned dirlen, tp_ftw_str * files,
-				  unsigned count, char * locale),
-            char * locale)
+				  unsigned count, const char *restrict const locale),
+            const char *restrict const locale)
 {
   DIR *d;
   unsigned num_file_names = 0;

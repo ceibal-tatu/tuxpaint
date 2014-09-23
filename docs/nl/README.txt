@@ -82,27 +82,27 @@
 
      Andere documentatie bij Tux Paint (in de "docs" map/directory):
 
-     * AUTHORS.txt
+     *   AUTHORS.txt
          Een lijst van de auteurs en medewerkers.
 
-     * CHANGES.txt
+     *   CHANGES.txt
          Een samenvatting van de veranderingen bij de verschillende uitgaven
          van het programma.
 
-     * COPYING.txt
+     *   COPYING.txt
          De licentievoorwaarden (GPL).
 
-     * INSTALL.txt
+     *   INSTALL.txt
          Instructie voor het installeren / compileren van Tux Paint, zover
          beschikbaar.
 
-     * PNG.txt
+     *   PNG.txt
          Aanwijzingen voor het maken van afbeeldingen in het PNG formaat.
 
-     * README.txt
+     *   README.txt
          Dit bestand.
 
-     * TODO.txt
+     *   TODO.txt
          Een overzicht van fouten en zaken die nog aangepast moeten worden
 
      ----------------------------------------------------------------------
@@ -134,8 +134,8 @@ Tux Paint starten
 
   Windows gebruikers
 
-                                                                    [Icon]    
-                                                                   Tux Paint  
+                                                           [Icon]             
+                                                          Tux Paint           
 
      Klik op het "Tux Paint" icoon op de desktop of dubbel-klik op het
      "tuxpaint.exe" icoon in de 'Tux Paint' map op uw computer.
@@ -404,46 +404,46 @@ Opties
 
      De volgende talen worden ondersteund:
 
-           +-----------------------------------------------------+
-           |Locale Code|     Language      |      Language       |
-           |           |   (eigen naam)    | (Nederlandse naam)  |
-           |-----------+-------------------+---------------------|
-           |C          |                   |Engels               |
-           |-----------+-------------------+---------------------|
-           |ca_ES      |Catalan            |Catalaans            |
-           |-----------+-------------------+---------------------|
-           |cs_CZ      |Cesky              |Tjechisch            |
-           |-----------+-------------------+---------------------|
-           |da_DK      |Dansk              |Deens                |
-           |-----------+-------------------+---------------------|
-           |de_DE@euro |Deutsch            |Duits                |
-           |-----------+-------------------+---------------------|
-           |en_GB      |                   |Brits Engels         |
-           |-----------+-------------------+---------------------|
-           |es_ES@euro |Espanol            |Spaans               |
-           |-----------+-------------------+---------------------|
-           |fi_FI@euro |Suomi              |Fins                 |
-           |-----------+-------------------+---------------------|
-           |fr_FR@euro |Franc,ais          |Frans                |
-           |-----------+-------------------+---------------------|
-           |hu_HU      |Magyar             |Hongaars             |
-           |-----------+-------------------+---------------------|
-           |is_IS      |Islenska           |IJslands             |
-           |-----------+-------------------+---------------------|
-           |it_IT@euro |Italiano           |Italiaans            |
-           |-----------+-------------------+---------------------|
-           |nb_NO      |Norsk (bokmal)     |Noors (bokmal)       |
-           |-----------+-------------------+---------------------|
-           |nn_NO      |Norsk (nynorsk)    |Noors (nynorsk)      |
-           |-----------+-------------------+---------------------|
-           |nl_NL@euro |Nederlands         |Nederlands           |
-           |-----------+-------------------+---------------------|
-           |pt_BR      |Portuges Brazileiro|Braziliaans Portugees|
-           |-----------+-------------------+---------------------|
-           |sv_SE@euro |Svenska            |Zweeds               |
-           |-----------+-------------------+---------------------|
-           |tr_TR@euro |                   |Turks                |
-           +-----------------------------------------------------+
+           +----------------------------------------------------------------+
+           |Locale Code|Language           |Language                        |
+           |           |(eigen naam)       |(Nederlandse naam)              |
+           |-----------+-------------------+--------------------------------|
+           |C          |                   |Engels                          |
+           |-----------+-------------------+--------------------------------|
+           |ca_ES      |Catalan            |Catalaans                       |
+           |-----------+-------------------+--------------------------------|
+           |cs_CZ      |Cesky              |Tjechisch                       |
+           |-----------+-------------------+--------------------------------|
+           |da_DK      |Dansk              |Deens                           |
+           |-----------+-------------------+--------------------------------|
+           |de_DE@euro |Deutsch            |Duits                           |
+           |-----------+-------------------+--------------------------------|
+           |en_GB      |                   |Brits Engels                    |
+           |-----------+-------------------+--------------------------------|
+           |es_ES@euro |Espanol            |Spaans                          |
+           |-----------+-------------------+--------------------------------|
+           |fi_FI@euro |Suomi              |Fins                            |
+           |-----------+-------------------+--------------------------------|
+           |fr_FR@euro |Franc,ais          |Frans                           |
+           |-----------+-------------------+--------------------------------|
+           |hu_HU      |Magyar             |Hongaars                        |
+           |-----------+-------------------+--------------------------------|
+           |is_IS      |Islenska           |IJslands                        |
+           |-----------+-------------------+--------------------------------|
+           |it_IT@euro |Italiano           |Italiaans                       |
+           |-----------+-------------------+--------------------------------|
+           |nb_NO      |Norsk (bokmaal)    |Noors (Bokmaal)                 |
+           |-----------+-------------------+--------------------------------|
+           |nn_NO      |Norsk (nynorsk)    |Noors (Nynorsk)                 |
+           |-----------+-------------------+--------------------------------|
+           |nl_NL@euro |Nederlands         |Nederlands                      |
+           |-----------+-------------------+--------------------------------|
+           |pt_BR      |Portuges Brazileiro|Braziliaans Portugees           |
+           |-----------+-------------------+--------------------------------|
+           |sv_SE@euro |Svenska            |Zweeds                          |
+           |-----------+-------------------+--------------------------------|
+           |tr_TR@euro |                   |Turks                           |
+           +----------------------------------------------------------------+
 
     De omgevingsvariabele locale instellen
 
@@ -505,37 +505,37 @@ Opties
 
     Windows 95/98
 
-    1. Klik op de 'Start' knop en kies 'uitvoeren...'.
+    1.   Klik op de 'Start' knop en kies 'uitvoeren...'.
 
-    2. Type "sysedit" (met of zonder aanhalingstekens).
+    2.   Type "sysedit" (met of zonder aanhalingstekens).
 
-    3. Klik 'OK'.
+    3.   Klik 'OK'.
 
-    4. Zoek het AUTOEXEC.BAT window in de Systeem Configuratie Editor
+    4.   Zoek het AUTOEXEC.BAT window in de Systeem Configuratie Editor
 
-    5. En voeg het volgende onderaan het bestand toe:
+    5.   En voeg het volgende onderaan het bestand toe:
 
          set LANG=es_ES@euro
 
-    6. Sluit de systeem configuratie editor, en beantwoord alle vragen met
+    6.   Sluit de systeem configuratie editor, en beantwoord alle vragen met
          'ja'.
 
-    7. Herstart uw computer.
+    7.   Herstart uw computer.
 
      Om de veranderingen op uw hele computer (en voor alle programma's) door
      te voeren is het beter om de regionale instellingen in uw
      configuratiescherm aan te passen:
 
-    1. Klik op de 'Start' knop en selecteer 'instellingen | configuratie
+    1.   Klik op de 'Start' knop en selecteer 'instellingen | configuratie
          scherm  
 
-    2. Dubbel-klik op "regionale instellingen".
+    2.   Dubbel-klik op "regionale instellingen".
 
-    3. Selecteer de taal / regio uit het menu.
+    3.   Selecteer de taal / regio uit het menu.
 
-    4. Klik 'OK'.
+    4.   Klik 'OK'.
 
-    5. Start de computer opnieuw op.
+    5.   Start de computer opnieuw op.
 
      ----------------------------------------------------------------------
 
@@ -586,7 +586,7 @@ Hoofd scherm
                         zien.
 
            [Colors - Black, White, Red, Pink, Orange, Yellow, Green, Cyan,   
-             Blue, Purple, Brown, Grey]
+           Blue, Purple, Brown, Grey]
 
                      Onderaan: Help
 
@@ -816,15 +816,16 @@ Andere gereedschappen
 
                         Klik op de tekening om te selecteren..
 
-     * Klik op de groene "Open" knop om de tekening te laden.
+     *   Klik op de groene "Open" knop om de tekening te laden.
 
          (U kunt ook dubbel-klikken op de tekening zelf.)
 
-     * Klik op de bruine "wissen" (prullenbak) knop om de geselecteerde
+     *   Klik op de bruine "wissen" (prullenbak) knop om de geselecteerde
          tekening te verwijderen. Vervolgens wordt u om een bevestiging
          gevraagd.)
 
-     * Ofu klikt op de rode "terug" knop om terug te keren naar de tekening.
+     *   Of u klikt op de rode "terug" knop om terug te keren naar de
+         tekening.
 
                 Kiest u ervoor een bestaande tekening te openen en u heeft uw
                 huidige tekening nog niet opgeslagen dan zult u gevraagd
@@ -984,17 +985,17 @@ Met de hand omzetten....
 
      YYYYMMDDhhmmss.png
 
-     * YYYY = Jaar (2003)
+     *   YYYY = Jaar (2003)
 
-     * MM = Maand (01-12)
+     *   MM = Maand (01-12)
 
-     * DD = Dag (01-31)
+     *   DD = Dag (01-31)
 
-     * HH = Uur, in 24-uurs formaat (00-23)
+     *   HH = Uur, in 24-uurs formaat (00-23)
 
-     * mm = Minuten (00-59)
+     *   mm = Minuten (00-59)
 
-     * ss= Seconden (00-59)
+     *   ss = Seconden (00-59)
 
      bijvoorbeeld:
 

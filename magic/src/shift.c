@@ -24,7 +24,7 @@
   (See COPYING.txt)
 
   Last updated: July 8, 2008
-  $Id: shift.c,v 1.11 2008/08/02 00:32:50 wkendrick Exp $
+  $Id: shift.c,v 1.12 2011/05/10 12:50:44 perepujal Exp $
 */
 
 #include <stdio.h>
@@ -64,6 +64,11 @@ void shift_release(magic_api * api, int which,
 void shift_shutdown(magic_api * api);
 void shift_set_color(magic_api * api, Uint8 r, Uint8 g, Uint8 b);
 int shift_requires_colors(magic_api * api, int which);
+
+void shift_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas);
+void shift_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas);
+int shift_modes(magic_api * api, int which);
+
 
 
 Uint32 shift_api_version(void) { return(TP_MAGIC_API_VERSION); }
@@ -105,7 +110,7 @@ char * shift_get_name(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUS
 }
 
 // Return our descriptions, localized:
-char * shift_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode)
+char * shift_get_description(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED)
 {
   return(strdup(gettext_noop("Click and drag to shift your picture around on the canvas.")));
 }
@@ -284,7 +289,7 @@ static void shift_doit(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNU
 }
 
 // Affect the canvas on click:
-void shift_click(magic_api * api, int which, int mode,
+void shift_click(magic_api * api, int which, int mode ATTRIBUTE_UNUSED,
 	           SDL_Surface * canvas, SDL_Surface * last,
 	           int x, int y, SDL_Rect * update_rect)
 {
@@ -323,15 +328,15 @@ int shift_requires_colors(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_
   return 0;
 }
 
-void shift_switchin(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void shift_switchin(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-void shift_switchout(magic_api * api, int which, int mode, SDL_Surface * canvas)
+void shift_switchout(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED, int mode ATTRIBUTE_UNUSED, SDL_Surface * canvas ATTRIBUTE_UNUSED)
 {
 }
 
-int shift_modes(magic_api * api, int which)
+int shift_modes(magic_api * api ATTRIBUTE_UNUSED, int which ATTRIBUTE_UNUSED)
 {
-  return(MODE_PAINT);
+  return(MODE_PAINT_WITH_PREVIEW);
 }

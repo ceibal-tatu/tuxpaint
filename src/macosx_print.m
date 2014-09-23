@@ -21,7 +21,7 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //  (See COPYING.txt)
 //
-//  $Id: macosx_print.m,v 1.8 2008/02/05 06:35:11 mfuhrer Exp $
+//  $Id: macosx_print.m,v 1.9 2014/03/19 23:39:18 wkendrick Exp $
 //
 
 #import "macosx_print.h"
@@ -305,10 +305,10 @@ const char* SurfacePrint( SDL_Surface *surface, int showDialog )
     
 	[ image setSize:imageSize ];
     [ printView setImage:image ];
-	
+        
     // run printing
     printOperation = [ NSPrintOperation printOperationWithView:printView printInfo:printInfo ];
-    [ printOperation setShowPanels:showDialog ];
+    [ printOperation setShowsPrintPanel:showDialog ];   //EP replaced setShowPanels by setShowsPrintPanel
     
     macosx.cocoaKeystrokes = 1;
     delegate = [ [ [ ModalDelegate alloc ] init ] autorelease ];
