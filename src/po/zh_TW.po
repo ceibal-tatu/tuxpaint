@@ -1,0 +1,1406 @@
+# Traditional Chinese Messages for tuxpaint.
+# Copyright (C) 2004, 05, 07 Free Software Foundation, Inc.
+# Song Huang <song@ossacc.org>, 2004.
+# OLS3 <ols3@lxer.idv.tw>, 2004.
+# Wei-Lun Chao <chaoweilun@gmail.com>, 2005, 07.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxpaint\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-19 12:57-0700\n"
+"PO-Revision-Date: 2009-05-30 09:04+0800\n"
+"Last-Translator: 黃敏松 <songhuang.tw@gmail.com>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#  Response to Black (0, 0, 0) color selected
+#  Response to Black (0, 0, 0) color selected
+#  Response to Black (0, 0, 0) color selected
+#. Response to Black (0, 0, 0) color selected
+#: ../colors.h:86
+msgid "Black!"
+msgstr "黑色!"
+
+#  Response to Dark grey (128, 128, 128) color selected
+#  Response to Dark grey (128, 128, 128) color selected
+#. Response to Dark grey (128, 128, 128) color selected
+#: ../colors.h:89
+msgid "Dark grey! Some people spell it “dark gray”."
+msgstr "深灰色!"
+
+#  Response to Light grey (192, 192, 192) color selected
+#  Response to Light grey (192, 192, 192) color selected
+#. Response to Light grey (192, 192, 192) color selected
+#: ../colors.h:92
+msgid "Light grey! Some people spell it “light gray”."
+msgstr "淺灰色!"
+
+#  Response to White (255, 255, 255) color selected
+#  Response to White (255, 255, 255) color selected
+#. Response to White (255, 255, 255) color selected
+#: ../colors.h:95
+msgid "White!"
+msgstr "白色!"
+
+#  Response to Red (255, 0, 0) color selected
+#  Response to Red (255, 0, 0) color selected
+#. Response to Red (255, 0, 0) color selected
+#: ../colors.h:98
+msgid "Red!"
+msgstr "紅色!"
+
+#  Response to Orange (255, 128, 0) color selected
+#  Response to Orange (255, 128, 0) color selected
+#. Response to Orange (255, 128, 0) color selected
+#: ../colors.h:101
+msgid "Orange!"
+msgstr "橙色!"
+
+#  Response to Yellow (255, 255, 0) color selected
+#. Response to Yellow (255, 255, 0) color selected
+#: ../colors.h:104
+msgid "Yellow!"
+msgstr "黃色!"
+
+#  Response to Light green (160, 228, 128) color selected
+#. Response to Light green (160, 228, 128) color selected
+#: ../colors.h:107
+msgid "Light green!"
+msgstr "淺綠色!"
+
+#  Response to Dark green (33, 148, 70) color selected
+#. Response to Dark green (33, 148, 70) color selected
+#: ../colors.h:110
+msgid "Dark green!"
+msgstr "深綠色!"
+
+#  Response to "Sky" blue (138, 168, 205) color selected
+#. Response to "Sky" blue (138, 168, 205) color selected
+#: ../colors.h:113
+msgid "Sky blue!"
+msgstr "天藍色!"
+
+#  Response to Blue (50, 100, 255) color selected
+#. Response to Blue (50, 100, 255) color selected
+#: ../colors.h:116
+msgid "Blue!"
+msgstr "藍色!"
+
+#  Response to Lavender (186, 157, 255) color selected
+#. Response to Lavender (186, 157, 255) color selected
+#: ../colors.h:119
+msgid "Lavender!"
+msgstr "淺紫色!"
+
+#  Response to Purple (128, 0, 128) color selected
+#. Response to Purple (128, 0, 128) color selected
+#: ../colors.h:122
+msgid "Purple!"
+msgstr "紫色!"
+
+#  Response to Pink (255, 165, 211) color selected
+#. Response to Pink (255, 165, 211) color selected
+#: ../colors.h:125
+msgid "Pink!"
+msgstr "粉紅色!"
+
+#  Response to Brown (128, 80, 0) color selected
+#. Response to Brown (128, 80, 0) color selected
+#: ../colors.h:128
+msgid "Brown!"
+msgstr "棕色!"
+
+#  Response to Tan (226, 189, 166) color selected
+#. Response to Tan (226, 189, 166) color selected
+#: ../colors.h:131
+msgid "Tan!"
+msgstr "棕褐色!"
+
+#  Response to Beige (247, 228, 219) color selected
+#. Response to Beige (247, 228, 219) color selected
+#: ../colors.h:134
+msgid "Beige!"
+msgstr "米黃色!"
+
+#  First, the blacklist. We list font families that can crash Tux Paint
+#  via bugs in the SDL_ttf library. We also test fonts to be sure that
+#  they have both uppercase and lowercase letters. Note that we do not
+#  test for "Aa", because it is OK if uppercase and lowercase are the
+#  same (but not nice -- such fonts get a low score later).
+#  We test the alphabet twice, to help with translation. If the users
+#  will be unable to type ASCII letters, then both Line X and Line Y
+#  should be translated. Otherwise, only Line X should be translated
+#  and the ASCII-only fonts should be given bad scores in the scoring
+#  code below (the best scores going to fonts that support both).
+#  Line X
+#. First, the blacklist. We list font families that can crash Tux Paint
+#. via bugs in the SDL_ttf library. We also test fonts to be sure that
+#. they have both uppercase and lowercase letters. Note that we do not
+#. test for "Aa", because it is OK if uppercase and lowercase are the
+#. same (but not nice -- such fonts get a low score later).
+#.
+#. Most locales leave the blacklist strings alone: "QX" and "qx"
+#. (it is less destructive to use the scoring strings instead)
+#.
+#. Locales that absolutely require all fonts to have some
+#. extra characters should use "QX..." and "qx...", where "..."
+#. are some characters you absolutely require in all fonts.
+#.
+#. Locales with absolutely NO use for ASCII may use "..." and "...",
+#. where "..." are some characters you absolutely require in
+#. all fonts. This would be the case for a locale in which it is
+#. impossible for a user to type ASCII letters.
+#.
+#. Most translators should use scoring instead.
+#: ../dirwalk.c:164
+msgid "qx"
+msgstr "正體中文"
+
+#: ../dirwalk.c:164
+msgid "QX"
+msgstr "正體中文"
+
+#  Now we score fonts to ensure that the best ones will be placed at
+#  the top of the list. The user will see them first. This sorting is
+#  especially important for users who have scroll buttons disabled.
+#  Translators should do whatever is needed to put crummy fonts last.
+#  distinct uppercase and lowercase (e.g., 'o' vs. 'O')
+#. TODO: weight specification
+#. Now we score fonts to ensure that the best ones will be placed at
+#. the top of the list. The user will see them first. This sorting is
+#. especially important for users who have scroll buttons disabled.
+#. Translators should do whatever is needed to put crummy fonts last.
+#. distinct uppercase and lowercase (e.g., 'o' vs. 'O')
+#: ../dirwalk.c:191
+msgid "oO"
+msgstr "oO"
+
+#  common punctuation (e.g., '?', '!', '.', ',', etc.)
+#. common punctuation (e.g., '?', '!', '.', ',', etc.)
+#: ../dirwalk.c:194
+msgid ",.?!"
+msgstr ",.?!"
+
+#  uncommon punctuation (e.g., '@', '#', '*', etc.)
+#. uncommon punctuation (e.g., '@', '#', '*', etc.)
+#: ../dirwalk.c:197
+#, fuzzy
+#| msgid "`\\%_@$~#{}<>^&*"
+msgid "`\\%_@$~#{<(^&*"
+msgstr "，。、；：？（）"
+
+#  digits (e.g., '0', '1' and '7')
+#. digits (e.g., '0', '1' and '7')
+#: ../dirwalk.c:200
+msgid "017"
+msgstr "017"
+
+#  distinct circle-like characters (e.g., 'O' (capital oh) vs. '0' (zero))
+#. distinct circle-like characters (e.g., 'O' (capital oh) vs. '0' (zero))
+#: ../dirwalk.c:203
+msgid "O0"
+msgstr "O0"
+
+#  distinct line-like characters (e.g., 'l' (lowercase elle) vs. '1' (one) vs. 'I' (capital aye))
+#  distinct line-like characters (e.g., 'l' (lowercase elle) vs. '1' (one) vs. 'I' (capital aye))
+#. distinct line-like characters (e.g., 'l' (lowercase elle) vs. '1' (one) vs. 'I' (capital aye))
+#: ../dirwalk.c:206
+msgid "1Il|"
+msgstr "1Il|"
+
+#: ../dirwalk.c:210
+msgid "<1>spare-1a"
+msgstr ""
+
+#: ../dirwalk.c:211
+msgid "<1>spare-1b"
+msgstr ""
+
+#: ../dirwalk.c:212
+msgid "<9>spare-9a"
+msgstr ""
+
+#: ../dirwalk.c:213
+msgid "<9>spare-9b"
+msgstr ""
+
+#  Congratulations #1
+#  Congratulations #1
+#. Congratulations #1
+#: ../great.h:37
+msgid "Great!"
+msgstr "太棒了!"
+
+#  Congratulations #2
+#. Congratulations #2
+#: ../great.h:40
+msgid "Cool!"
+msgstr "酷!"
+
+#  Congratulations #3
+#. Congratulations #3
+#: ../great.h:43
+msgid "Keep it up!"
+msgstr "繼續!"
+
+#  Congratulations #4
+#. Congratulations #4
+#: ../great.h:46
+msgid "Good job!"
+msgstr "做得好!"
+
+#  Input Method: English mode
+#. Input Method: English mode
+#: ../im.c:75
+msgid "English"
+msgstr "英文"
+
+#  Input Method: Japanese Romanized Hiragana mode
+#. Input Method: Japanese Romanized Hiragana mode
+#: ../im.c:78
+msgid "Hiragana"
+msgstr "平假名"
+
+#  Input Method: Japanese Romanized Katakana mode
+#. Input Method: Japanese Romanized Katakana mode
+#: ../im.c:81
+msgid "Katakana"
+msgstr "片假名"
+
+#  Input Method: Korean Hangul 2-Bul mode
+#. Input Method: Korean Hangul 2-Bul mode
+#: ../im.c:84
+msgid "Hangul"
+msgstr "韓文"
+
+#  Input Method: Thai mode
+#  Input Method: Thai mode
+#. Input Method: Thai mode
+#: ../im.c:87
+msgid "Thai"
+msgstr "泰文"
+
+#  Input Method: Traditional Chinese mode
+#  Input Method: Traditional Chinese mode
+#. Input Method: Traditional Chinese mode
+#: ../im.c:90
+msgid "ZH_TW"
+msgstr "繁體中文"
+
+#  Square shape tool (4 equally-lengthed sides at right angles)
+#. Square shape tool (4 equally-lengthed sides at right angles)
+#: ../shapes.h:171 ../shapes.h:172
+msgid "Square"
+msgstr "正方形"
+
+#  Rectangle shape tool (4 sides at right angles)
+#. Rectangle shape tool (4 sides at right angles)
+#: ../shapes.h:175 ../shapes.h:176
+msgid "Rectangle"
+msgstr "長方形"
+
+#  Circle shape tool (X radius and Y radius are the same)
+#. Circle shape tool (X radius and Y radius are the same)
+#: ../shapes.h:179 ../shapes.h:180
+msgid "Circle"
+msgstr "圓形"
+
+#  Ellipse shape tool (X radius and Y radius may differ)
+#. Ellipse shape tool (X radius and Y radius may differ)
+#: ../shapes.h:183 ../shapes.h:184
+msgid "Ellipse"
+msgstr "橢圓形"
+
+#  Triangle shape tool (3 sides)
+#. Triangle shape tool (3 sides)
+#: ../shapes.h:187 ../shapes.h:188
+msgid "Triangle"
+msgstr "三角形"
+
+#  Pentagone shape tool (5 sides)
+#. Pentagone shape tool (5 sides)
+#: ../shapes.h:191 ../shapes.h:192
+msgid "Pentagon"
+msgstr "五角形"
+
+#  Rhombus shape tool (4 sides, not at right angles)
+#. Rhombus shape tool (4 sides, not at right angles)
+#: ../shapes.h:195 ../shapes.h:196
+msgid "Rhombus"
+msgstr "菱形"
+
+#  Octagon shape tool (8 sides)
+#  Octagon shape tool (8 sides)
+#. Octagon shape tool (8 sides)
+#: ../shapes.h:199 ../shapes.h:200
+msgid "Octagon"
+msgstr "八角形"
+
+#  Description of a square
+#. Description of a square
+#: ../shapes.h:208 ../shapes.h:209
+msgid "A square is a rectangle with four equal sides."
+msgstr "正方形是四邊一樣長的長方形。"
+
+#  Description of a rectangle
+#. Description of a rectangle
+#: ../shapes.h:212 ../shapes.h:213
+msgid "A rectangle has four sides and four right angles."
+msgstr "長方形有四個邊和四個直角。"
+
+#: ../shapes.h:217 ../shapes.h:219
+msgid ""
+"A circle is a curve where all points have the same distance from the center."
+msgstr "圓形是每一點都和圓心保持相同距離的曲線。"
+
+#  Description of an ellipse
+#  Description of an ellipse
+#. Description of an ellipse
+#: ../shapes.h:222 ../shapes.h:223
+msgid "An ellipse is a stretched circle."
+msgstr "橢圓形是伸展開來的圓形。"
+
+#  Description of a triangle
+#. Description of a triangle
+#: ../shapes.h:226 ../shapes.h:227
+msgid "A triangle has three sides."
+msgstr "三角形有三個邊。"
+
+#  Description of a pentagon
+#  Description of a pentagon
+#. Description of a pentagon
+#: ../shapes.h:230 ../shapes.h:231
+msgid "A pentagon has five sides."
+msgstr "五角形有五個邊。"
+
+#: ../shapes.h:235 ../shapes.h:237
+msgid "A rhombus has four equal sides, and opposite sides are parallel."
+msgstr "菱形有四個相同的邊，而且和對面的邊是平行的。"
+
+#: ../shapes.h:241 ../shapes.h:243
+msgid "An octagon has eight equal sides."
+msgstr "八角形有八個相等的邊。"
+
+#  Title of tool selector (buttons down the left)
+#. Title of tool selector (buttons down the left)
+#: ../titles.h:56
+msgid "Tools"
+msgstr "工具"
+
+#  Title of color palette (buttons across the bottom)
+#. Title of color palette (buttons across the bottom)
+#: ../titles.h:59
+msgid "Colors"
+msgstr "顏色"
+
+#  Title of brush selector (buttons down the right for paint and line tools)
+#. Title of brush selector (buttons down the right for paint and line tools)
+#: ../titles.h:62
+msgid "Brushes"
+msgstr "刷子"
+
+#  Title of eraser selector (buttons down the right for eraser tool)
+#. Title of eraser selector (buttons down the right for eraser tool)
+#: ../titles.h:65
+msgid "Erasers"
+msgstr "橡皮擦"
+
+#  Title of stamp selector (buttons down the right for stamps tool)
+#. Title of stamp selector (buttons down the right for stamps tool)
+#: ../titles.h:68
+msgid "Stamps"
+msgstr "圖章"
+
+#  Title of shape selector (buttons down the right for shapes tool)
+#  Shape creation tool (square, circle, etc.)
+#. Title of shape selector (buttons down the right for shapes tool)
+#. Shape creation tool (square, circle, etc.)
+#: ../titles.h:71 ../tools.h:69
+msgid "Shapes"
+msgstr "形狀"
+
+#  Title of font selector (buttons down the right for text tool)
+#. Title of font selector (buttons down the right for text tool)
+#: ../titles.h:74
+msgid "Letters"
+msgstr "字體"
+
+#  Title of magic tool selector (buttons down the right for magic (effect plugin) tool)
+#  "Magic" effects tools (blur, flip image, etc.)
+#. Title of magic tool selector (buttons down the right for magic (effect plugin) tool)
+#. "Magic" effects tools (blur, flip image, etc.)
+#: ../titles.h:77 ../tools.h:75
+msgid "Magic"
+msgstr "魔法"
+
+#  Freehand painting tool
+#. Freehand painting tool
+#: ../tools.h:60
+msgid "Paint"
+msgstr "色筆"
+
+#  Stamp tool (aka Rubber Stamps)
+#. Stamp tool (aka Rubber Stamps)
+#: ../tools.h:63
+msgid "Stamp"
+msgstr "蓋章"
+
+#  Line drawing tool
+#. Line drawing tool
+#: ../tools.h:66
+msgid "Lines"
+msgstr "畫線"
+
+#  Text tool
+#. Text tool
+#: ../tools.h:72
+msgid "Text"
+msgstr "文字"
+
+#  Undo last action
+#. Undo last action
+#: ../tools.h:78
+msgid "Undo"
+msgstr "回復"
+
+#  Redo undone action
+#. Redo undone action
+#: ../tools.h:81
+msgid "Redo"
+msgstr "再來"
+
+#  Eraser tool
+#. Eraser tool
+#: ../tools.h:84
+msgid "Eraser"
+msgstr "擦掉"
+
+#  Start a new picture
+#. Start a new picture
+#: ../tools.h:87
+msgid "New"
+msgstr "新圖"
+
+#  Open a saved picture
+#  buttons for the file open dialog
+#  Open dialog: 'Open' button, to load the selected picture
+#. Open a saved picture
+#. buttons for the file open dialog
+#. Open dialog: 'Open' button, to load the selected picture
+#: ../tools.h:90 ../tuxpaint.c:7998
+msgid "Open"
+msgstr "打開"
+
+#  Save the current picture
+#. Save the current picture
+#: ../tools.h:93
+msgid "Save"
+msgstr "儲存"
+
+#  Print the current picture
+#. Print the current picture
+#: ../tools.h:96
+msgid "Print"
+msgstr "列印"
+
+#  Quit/exit Tux Paint application
+#  Quit/exit Tux Paint application
+#. Quit/exit Tux Paint application
+#: ../tools.h:99
+msgid "Quit"
+msgstr "離開"
+
+#  Paint tool instructions
+#. Paint tool instructions
+#: ../tools.h:107
+msgid "Pick a color and a brush shape to draw with."
+msgstr "挑選顏色和刷子的形狀來畫圖。"
+
+#  Stamp tool instructions
+#. Stamp tool instructions
+#: ../tools.h:110
+msgid "Pick a picture to stamp around your drawing."
+msgstr "挑選一個圖章來印在你的畫布上。"
+
+#  Line tool instructions
+#. Line tool instructions
+#: ../tools.h:113
+msgid "Click to start drawing a line. Let go to complete it."
+msgstr "按一下滑鼠就可以開始畫一條線. 讓我們來完成它吧!"
+
+#  Shape tool instructions
+#  Shape tool instructions
+#. Shape tool instructions
+#: ../tools.h:116
+msgid ""
+"Pick a shape. Click to pick the center, drag, then let go when it is the "
+"size you want. Move around to rotate it, and click to draw it."
+msgstr ""
+"挑選一個形狀。點一下來決定形狀的中心位置，然後持續拖拉它到你要的大小。繞著中"
+"心移動來旋轉它，然後點一下把它畫下來。"
+
+#  Text tool instructions
+#. Text tool instructions
+#: ../tools.h:119
+msgid "Choose a style of text. Click on your drawing and you can start typing."
+msgstr "選擇文字的樣子。在畫布上點一下就可以開始輸入。"
+
+#  Magic tool instruction
+#. Magic tool instruction
+#: ../tools.h:122
+msgid "Pick a magical effect to use on your drawing!"
+msgstr "挑選一個魔法效果套用在你的圖畫上!"
+
+#  Response to 'undo' action
+#. Response to 'undo' action
+#: ../tools.h:125
+msgid "Undo!"
+msgstr "回復到剛才之前的樣子!"
+
+#  Response to 'redo' action
+#. Response to 'redo' action
+#: ../tools.h:128
+msgid "Redo!"
+msgstr "再做一次剛才的動作!"
+
+#  Eraser tool
+#. Eraser tool
+#: ../tools.h:131
+msgid "Eraser!"
+msgstr "用橡皮擦把圖畫擦掉!"
+
+#  Response to 'start a new image' action
+#  Response to 'start a new image' action
+#. Response to 'start a new image' action
+#: ../tools.h:134
+msgid "Pick a color or picture with which to start a new drawing."
+msgstr "挑選一個顏色或圖形的新畫布。"
+
+#  Response to 'open' action (while file dialog is being constructed)
+#. Response to 'open' action (while file dialog is being constructed)
+#: ../tools.h:137
+msgid "Open…"
+msgstr "打開圖畫檔案..."
+
+#  Response to 'save' action
+#. Response to 'save' action
+#: ../tools.h:140
+msgid "Your image has been saved!"
+msgstr "你的圖畫已經儲存了!"
+
+#  Response to 'print' action (while printing, or print dialog is being used)
+#. Response to 'print' action (while printing, or print dialog is being used)
+#: ../tools.h:143
+msgid "Printing…"
+msgstr "正在列印..."
+
+#  Response to 'quit' (exit) action
+#. Response to 'quit' (exit) action
+#: ../tools.h:146
+msgid "Bye bye!"
+msgstr "掰掰!"
+
+#  Instruction while using Line tool (after click, before release)
+#. Instruction while using Line tool (after click, before release)
+#: ../tools.h:150
+msgid "Let go of the button to complete the line."
+msgstr "放開按鍵可以完成這條線。"
+
+#  Instruction while using Shape tool (after first click, before release)
+#. Instruction while using Shape tool (after first click, before release)
+#: ../tools.h:153
+msgid "Hold the button to stretch the shape."
+msgstr "按住按鍵可以伸長這個形狀。"
+
+#  Instruction while finishing Shape tool (after release, during rotation step before second click)
+#. Instruction while finishing Shape tool (after release, during rotation step before second click)
+#: ../tools.h:156
+msgid "Move the mouse to rotate the shape. Click to draw it."
+msgstr "移動滑鼠可以旋轉這個形狀。點一下可以將它畫上去。"
+
+#  Notification that 'New' action was aborted (current image would have been lost)
+#  Notification that 'New' action was aborted (current image would have been lost)
+#. Notification that 'New' action was aborted (current image would have been lost)
+#: ../tools.h:159
+msgid "OK then… Let’s keep drawing this one!"
+msgstr "很好，讓我們繼續來畫這張圖吧!"
+
+#  Prompt to confirm user wishes to quit
+#. Prompt to confirm user wishes to quit
+#: ../tuxpaint.c:1855
+msgid "Do you really want to quit?"
+msgstr "你確定要離開嗎?"
+
+#  Quit prompt positive response (quit)
+#  msgid "Yes, I'm done!"
+#  Quit prompt positive response (quit)
+#. Quit prompt positive response (quit)
+#: ../tuxpaint.c:1858
+msgid "Yes, I’m done!"
+msgstr "好，我做完了!"
+
+#  Quit prompt negative response (don't quit)
+#. Quit prompt negative response (don't quit)
+#: ../tuxpaint.c:1861 ../tuxpaint.c:1888
+msgid "No, take me back!"
+msgstr "不，讓我回去!"
+
+#  Current picture is not saved; user is quitting
+#. Current picture is not saved; user is quitting
+#: ../tuxpaint.c:1865
+msgid "If you quit, you’ll lose your picture! Save it?"
+msgstr "如果離開，將會丟掉你的圖畫喔! 要先存檔嗎?"
+
+#: ../tuxpaint.c:1866 ../tuxpaint.c:1871
+msgid "Yes, save it!"
+msgstr "好，把它存起來!"
+
+#  msgid "No, don't bother saving!"
+#: ../tuxpaint.c:1867 ../tuxpaint.c:1872
+msgid "No, don’t bother saving!"
+msgstr "不，別存了!"
+
+#  Current picture is not saved; user is opening another picture
+#. Current picture is not saved; user is opening another picture
+#: ../tuxpaint.c:1870
+msgid "Save your picture first?"
+msgstr "要先儲存你的圖畫嗎?"
+
+#  Error opening picture
+#. Error opening picture
+#: ../tuxpaint.c:1875
+msgid "Can’t open that picture!"
+msgstr "沒辦法打開這個圖畫!"
+
+#  Generic dialog dismissal
+#. Generic dialog dismissal
+#: ../tuxpaint.c:1878 ../tuxpaint.c:1883 ../tuxpaint.c:1892 ../tuxpaint.c:1899
+#: ../tuxpaint.c:1908
+msgid "OK"
+msgstr "好的"
+
+#  Notification that 'Open' dialog has nothing to show
+#. Notification that 'Open' dialog has nothing to show
+#: ../tuxpaint.c:1882
+msgid "There are no saved files!"
+msgstr "沒有已經儲存的檔案!"
+
+#  Verification of print action
+#. Verification of print action
+#: ../tuxpaint.c:1886
+msgid "Print your picture now?"
+msgstr "現在要列印你的圖畫嗎?"
+
+#: ../tuxpaint.c:1887
+msgid "Yes, print it!"
+msgstr "好，印出它來!"
+
+#  Confirmation of successful (we hope) printing
+#. Confirmation of successful (we hope) printing
+#: ../tuxpaint.c:1891
+msgid "Your picture has been printed!"
+msgstr "你的圖畫已經印出來了!"
+
+#  We got an error printing
+#  msgid "Your picture has been printed!"
+#  We got an error printing
+#. We got an error printing
+#: ../tuxpaint.c:1895
+msgid "Sorry! Your picture could not be printed!"
+msgstr "不好意思，你的圖畫不能列印!"
+
+#  Notification that it's too soon to print again (--printdelay option is in effect)
+#. Notification that it's too soon to print again (--printdelay option is in effect)
+#: ../tuxpaint.c:1898
+msgid "You can’t print yet!"
+msgstr "你還沒辦法列印喔!"
+
+#  Prompt to confirm erasing a picture in the Open dialog
+#. Prompt to confirm erasing a picture in the Open dialog
+#: ../tuxpaint.c:1902
+msgid "Erase this picture?"
+msgstr "要刪除這張圖畫嗎?"
+
+#: ../tuxpaint.c:1903
+msgid "Yes, erase it!"
+msgstr "好，刪除它吧!"
+
+#  msgid "No, don't erase it!"
+#: ../tuxpaint.c:1904
+msgid "No, don’t erase it!"
+msgstr "不，別刪除它!"
+
+#  Reminder that Mouse Button 1 is the button to use in Tux Paint
+#. Reminder that Mouse Button 1 is the button to use in Tux Paint
+#: ../tuxpaint.c:1907
+msgid "Remember to use the left mouse button!"
+msgstr "記得使用滑鼠的左邊按鍵!"
+
+#  Sound has been muted (silenced) via keyboard shortcut
+#  Sound has been muted (silenced) via keyboard shortcut
+#. Sound has been muted (silenced) via keyboard shortcut
+#: ../tuxpaint.c:2036
+msgid "Sound muted."
+msgstr "靜音"
+
+#  Sound has been unmuted (unsilenced) via keyboard shortcut
+#  Sound has been unmuted (unsilenced) via keyboard shortcut
+#. Sound has been unmuted (unsilenced) via keyboard shortcut
+#: ../tuxpaint.c:2041
+msgid "Sound unmuted."
+msgstr "取消靜音"
+
+#  Wait while Text tool finishes loading fonts
+#. Wait while Text tool finishes loading fonts
+#: ../tuxpaint.c:2508
+msgid "Please wait…"
+msgstr "請等一下…"
+
+#: ../tuxpaint.c:7221
+msgid "Pick a color."
+msgstr "挑選一個顏色"
+
+#  Open dialog: 'Erase' button, to erase/deleted the selected picture
+#. Open dialog: 'Erase' button, to erase/deleted the selected picture
+#: ../tuxpaint.c:8001
+msgid "Erase"
+msgstr "刪除"
+
+#  Open dialog: 'Slides' button, to switch to slide show mode
+#. Open dialog: 'Slides' button, to switch to slide show mode
+#: ../tuxpaint.c:8004
+msgid "Slides"
+msgstr "投影片"
+
+#  Open dialog: 'Back' button, to dismiss Open dialog without opening a picture
+#. Open dialog: 'Back' button, to dismiss Open dialog without opening a picture
+#: ../tuxpaint.c:8007
+msgid "Back"
+msgstr "上一個"
+
+#  Slideshow: 'Next' button, to load next slide (image)
+#. Slideshow: 'Next' button, to load next slide (image)
+#: ../tuxpaint.c:8010
+msgid "Next"
+msgstr "下一個"
+
+#  Slideshow: 'Play' button, to begin a slideshow sequence
+#. Slideshow: 'Play' button, to begin a slideshow sequence
+#: ../tuxpaint.c:8013
+msgid "Play"
+msgstr "播放"
+
+#  Label for 'Letters' buttons (font selector, down the right when the Text tool is being used); used to show the difference between font faces
+#. Label for 'Letters' buttons (font selector, down the right when the Text tool is being used); used to show the difference between font faces
+#: ../tuxpaint.c:8660
+msgid "Aa"
+msgstr "A中"
+
+#  Admittedly stupid way of determining which keys can be used for
+#  positive and negative responses in dialogs (e.g., [Y] (for 'yes') in English)
+#. Admittedly stupid way of determining which keys can be used for
+#. positive and negative responses in dialogs (e.g., [Y] (for 'yes') in English)
+#: ../tuxpaint.c:11661
+msgid "Yes"
+msgstr "好"
+
+#: ../tuxpaint.c:11665
+msgid "No"
+msgstr "不"
+
+#  Prompt to ask whether user wishes to save over old version of their file
+#. Prompt to ask whether user wishes to save over old version of their file
+#: ../tuxpaint.c:12631
+msgid "Replace the picture with your changes?"
+msgstr "用你所做的改變來取代圖畫嗎?"
+
+#  Positive response to saving over old version
+#  (like a 'File:Save' action in other applications)
+#. Positive response to saving over old version
+#. (like a 'File:Save' action in other applications)
+#: ../tuxpaint.c:12635
+msgid "Yes, replace the old one!"
+msgstr "好，取代舊的!"
+
+#  Negative response to saving over old version (saves a new image)
+#  (like a 'File:Save As...' action in other applications)
+#. Negative response to saving over old version (saves a new image)
+#. (like a 'File:Save As...' action in other applications)
+#: ../tuxpaint.c:12639
+msgid "No, save a new file!"
+msgstr "不，另外存一個新的檔案!"
+
+#: ../tuxpaint.c:13402
+msgid "Choose the picture you want, then click “Open”."
+msgstr "選擇你想要的圖畫，然後按一下「打開」。"
+
+#  Let user choose images:
+#  Instructions for Slideshow file dialog (FIXME: Make a #define)
+#. Let user choose images:
+#. Instructions for Slideshow file dialog (FIXME: Make a #define)
+#: ../tuxpaint.c:14389 ../tuxpaint.c:14703
+msgid "Choose the pictures you want, then click “Play”."
+msgstr "選擇你要的一些圖畫，然後按一下「播放」。"
+
+#: ../tuxpaint.desktop.in.h:1
+msgid "A drawing program for children."
+msgstr "適合兒童的畫圖程式"
+
+#: ../tuxpaint.desktop.in.h:2
+msgid "Drawing program"
+msgstr "畫圖程式"
+
+#: ../tuxpaint.desktop.in.h:3
+msgid "Tux Paint"
+msgstr "企鵝小畫家"
+
+#  msgid "Shift"
+#: ../../magic/src/alien.c:64
+msgid "Color Shift"
+msgstr "調整顏色"
+
+#: ../../magic/src/alien.c:67
+msgid "Click and move the mouse to change the colors in parts of your picture."
+msgstr "按著並移動滑鼠來改變經過圖畫的顏色。"
+
+#: ../../magic/src/alien.c:68
+msgid "Click to change the colors in your entire picture."
+msgstr "按一下來改變整張圖畫的顏色。"
+
+#: ../../magic/src/blocks_chalk_drip.c:132
+msgid "Blocks"
+msgstr "馬賽克"
+
+#: ../../magic/src/blocks_chalk_drip.c:134
+msgid "Chalk"
+msgstr "粉筆"
+
+#: ../../magic/src/blocks_chalk_drip.c:136
+msgid "Drip"
+msgstr "水滴"
+
+#: ../../magic/src/blocks_chalk_drip.c:146
+msgid "Click and move the mouse around to make the picture blocky."
+msgstr "按著並移動滑鼠來使圖畫有馬賽克效果。"
+
+#: ../../magic/src/blocks_chalk_drip.c:149
+msgid ""
+"Click and move the mouse around to turn the picture into a chalk drawing."
+msgstr "按著並移動滑鼠來產生粉筆的痕跡。"
+
+#: ../../magic/src/blocks_chalk_drip.c:152
+msgid "Click and move the mouse around to make the picture drip."
+msgstr "按著並移動滑鼠來產生水滴的效果。"
+
+#: ../../magic/src/blur.c:57
+msgid "Blur"
+msgstr "模糊"
+
+#: ../../magic/src/blur.c:60
+msgid "Click and move the mouse around to blur the image."
+msgstr "按著並移動滑鼠來使圖畫模糊。"
+
+#: ../../magic/src/blur.c:61
+msgid "Click to blur the entire image."
+msgstr "按一下來模糊整張圖畫。"
+
+#  Both are named "Bricks", at the moment:
+#. Both are named "Bricks", at the moment:
+#: ../../magic/src/bricks.c:104
+msgid "Bricks"
+msgstr "磚塊"
+
+#: ../../magic/src/bricks.c:111
+msgid "Click and move to draw large bricks."
+msgstr "按著並移動滑鼠來畫出大的磚塊。"
+
+#: ../../magic/src/bricks.c:113
+msgid "Click and move to draw small bricks."
+msgstr "按著並移動滑鼠來畫出小的磚塊。"
+
+#: ../../magic/src/calligraphy.c:108
+msgid "Calligraphy"
+msgstr "書寫"
+
+#: ../../magic/src/calligraphy.c:115
+msgid "Click and move the mouse around to draw in calligraphy."
+msgstr "按著並移動滑鼠來書寫。"
+
+#: ../../magic/src/cartoon.c:80
+msgid "Cartoon"
+msgstr "卡通"
+
+#: ../../magic/src/cartoon.c:87
+msgid "Click and move the mouse around to turn the picture into a cartoon."
+msgstr "按著並移動滑鼠來將圖案變成卡通風格。"
+
+#: ../../magic/src/confetti.c:63
+msgid "Confetti"
+msgstr "紙花"
+
+#: ../../magic/src/confetti.c:65
+msgid "Click to throw confetti!"
+msgstr "按一下來拋出紙花"
+
+#: ../../magic/src/distortion.c:121
+msgid "Distortion"
+msgstr "扭曲"
+
+#: ../../magic/src/distortion.c:129
+msgid "Click and drag the mouse to cause distortion in your picture."
+msgstr "按著並移動滑鼠來使圖畫扭曲。"
+
+#: ../../magic/src/emboss.c:76
+msgid "Emboss"
+msgstr "浮雕"
+
+#: ../../magic/src/emboss.c:82
+msgid "Click and drag the mouse to emboss the picture."
+msgstr "按著並移動滑鼠來使圖畫變成浮雕。"
+
+#: ../../magic/src/fade_darken.c:119
+msgid "Lighten"
+msgstr "變淺"
+
+#: ../../magic/src/fade_darken.c:121
+msgid "Darken"
+msgstr "變深"
+
+#: ../../magic/src/fade_darken.c:132
+msgid "Click and move the mouse to lighten parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫變明亮。"
+
+#: ../../magic/src/fade_darken.c:134
+msgid "Click to lighten your entire picture."
+msgstr "按一下來使整張圖畫變明亮。"
+
+#: ../../magic/src/fade_darken.c:139
+msgid "Click and move the mouse to darken parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫變暗。"
+
+#: ../../magic/src/fade_darken.c:141
+msgid "Click to darken your entire picture."
+msgstr "按一下來使整張圖畫變暗。"
+
+#: ../../magic/src/fill.c:87
+msgid "Fill"
+msgstr "填滿"
+
+#: ../../magic/src/fill.c:94
+msgid "Click in the picture to fill that area with color."
+msgstr "在圖案中按下滑鼠來用顏色填滿整個區域。"
+
+#: ../../magic/src/fisheye.c:77
+msgid "Fisheye"
+msgstr "魚眼"
+
+#  Needs better name
+#  msgid "Click and drag to shift your picture around on the canvas."
+#  Needs better name
+#. Needs better name
+#: ../../magic/src/fisheye.c:79
+msgid "Click on part of your picture to create a fisheye effect."
+msgstr "按一下來使圖畫產生魚眼效果。"
+
+#: ../../magic/src/flower.c:124
+msgid "Flower"
+msgstr "花"
+
+#: ../../magic/src/flower.c:130
+msgid "Click and drag to draw a flower stalk. Let go to finish the flower."
+msgstr "按著並移動滑鼠來畫出花莖，讓我們來完成這朵花。"
+
+#: ../../magic/src/foam.c:104
+msgid "Foam"
+msgstr "泡泡"
+
+#: ../../magic/src/foam.c:110
+msgid "Click and drag the mouse to cover an area with foamy bubbles."
+msgstr "在圖案中按下滑鼠來用泡泡填滿整個區域。"
+
+#: ../../magic/src/fold.c:84
+msgid "Fold"
+msgstr "摺疊"
+
+#: ../../magic/src/fold.c:86
+msgid ""
+"Choose a background color and click to turn the corner of the page over."
+msgstr "挑選一個背景色，並按一下圖紙的角落讓他翻起來。"
+
+#: ../../magic/src/glasstile.c:83
+msgid "Glass Tile"
+msgstr "玻璃磚"
+
+#: ../../magic/src/glasstile.c:90
+msgid "Click and drag the mouse to put glass tile over your picture."
+msgstr "按著並移動滑鼠來使圖畫蓋上一層玻璃磚。"
+
+#: ../../magic/src/glasstile.c:92
+msgid "Click to cover your entire picture in glass tiles."
+msgstr "按一下來使整張圖畫覆蓋上玻璃磚。"
+
+#: ../../magic/src/grass.c:92
+msgid "Grass"
+msgstr "青草"
+
+#: ../../magic/src/grass.c:98
+msgid "Click and move to draw grass. Don’t forget the dirt!"
+msgstr "按著並移動滑鼠來畫出青草，別忘了泥土喔!"
+
+#: ../../magic/src/kalidescope.c:77
+msgid "Kaleidoscope"
+msgstr "萬花筒"
+
+#: ../../magic/src/kalidescope.c:83
+msgid ""
+"Click and drag the mouse to draw with symmetric brushes (a kaleidoscope)."
+msgstr "按著並移動滑鼠來畫出對稱的筆刷(萬花筒)。"
+
+#: ../../magic/src/light.c:84
+msgid "Light"
+msgstr "變淺"
+
+#: ../../magic/src/light.c:90
+msgid "Click and drag to draw a beam of light on your picture."
+msgstr "按著並移動滑鼠畫一束光到你的圖上。"
+
+#: ../../magic/src/metalpaint.c:77
+msgid "Metal Paint"
+msgstr "金屬筆"
+
+#: ../../magic/src/metalpaint.c:83
+msgid "Click and drag the mouse to paint with a metallic color."
+msgstr "按著並移動滑鼠來畫出金屬的顏色。"
+
+#: ../../magic/src/mirror_flip.c:94
+msgid "Mirror"
+msgstr "左右對稱"
+
+#: ../../magic/src/mirror_flip.c:96
+msgid "Flip"
+msgstr "上下翻轉"
+
+#: ../../magic/src/mirror_flip.c:106
+msgid "Click to make a mirror image."
+msgstr "按一下可以產生左右對稱的圖畫。"
+
+#: ../../magic/src/mirror_flip.c:109
+msgid "Click to flip the picture upside-down."
+msgstr "按一下可以產生上下顛倒的圖畫。"
+
+#: ../../magic/src/mosaic.c:70
+msgid "Mosaic"
+msgstr "馬賽克"
+
+#: ../../magic/src/mosaic.c:73
+msgid ""
+"Click and move the mouse to add a mosaic effect to parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫產生馬賽克效果。"
+
+#: ../../magic/src/mosaic.c:74
+msgid "Click to add a mosaic effect to your entire picture."
+msgstr "按一下來使整張圖畫產生馬賽克效果。"
+
+#: ../../magic/src/negative.c:72
+msgid "Negative"
+msgstr "相反"
+
+#  msgid "Click and move the mouse around to draw a negative."
+#: ../../magic/src/negative.c:80
+msgid "Click and move the mouse around to make your painting negative."
+msgstr "按著並移動滑鼠來畫出相反的顏色。"
+
+#: ../../magic/src/negative.c:83
+msgid "Click to turn your painting into its negative."
+msgstr "按一下來使畫筆的顏色轉變成相反顏色。"
+
+#: ../../magic/src/noise.c:63
+msgid "Noise"
+msgstr "雜訊"
+
+#: ../../magic/src/noise.c:66
+msgid "Click and move the mouse to add noise to parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫產生雜訊。"
+
+#: ../../magic/src/noise.c:67
+msgid "Click to add noise to your entire picture."
+msgstr "按一下來使整張圖畫產生雜訊。"
+
+#: ../../magic/src/rails.c:102
+msgid "Rails"
+msgstr "鐵軌"
+
+#: ../../magic/src/rails.c:104
+msgid "Click and drag to draw train track rails on your picture."
+msgstr "按著並移動滑鼠畫一段鐵軌到你的圖上。"
+
+#: ../../magic/src/rainbow.c:107
+msgid "Rainbow"
+msgstr "彩虹"
+
+#: ../../magic/src/rainbow.c:114
+msgid "You can draw in rainbow colors!"
+msgstr "你可以畫出彩虹的顏色!"
+
+#: ../../magic/src/rain.c:65
+msgid "Rain"
+msgstr "下雨"
+
+#: ../../magic/src/rain.c:68
+msgid "Click to place a rain drop onto your picture."
+msgstr "按一下來使雨滴到你的圖上。"
+
+#: ../../magic/src/rain.c:69
+msgid "Click to cover your picture with rain drops."
+msgstr "按一下來使整張圖畫布滿雨滴。"
+
+#  msgid "Rainbow"
+#: ../../magic/src/realrainbow.c:76
+msgid "Real Rainbow"
+msgstr "彩虹"
+
+#: ../../magic/src/realrainbow.c:81
+msgid ""
+"Click where you want your rainbow to start, drag to where you want it to "
+"end, and then let go to draw a rainbow."
+msgstr ""
+"在你希望彩虹開始的地方按下滑鼠左鍵不放，拖著到你希望彩虹結束的地方放開，就會"
+"畫出一道彩虹。"
+
+#: ../../magic/src/ripples.c:81
+msgid "Ripples"
+msgstr "波浪"
+
+#: ../../magic/src/ripples.c:87
+msgid "Click to make ripples appear over your picture."
+msgstr "按下會讓你的圖出現一個旋渦。"
+
+#: ../../magic/src/rosette.c:93
+msgid "Rosette"
+msgstr "玫瑰花形"
+
+#: ../../magic/src/rosette.c:93
+msgid "Picasso"
+msgstr "畢卡索"
+
+#: ../../magic/src/rosette.c:98
+msgid "Click and start drawing your rosette."
+msgstr "按一下滑鼠就可以開始畫你的玫瑰花。"
+
+#: ../../magic/src/rosette.c:100
+msgid "You can draw just like Picasso!"
+msgstr "你可以畫的和畢卡索一樣!"
+
+#: ../../magic/src/sharpen.c:73
+msgid "Edges"
+msgstr "邊緣"
+
+#: ../../magic/src/sharpen.c:74
+msgid "Sharpen"
+msgstr "清晰"
+
+#: ../../magic/src/sharpen.c:75
+msgid "Silhouette"
+msgstr "剪影"
+
+#: ../../magic/src/sharpen.c:78
+msgid "Click and move the mouse to trace edges in parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫描邊。"
+
+#: ../../magic/src/sharpen.c:79
+msgid "Click to trace edges in your entire picture."
+msgstr "按一下來使整張圖畫描邊。"
+
+#: ../../magic/src/sharpen.c:80
+msgid "Click and move the mouse to sharpen parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫變清晰。"
+
+#: ../../magic/src/sharpen.c:81
+msgid "Click to sharpen the entire picture."
+msgstr "按一下來使整張圖畫變清晰。"
+
+#: ../../magic/src/sharpen.c:82
+msgid "Click and move the mouse to create a black and white silhouette."
+msgstr "按著並移動滑鼠來使經過的圖畫產生黑白的剪影。"
+
+#: ../../magic/src/sharpen.c:83
+msgid "Click to create a black and white silhouette of your entire picture."
+msgstr "按一下來使整張圖畫產生黑白的剪影。"
+
+#: ../../magic/src/shift.c:104
+msgid "Shift"
+msgstr "調整"
+
+#: ../../magic/src/shift.c:110
+msgid "Click and drag to shift your picture around on the canvas."
+msgstr "按著並移動滑鼠來調整圖在圖紙上的位置。"
+
+#: ../../magic/src/smudge.c:77
+msgid "Smudge"
+msgstr "塗抹"
+
+#: ../../magic/src/smudge.c:84
+msgid "Click and move the mouse around to smudge the picture."
+msgstr "按著並移動滑鼠來使圖畫有塗抹效果。"
+
+#: ../../magic/src/snow.c:68
+msgid "Snow Ball"
+msgstr "雪球"
+
+#: ../../magic/src/snow.c:69
+msgid "Snow Flake"
+msgstr "雪花"
+
+#: ../../magic/src/snow.c:72
+msgid "Click to add snow balls to your picture."
+msgstr "按下會讓你的圖出現雪球。"
+
+#: ../../magic/src/snow.c:73
+msgid "Click to add snow flakes to your picture."
+msgstr "按下會讓你的圖出現雪花。"
+
+#: ../../magic/src/string.c:120
+msgid "String edges"
+msgstr "字串邊緣"
+
+#: ../../magic/src/string.c:123
+msgid "String corner"
+msgstr "字串角落"
+
+#: ../../magic/src/string.c:126
+msgid "String 'V'"
+msgstr "字串 'V'"
+
+#: ../../magic/src/string.c:134
+#, fuzzy
+#| msgid ""
+#| "Click and drag to draw string art. Drag top-bottom to draw less or more "
+#| "lines, to the center to approach the lines to center."
+msgid ""
+"Click and drag to draw string art. Drag top-bottom to draw less or more "
+"lines, left or right to make a bigger hole."
+msgstr "按著並移動滑鼠來畫出藝術字，由上向下拖動看要畫出幾行字。"
+
+#: ../../magic/src/string.c:137
+#, fuzzy
+#| msgid "Click and drag to draw a beam of light on your picture."
+msgid "Click and drag to draw arrows made of string art."
+msgstr "按著並移動滑鼠畫一束光到你的圖上。"
+
+#: ../../magic/src/string.c:140
+msgid "Draw string art arrows with free angles."
+msgstr ""
+
+#: ../../magic/src/tint.c:71
+msgid "Tint"
+msgstr "著色"
+
+#: ../../magic/src/tint.c:72
+msgid "Color & White"
+msgstr "彩色和白色"
+
+#: ../../magic/src/tint.c:75
+msgid ""
+"Click and move the mouse around to change the color of parts of your picture."
+msgstr "按著並移動滑鼠來使經過的圖畫顏色改變。"
+
+#: ../../magic/src/tint.c:76
+msgid "Click to change the color of your entire picture."
+msgstr "按一下來使整張圖畫顏色改變。"
+
+#: ../../magic/src/tint.c:77
+msgid ""
+"Click and move the mouse around to turn parts of your picture into white and "
+"a color you choose."
+msgstr "按著並移動滑鼠來將經過的圖案變成白色和你挑選的顏色。"
+
+#: ../../magic/src/tint.c:78
+msgid "Click to turn your entire picture into white and a color you choose."
+msgstr "按一下來使整張圖案變成白色和你挑選的顏色。"
+
+#: ../../magic/src/toothpaste.c:65
+msgid "Toothpaste"
+msgstr "牙膏"
+
+#: ../../magic/src/toothpaste.c:68
+msgid "Click and drag to squirt toothpaste onto your picture."
+msgstr "按著並移動滑鼠來噴出牙膏在圖紙上。"
+
+#: ../../magic/src/tornado.c:127
+msgid "Tornado"
+msgstr ""
+
+#: ../../magic/src/tornado.c:133
+#, fuzzy
+#| msgid "Click and drag to draw train track rails on your picture."
+msgid "Click and drag to draw a tornado funnel on your picture."
+msgstr "按著並移動滑鼠畫一段鐵軌到你的圖上。"
+
+#: ../../magic/src/tv.c:74
+msgid "TV"
+msgstr "電視"
+
+#: ../../magic/src/tv.c:79
+#, fuzzy
+#| msgid "Click to make your picture look like it's on television."
+msgid ""
+"Click and drag to make parts of your picture look like they are on "
+"television."
+msgstr "按一下來使圖畫像是在電視裡面。"
+
+#: ../../magic/src/tv.c:82
+msgid "Click to make your picture look like it's on television."
+msgstr "按一下來使圖畫像是在電視裡面。"
+
+#: ../../magic/src/waves.c:80
+msgid "Waves"
+msgstr "波浪"
+
+#: ../../magic/src/waves.c:81
+msgid "Wavelets"
+msgstr "漣漪"
+
+#: ../../magic/src/waves.c:88
+msgid ""
+"Click to make the picture horizontally wavy. Click toward the top for "
+"shorter waves, the bottom for taller waves, the left for small waves, and "
+"the right for long waves."
+msgstr ""
+"在圖紙上按下滑鼠鍵會讓圖畫如水平波浪般的扭曲，按著往上是短的波浪，往下是長的"
+"波浪，往左是小的波浪，往右是大的波浪。"
+
+#: ../../magic/src/waves.c:89
+msgid ""
+"Click to make the picture vertically wavy. Click toward the top for shorter "
+"waves, the bottom for taller waves, the left for small waves, and the right "
+"for long waves."
+msgstr ""
+"在圖紙上按下滑鼠鍵會讓圖畫如垂直波浪般的扭曲，按著往上是短的波浪，往下是長的"
+"波浪，往左是小的波浪，往右是大的波浪。"
+
+#  Line Y
+#~ msgid "qy"
+#~ msgstr "qy"
+
+#~ msgid "QY"
+#~ msgstr "QY"
+
+#  msgid "Click and drag to draw train track rails on your picture."
+#~ msgid "Click and drag to draw string art aligned to the edges."
+#~ msgstr "按著並移動滑鼠畫出藝術字對齊邊緣。"
+
+#~ msgid ""
+#~ "Draw string art with free angles. Click and drag a V: drag to the vertex, "
+#~ "drag backwards a little to the start, then drag to the end."
+#~ msgstr ""
+#~ "畫出不限角度的藝術字，按著並移動滑鼠畫出一個 V 字形：由頂點開始，拖動向後"
+#~ "一些開始，然後拖向結束。"
+
+#, fuzzy
+#~| msgid "Click and drag to draw a flower stalk. Let go to finish the flower."
+#~ msgid ""
+#~ "Click and drag to draw a tornado stalk. Let go to finish the tornado."
+#~ msgstr "按著並移動滑鼠來畫出花莖，讓我們來完成這朵花。"
