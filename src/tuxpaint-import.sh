@@ -143,7 +143,7 @@ fi
 # For each picture list...
 for x in $(seq 1 $#)
 do
-  i=$(eval echo \$\{$x\})
+  i="${!x}"
 
   if [ -e "$i" ]; then
     # Determine a filename for it:
