@@ -1,0 +1,156 @@
+Subject: Collected Debian patches for tuxpaint
+Author: Plan Ceibal <plan@plan.ceibal.edu.uy>
+
+The tuxpaint package is maintained in Git rather than maintaining
+patches as separate files, and separating the patches doesn't seem to
+be worth the effort.  They are therefore all included in this single
+Debian patch.
+
+For full commit history and separated commits, see the packaging Git
+repository.
+--- tuxpaint-0.9.22.orig/src/tuxpaint-import.sh
++++ tuxpaint-0.9.22/src/tuxpaint-import.sh
+@@ -143,7 +143,7 @@ fi
+ # For each picture list...
+ for x in $(seq 1 $#)
+ do
+-  i="${!x}"
++  i=$(eval echo \$\{$x\})
+ 
+   if [ -e "$i" ]; then
+     # Determine a filename for it:
+--- tuxpaint-0.9.22.orig/src/tuxpaint.c
++++ tuxpaint-0.9.22/src/tuxpaint.c
+@@ -151,6 +151,7 @@ static scaleparams scaletable[] = {
+   {48, 1},			/* 48 */
+ };
+ 
++static char * in_fname;
+ 
+ /* Macros: */
+ 
+@@ -1274,6 +1275,8 @@ static magic_funcs_t magic_funcs[512];	/
+ static magic_t magics[512];
+ static int num_magics;	/* How many magic tools were loaded (note: shared objs may report more than 1 tool) */
+ 
++const char* in_file;
++
+ enum {
+   MAGIC_PLACE_GLOBAL,
+   MAGIC_PLACE_LOCAL,
+@@ -1814,6 +1817,7 @@ static void playstampdesc(int chan);
+ #endif
+ static void do_wait(int counter);
+ static void load_current(void);
++static void load_in_file(void);
+ static void save_current(void);
+ static int do_prompt_image_flash(const char *const text,
+ 				 const char *const btn_yes,
+@@ -6389,6 +6393,7 @@ void show_usage(int exitcode)
+ 	  "  %s [--joystick-slowness N] (0-500; default value is 15)\n"
+ 	  "  %s [--joystick-threshold N] (0-32766; default value is 3200)\n"
+ 	  "  %s [--joystick-maxsteps N] (1-7; default value is 7)\n"
++	  "  %s [--in-file FILE] (Image file to be opened)\n"
+ 	  "\n",
+ 	  progname, progname,
+ 	  blank, blank, blank, blank,
+@@ -6396,7 +6401,7 @@ void show_usage(int exitcode)
+ 	  blank, blank, blank, blank,
+ 	  blank, blank, blank, blank,
+ 	  blank, blank, blank, blank,
+-	  blank, blank, blank, blank, blank, blank, blank, blank, blank,
++	  blank, blank, blank, blank, blank, blank, blank, blank, blank, blank,
+ #ifdef WIN32
+ 	  blank,
+ #endif
+@@ -11537,6 +11542,59 @@ static void load_current(void)
+   }
+ }
+ 
++/* Load current (if any) image: */
++
++static void load_in_file(void)
++{
++  SDL_Surface *tmp, *org_surf;
++
++  start_label_node=NULL;
++  current_label_node=NULL;
++  first_label_node_in_redo_stack=NULL;
++  highlighted_label_node = NULL;
++  label_node_to_edit = NULL;
++  have_to_rec_label_node = FALSE;
++
++  tmp = myIMG_Load_RWops(in_file);
++
++  if (tmp == NULL)
++  {
++    fprintf(stderr,
++	  "\nWarning: Couldn't load any current image.\n"
++	  "%s\n"
++	  "The Simple DirectMedia Layer error that occurred was:\n"
++	  "%s\n\n", in_file, SDL_GetError());
++
++    file_id[0] = '\0';
++    starter_id[0] = '\0';
++    template_id[0] = '\0';
++  }
++  else
++  {
++    org_surf = SDL_DisplayFormat(tmp);
++    autoscale_copy_smear_free(tmp, canvas, SDL_BlitSurface);
++
++    /* First we run this for compatibility, then we will chek if
++    there are data embedded in the png file */
++    load_starter_id(file_id, NULL);
++    if (starter_id[0] != '\0')
++    {
++      load_starter(starter_id);
++      if (starter_mirrored)
++        mirror_starter();
++
++      if (starter_flipped)
++        flip_starter();
++    }
++    else if (template_id[0] != '\0')
++    {
++      load_template(template_id);
++    }
++
++    load_embedded_data(in_file, org_surf);
++  }
++  free(in_file);
++}
+ 
+ /* Make sure we have a 'path' directory */
+ 
+@@ -21703,6 +21761,9 @@ static void setup_config(char *argv[])
+   }
+ #endif
+ 
++  if(tmpcfg_cmd.in_file)
++    in_file = strdup(tmpcfg_cmd.in_file);
++
+   if(tmpcfg_cmd.savedir)
+     savedir = strdup(tmpcfg_cmd.savedir);
+   else
+@@ -23559,8 +23620,9 @@ static void claim_to_be_ready(void)
+ 
+ 
+   /* Load current image (if any): */
+-
+-  if (start_blank == 0)
++  if (in_file)
++    load_in_file();
++  else if (start_blank == 0)
+     load_current();
+ 
+   been_saved = 1;
+@@ -23596,7 +23658,7 @@ int main(int argc, char *argv[])
+ 
+   // do not add code (slowness) here unless required for scanning fonts
+   progname = argv[0];
+-        
++  in_fname = argv[1];
+ #if defined(DEBUG) && defined(__APPLE__)                //EP added block to log messages
+   freopen("/tmp/tuxpaint.log", "w", stdout);    // redirect stdout to a file
+   dup2(fileno(stdout), fileno(stderr));                 // redirect stderr to stdout
