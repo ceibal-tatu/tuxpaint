@@ -1,7 +1,0 @@
---- a/src/tuxpaint.desktop.in	2008-07-08 01:18:57.000000000 +0200
-+++ b/src/tuxpaint.desktop.in	2013-08-11 22:11:13.000000000 +0200
-@@ -7,3 +7,4 @@
- Categories=Education;Art;
- _GenericName=Drawing program
- _Comment=A drawing program for children.
-+X-Ubuntu-Gettext-Domain=tuxpaint
