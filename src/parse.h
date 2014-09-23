@@ -81,7 +81,7 @@ struct cfginfo
   const char *joystick_button_pagesetup;
   const char *joystick_button_print;
   const char *joystick_buttons_ignore;
-
+  const char *in_file;
 };
 
 #define CFGINFO_MAXOFFSET  (sizeof(struct cfginfo))
