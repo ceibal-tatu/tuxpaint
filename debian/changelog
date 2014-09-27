@@ -1,9 +1,9 @@
-tuxpaint (1:0.9.22-1) UNRELEASED; urgency=medium
+tuxpaint (1:0.9.22-1) tatu; urgency=medium
 
   * Imported Upstream version 0.9.22
   * Added support for in_file.
 
- -- Plan Ceibal <ceibal@plain.ceibal.edu.uy>  Tue, 23 Sep 2014 09:45:13 -0300
+ -- Plan Ceibal <ceibal@plan.ceibal.edu.uy>  Sat, 27 Sep 2014 11:56:17 -0300
 
 tuxpaint (1:0.9.21-1.1ubuntu1) saucy; urgency=low
 
