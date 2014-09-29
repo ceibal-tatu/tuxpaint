@@ -1,3 +1,9 @@
+tuxpaint (1:0.9.22-2) tatu; urgency=medium
+
+  * Re-added epoch.
+
+ -- Plan Ceibal <ceibal@plan.ceibal.edu.uy>  Mon, 29 Sep 2014 09:30:28 -0300
+
 tuxpaint (0.9.22-1) tatu; urgency=medium
 
   * Imported Upstream version 0.9.22
