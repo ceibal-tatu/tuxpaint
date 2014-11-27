@@ -1,7 +1,7 @@
 [Desktop Entry]
 _Name=Tux Paint
 Type=Application
-Exec=tuxpaint
+Exec=/bin/sh -c "tuxpaint --nolockfile --native --fullscreen --noprint --savedir ~/Documentos"
 Icon=tuxpaint
 Terminal=false
 Categories=Education;Art;
