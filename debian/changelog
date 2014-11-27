@@ -1,3 +1,9 @@
+tuxpaint (1:0.9.22-3) UNRELEASED; urgency=medium
+
+  * Abrir tuxpaint en pantalla completa en accesso directo del escritorio. 
+
+ -- Plan Ceibal <ceibal@plan.ceibal.edu.uy>  Thu, 27 Nov 2014 08:07:58 -0200
+
 tuxpaint (1:0.9.22-2) tatu; urgency=medium
 
   * Re-added epoch.
